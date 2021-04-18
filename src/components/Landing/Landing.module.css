@@ -1,0 +1,36 @@
+.Landing {
+  background-image: url("../../assets/background.png");
+  background-size: 100% 100%;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.Content {
+  font-family: "Alfa Slab One", cursive;
+  font-size: 15vh;
+  width: 50vw;
+  margin: 6vh auto 0 auto;
+  color: #ffffff;
+  letter-spacing: 11px;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #ec4646;
+}
+.Button {
+  padding: 1.3vh 1vw;
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 8vh;
+  background-color: #ec4646;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 2vh 10vw;
+  margin-top: 5vh;
+}
+.Button:hover,
+.Button:active {
+  color: #ec4646;
+  background-color: white;
+  font-size: 10vh;
+}

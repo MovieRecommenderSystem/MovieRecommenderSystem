@@ -1,0 +1,25 @@
+.NavBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2vh 5vw;
+}
+.NavItems {
+  list-style: none;
+}
+.Button {
+  padding: 1.3vh 1vw;
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 4vh;
+  background-color: #ec4646;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 1.3vh 1vw;
+}
+.Button:hover,
+.Button:active {
+  color: #ec4646;
+  background-color: white;
+  font-size: 5vh;
+}
