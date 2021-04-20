@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 
 import NavItem from "./NavItem/NavItem";
 import Logo from "../UI/Logo/Logo";
@@ -9,12 +9,16 @@ const NavBar = (props) => {
     // console.log(props);
     return (
         <div className={classes.NavBar}>
-            <Logo />
+            <NavLink to="/" className={classes.NavLink}>
+                <Logo />
+            </NavLink>
             <ul className={classes.NavItems}>
                 <NavItem link="/premium">
-                    <button className={classes.Button + ' ' + classes.Plus}>Get Plus</button>
+                    <button className={classes.Button + " " + classes.Plus}>
+                        Get Plus
+          </button>
                 </NavItem>
-                {props.location.pathname === "/" && (
+                {(props.location.pathname === "/" || props.location.pathname === "/signup") && (
                     <NavItem link="/signin">
                         <button className={classes.Button}>Sign In</button>
                     </NavItem>

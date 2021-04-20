@@ -1,5 +1,7 @@
 .NavItem {
-  text-decoration: none;
   margin: auto 1.5vw;
+}
+.NavLink{
+  text-decoration: none;
 }
 

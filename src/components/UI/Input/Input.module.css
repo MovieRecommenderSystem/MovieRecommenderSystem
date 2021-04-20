@@ -1,0 +1,27 @@
+.Input{
+    height: 8vh;   
+    border: none;
+    background-color: rgba(0, 0, 0, 0.493); 
+    border-bottom: 0.2vw solid #ec4646;
+    padding: 5vh 1.2vw;
+    box-sizing: border-box;
+    margin-top: 3vh;
+    margin-bottom: 9vh;
+    font-size: 1.8vw;
+    color: white;
+}
+.Input:focus{
+    outline: none;
+    border-bottom-color:white ;
+}
+.Input::placeholder{
+    color: rgb(117, 117, 117);
+}
+.Label{
+    color: white;
+    text-align: left;
+    box-sizing: border-box;
+    font-size: 1.5vw;
+    display: block;
+    /* right: 3vw; */
+}

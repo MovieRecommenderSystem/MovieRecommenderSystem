@@ -1,0 +1,53 @@
+.Form {
+  display: inline-flex;
+  flex-direction: column;
+  margin: auto;
+  width: 28vw;
+}
+.Button {
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 1.8vw;
+  background-color: #ec4646;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 2vh 2vw;
+  margin: auto;
+  width: 15vw;
+  margin-top: 0vh;
+  display: inline-block;
+  outline: none;
+}
+.Button:hover,
+.Button:active {
+  color: #ec4646;
+  background-color: white;
+  font-size: 2vw;
+}
+.Select {
+  height: 8vh;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.493);
+  border-bottom: 0.2vw solid #ec4646;
+  padding: 0vh 1.2vw;
+  box-sizing: border-box;
+  margin-top: 3vh;
+  margin-bottom: 9vh;
+  font-size: 1.8vw;
+  color: white;
+  outline: none;
+  width: 25vw;
+}
+.Select:focus{
+  color: black;
+  outline: none;
+  background-color: #ccc;
+}
+.Label {
+  color: white;
+  text-align: left;
+  box-sizing: border-box;
+  font-size: 1.5vw;
+  display: block;
+}
+

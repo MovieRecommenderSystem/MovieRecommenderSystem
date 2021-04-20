@@ -16,6 +16,9 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+:global .fa-heart{
+  color: red;
+}
 :global .fa-facebook-square:hover {
   color: #1873ea;
 }
@@ -31,7 +34,7 @@
   width: 14vw;
   position: relative;
   left: 42vw;
-  margin-top: 7vh;
+  margin-top: 15vh;
 }
 .P{
     color: white;

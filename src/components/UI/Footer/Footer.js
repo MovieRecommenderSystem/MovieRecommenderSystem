@@ -12,7 +12,7 @@ const Footer = (props) => {
                 <li><i className="fab fa-twitter-square"></i></li>
                 <li><i className="fab fa-youtube-square"></i></li>
             </ul>
-            <p className={classes.P}>© Binge it 2021</p>
+            <p className={classes.P}>Made with <i className="fas fa-heart"></i> by Team ©Binge it</p>
         </Aux>
     );
 };

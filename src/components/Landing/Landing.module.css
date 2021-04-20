@@ -1,13 +1,13 @@
-.Landing {
+/* .Landing {
   background-image: url("../../assets/background.png");
-  /* background-image: url("../../assets/rect3221.png"); */
+  background-image: url("../../assets/rect3221.png");
   background-size: 100% 100%;
   width: 100vw;
   position: absolute;
   top: 0;
   left: 0;
-  background-attachment: fixed;
-}
+  background-attachment: fixed; 
+}*/
 .Content {
   font-family: "Alfa Slab One", cursive;
   font-size: 7vw;
