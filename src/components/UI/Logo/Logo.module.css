@@ -1,6 +1,6 @@
 .Logo {
   font-family: "Dancing Script", cursive;
-  font-size: 9vh;
+  font-size: 4.5vw;
   color: white;
   text-align: center;
   -webkit-animation: glow 5s ease-in-out infinite alternate;
@@ -10,8 +10,8 @@
 
 @keyframes glow {
   from {
-    text-shadow: 0 0 3px #fff, 0 0 13px #fff, 0 0 23px #e0d205,
-      0 0 33px #e0d205, 0 0 43px #e0d205, 0 0 53px #e0d205, 0 0 63px #e0d205;
+    text-shadow: 0 0 3px #fff, 0 0 13px #fff, 0 0 23px #ec4646,
+      0 0 33px #ec4646, 0 0 43px #ec4646, 0 0 53px #ec4646, 0 0 63px #ec4646;
   }
   to {
     text-shadow: 0 0 13px #fff, 0 0 23px #ff4da6, 0 0 33px #ff4da6,

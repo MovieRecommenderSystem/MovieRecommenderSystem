@@ -5,12 +5,15 @@
   margin: 2vh 5vw;
 }
 .NavItems {
+  display: flex;
+  justify-content: space-around;
   list-style: none;
+  flex-direction: row;
 }
 .Button {
   padding: 1.3vh 1vw;
   font-family: "Alegreya Sans", sans-serif;
-  font-size: 4vh;
+  font-size: 1.7vw;
   background-color: #ec4646;
   border: none;
   cursor: pointer;
@@ -21,5 +24,15 @@
 .Button:active {
   color: #ec4646;
   background-color: white;
-  font-size: 5vh;
+  font-size: 1.9vw;
+}
+.Plus {
+  background-color: white;
+  color: #ec4646;
+}
+.Plus:hover,
+.Plus:active {
+  color: white;
+  background-color: #ec4646;
+  font-size: 1.9vw;
 }
