@@ -34,6 +34,9 @@
   display: inline-block;
   outline: none;
 }
+.SignUpButton{
+  margin-top: 0vh;
+}
 .Button:hover,
 .Button:active {
   color: #ec4646;

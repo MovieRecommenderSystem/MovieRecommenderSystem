@@ -6,20 +6,74 @@ import Aux from "../../../hoc/Aux/Aux";
 const Input = (props) => {
     let validProps = [];
     for (let key in props.isValid) {
-        validProps = [...validProps, {[key]: props.isValid[key]}];
+        validProps = [...validProps, { [key]: props.isValid[key] }];
     }
     let formattedValidProps = validProps.map((validProp) => {
-        let key = Object.keys(validProp)[0]
+        let key = Object.keys(validProp)[0];
         switch (key) {
             case "minLength":
-                return !validProp[key]&&<p className={classes.validateP}>*Username must have atleast 5 characters</p>;
+                if(props.id==="password"){
+
+                    return(!validProp[key] && (
+                        <p className={classes.validateP} key={key}>
+                            *Password must have atleast 8 characters
+                        </p>));
+                }
+                else if(props.id==="phone"){
+
+                    return(!validProp[key] && (
+                        <p className={classes.validateP} key={key}>
+                            *Mobile number must be 10 characters long
+                        </p>));
+                }
+                return (
+                    !validProp[key] && (
+                        <p className={classes.validateP} key={key}>
+                            *Username must have atleast 3 characters
+                        </p>
+                    )
+                );
             case "required":
-                return !validProp[key]&&<p className={classes.validateP}>*Required</p>;
+                return (
+                    !validProp[key] && (
+                        <p className={classes.validateP} key={key}>
+                            *Required
+                        </p>
+                    )
+                );
+            case "isNumeric":
+                return (
+                    !validProp[key] && (
+                        <p className={classes.validateP} key={key}>
+                            *Mobile Number cannot have characters except numbers
+                        </p>
+                    )
+                );
             case "pattern":
-                return !validProp[key]&&<p className={classes.validateP}>*Special characters not allowed</p>;
+                if (props.id === "email")
+                    return (
+                        !validProp[key] && (
+                            <p className={classes.validateP} key={key}>
+                                *Invalid email
+                            </p>
+                        )
+                    );
+                return (
+                    !validProp[key] && (
+                        <p className={classes.validateP} key={key}>
+                            *Special characters not allowed
+                        </p>
+                    )
+                );
+            case "confirmed":
+                return !validProp[key] && (
+                    <p className={classes.validateP} key={key}>
+                        *Passwords do not match
+                    </p>
+                );
             default:
-                return <p className={classes.validateP}>*Somethinng weird!</p>;
         }
+        return null;
     });
     return (
         <Aux>

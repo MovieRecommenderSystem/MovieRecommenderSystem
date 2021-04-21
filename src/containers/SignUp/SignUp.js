@@ -17,34 +17,84 @@ class SignUp extends Component {
     username: {
       value: "",
       isValid: {
-        minLength: false,
+        minLength: true,
         required: false,
         pattern: true,
       },
     },
     email: {
       value: "",
-      isValid: true,
+      isValid: {
+        required: false,
+        pattern: true,
+      },
     },
     password: {
       value: "",
-      isValid: true,
+      isValid: {
+        required: false,
+        minLength: true,
+      },
+    },
+    confirmPassword: {
+      value: "",
+      isValid: {
+        confirmed: true,
+        required: false,
+      },
     },
     phone: {
       value: "",
-      isValid: true,
+      isValid: {
+        minLength: true,
+        isNumeric: true,
+      },
     },
     gender: "",
     dob: new Date(),
     uniqueUsername: true,
   };
+  isValid = (validProps) => {
+    let valid = true;
+    for (let key in validProps) {
+      valid = validProps[key] && valid;
+    }
+    return valid;
+  };
   onContinueHandler = () => {
-    this.setState({
-      auxRendered: {
-        id: this.state.auxRendered.id + 1,
-      },
-    });
-    // axios request to check if username is unique and email is not registered
+    switch (this.state.auxRendered.id) {
+      case 0:
+        // check for existing username and registered email
+        // if username exists window.scrollTo and set state.uniqueUsername to false and else{}
+        let firstDivValidation =
+          this.isValid(this.state.username.isValid) &&
+          this.isValid(this.state.email.isValid);
+        if (firstDivValidation&&this.state.uniqueUsername) {
+          this.setState({
+            auxRendered: {
+              id: this.state.auxRendered.id + 1,
+            },
+          });
+        } else {
+          window.scrollTo(0, 105);
+        }
+        break;
+      case 1:
+        let secondDivValidation =
+          this.isValid(this.state.password.isValid) &&
+          this.isValid(this.state.confirmPassword.isValid);
+        if (secondDivValidation) {
+          this.setState({
+            auxRendered: {
+              id: this.state.auxRendered.id + 1,
+            },
+          });
+        } else {
+          window.scrollTo(0, 105);
+        }
+        break;
+      default:
+    }
   };
   onBackHandler = () => {
     this.setState({
@@ -54,12 +104,13 @@ class SignUp extends Component {
     });
   };
   onChangeHandler = (event, inputType) => {
+    let pattern, minLength, checkPattern, required;
     switch (inputType) {
       case "username":
-        const pattern = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-        const minLength = event.target.value.length >= 5;
-        const checkPattern = !pattern.test(event.target.value);
-        const required = event.target.value.length > 0;
+        pattern = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+        minLength = event.target.value.length >= 3;
+        checkPattern = !pattern.test(event.target.value);
+        required = event.target.value.length > 0;
         this.setState({
           username: {
             value: event.target.value,
@@ -72,13 +123,51 @@ class SignUp extends Component {
         });
         break;
       case "email":
-        this.setState({ email: { value: event.target.value } });
+        pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        checkPattern = pattern.test(event.target.value);
+        required = event.target.value.length > 0;
+        this.setState({
+          email: {
+            value: event.target.value,
+            isValid: {
+              pattern: checkPattern,
+              required: required,
+            },
+          },
+        });
         break;
       case "password":
-        this.setState({ password: { value: event.target.value } });
+        minLength = event.target.value.length >= 8;
+        required = event.target.value.length > 0;
+        this.setState({
+          password: {
+            value: event.target.value,
+            isValid: {
+              minLength: minLength,
+              required: required,
+            },
+          },
+        });
+        break;
+      case "confirm-password":
+        let confirmed = event.target.value === this.state.password.value;
+        required = event.target.value.length > 0;
+        this.setState({
+          confirmPassword: {
+            value: event.target.value,
+            isValid: { confirmed: confirmed, required: required },
+          },
+        });
         break;
       case "phone":
-        this.setState({ phone: { value: event.target.value } });
+        minLength = event.target.value.length === 10;
+        let isNumeric = /^[\d ]*$/.test(event.target.value);
+        this.setState({
+          phone: {
+            value: event.target.value,
+            isValid: { minLength: minLength, isNumeric: isNumeric },
+          },
+        });
         break;
       case "gender":
         this.setState({ gender: event.target.value });
@@ -92,7 +181,12 @@ class SignUp extends Component {
   };
   onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(this.state);
+    let thirdDivValidation = this.isValid(this.state.phone.isValid);
+    if (thirdDivValidation) {
+      console.log(this.state);
+    } else {
+      window.scrollTo(0, 105);
+    }
   };
   render() {
     return (
@@ -116,7 +210,7 @@ class SignUp extends Component {
                     required
                     label="Username"
                     autofocus
-                    isValid = {this.state.username.isValid}
+                    isValid={this.state.username.isValid}
                     value={this.state.username.value}
                     onChange={this.onChangeHandler}
                   />
@@ -127,6 +221,7 @@ class SignUp extends Component {
                     id="email"
                     type="email"
                     name="email"
+                    isValid={this.state.email.isValid}
                     autoComplete="true"
                     placeholder="Your Email"
                     required
@@ -146,6 +241,7 @@ class SignUp extends Component {
                     name="password"
                     placeholder="Your Password"
                     required
+                    isValid={this.state.password.isValid}
                     value={this.state.password.value}
                     autofocus
                     label="Your Password"
@@ -153,6 +249,8 @@ class SignUp extends Component {
                   />
                   <Input
                     onChange={this.onChangeHandler}
+                    isValid={this.state.confirmPassword.isValid}
+                    value={this.state.confirmPassword.value}
                     id="confirm-password"
                     type="password"
                     name="confirm-password"
@@ -168,6 +266,7 @@ class SignUp extends Component {
                 <Aux>
                   <Input
                     id="phone"
+                    isValid={this.state.phone.isValid}
                     type="tel"
                     autofocus
                     name="phone"
@@ -214,7 +313,9 @@ class SignUp extends Component {
               </Fade>
             )}
             {this.state.auxRendered.id === 2 ? (
-              <button className={classes.Button}>Sign In</button>
+              <button className={classes.Button + " " + classes.SignUpButton}>
+                Sign Up
+              </button>
             ) : (
               <input
                 type="button"

@@ -21,6 +21,9 @@
 .Input::placeholder{
     color: rgb(117, 117, 117);
 }
+.Input[type="date"]{
+    margin-bottom: 4vh;
+}
 .Label{
     color: white;
     text-align: left;
