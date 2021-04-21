@@ -16,9 +16,6 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-:global .fa-heart{
-  color: red;
-}
 :global .fa-facebook-square:hover {
   color: #1873ea;
 }

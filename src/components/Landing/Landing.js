@@ -14,7 +14,7 @@ class Landing extends Component {
     componentDidMount() {
         this.interval = setInterval(() => {
             this.setState({ animate: !this.state.animate });
-        }, 5000);
+        }, 2500);
     }
     componentWillUnmount() {
         clearInterval(this.interval);

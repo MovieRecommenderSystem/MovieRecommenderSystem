@@ -6,9 +6,13 @@
     padding: 5vh 1.2vw;
     box-sizing: border-box;
     margin-top: 3vh;
-    margin-bottom: 9vh;
+    /* margin-bottom: 7vh; */
     font-size: 1.8vw;
     color: white;
+}
+.Input[id="dob"]{
+    background-color: rgb(122, 122, 122, 0.493);
+    width: 25.5vw;
 }
 .Input:focus{
     outline: none;
@@ -24,4 +28,21 @@
     font-size: 1.5vw;
     display: block;
     /* right: 3vw; */
+    margin-top: 5vh;
+}
+.Label:first-of-type{
+    margin-top: 0;
+}
+.validateP{
+    font-family: "Alegreya Sans", sans-serif;
+    color: rgb(255, 0, 0);
+    font-size: 1.2vw;
+    text-align: left;
+}
+.Error.Input:focus{
+    border-bottom-color: red;
+}
+.Error{
+    border-bottom: none;
+    border: 0.2vw solid red;
 }

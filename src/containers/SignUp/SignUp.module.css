@@ -4,6 +4,22 @@
   margin: auto;
   width: 28vw;
 }
+:global .fa-angle-left {
+  color: black;
+  font-size: 2.5vw;
+  box-sizing: border-box;
+  position: absolute;
+  /* bottom: 5vh; */
+  left: 63vw;
+  top: 20vh;
+  /* margin: auto 2vw; */
+  padding: 1vh 0.9vw;
+  border-radius: 100%;
+  background-color: white;
+}
+:global .fa-angle-left:hover {
+  color: #ec4646;
+}
 .Button {
   font-family: "Alegreya Sans", sans-serif;
   font-size: 1.8vw;
@@ -14,7 +30,7 @@
   padding: 2vh 2vw;
   margin: auto;
   width: 15vw;
-  margin-top: 0vh;
+  margin-top: 9vh;
   display: inline-block;
   outline: none;
 }
@@ -38,7 +54,7 @@
   outline: none;
   width: 25vw;
 }
-.Select:focus{
+.Select:focus {
   color: black;
   outline: none;
   background-color: #ccc;
@@ -47,7 +63,21 @@
   color: white;
   text-align: left;
   box-sizing: border-box;
-  font-size: 1.5vw;
   display: block;
+  font-size: 1.5vw;
 }
-
+.P {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 255, 255);
+  font-size: 2.5vw;
+  margin: 0;
+  margin-bottom: 2vh;
+}
+.validateP{
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 0, 0);
+  font-size: 1.2vw;
+  text-align: left;
+  /* position: relative;
+  bottom: 10vh; */
+}
