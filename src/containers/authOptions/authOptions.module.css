@@ -26,6 +26,15 @@
   background-color: white;
   font-size: 2vw;
 }
+:global #google{
+  background-color: white;
+  color: #ec4646;
+}
+:global #google:hover,
+:global #google:active{
+  color: white;
+  background-color: #ec4646;
+}
 
 .P {
   font-family: "Alegreya Sans", sans-serif;
