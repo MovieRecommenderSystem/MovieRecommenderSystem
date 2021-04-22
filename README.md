@@ -1,3 +1,3 @@
 # Movie Recommender System
 ## TO DO
-### Add validation to form inputs
+### Add server based validation to email and username
