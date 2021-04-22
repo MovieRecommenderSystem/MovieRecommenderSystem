@@ -12,19 +12,22 @@ const Input = (props) => {
         let key = Object.keys(validProp)[0];
         switch (key) {
             case "minLength":
-                if(props.id==="password"){
-
-                    return(!validProp[key] && (
-                        <p className={classes.validateP} key={key}>
-                            *Password must have atleast 8 characters
-                        </p>));
-                }
-                else if(props.id==="phone"){
-
-                    return(!validProp[key] && (
-                        <p className={classes.validateP} key={key}>
-                            *Mobile number must be 10 characters long
-                        </p>));
+                if (props.id === "password") {
+                    return (
+                        !validProp[key] && (
+                            <p className={classes.validateP} key={key}>
+                                *Password must have atleast 8 characters
+                            </p>
+                        )
+                    );
+                } else if (props.id === "phone") {
+                    return (
+                        !validProp[key] && (
+                            <p className={classes.validateP} key={key}>
+                                *Mobile number must be 10 characters long
+                            </p>
+                        )
+                    );
                 }
                 return (
                     !validProp[key] && (
@@ -66,15 +69,18 @@ const Input = (props) => {
                     )
                 );
             case "confirmed":
-                return !validProp[key] && (
-                    <p className={classes.validateP} key={key}>
-                        *Passwords do not match
-                    </p>
+                return (
+                    !validProp[key] && (
+                        <p className={classes.validateP} key={key}>
+                            *Passwords do not match
+                        </p>
+                    )
                 );
             default:
         }
         return null;
     });
+
     return (
         <Aux>
             <label className={classes.Label} htmlFor={props.id}>

@@ -11,14 +11,17 @@ class Landing extends Component {
     state = {
         animate: true,
     };
+
     componentDidMount() {
         this.interval = setInterval(() => {
             this.setState({ animate: !this.state.animate });
         }, 2500);
     }
+
     componentWillUnmount() {
         clearInterval(this.interval);
     }
+
     render() {
         return (
             <Aux>
@@ -34,7 +37,7 @@ class Landing extends Component {
                             <h1 className={classes.Content}>MOVIE PLEASE!</h1>
                         </Flash>
                         <p className={classes.P}>Bored? Watch a movie now!</p>
-                        <Link to="/signup">
+                        <Link to="/auth-options">
                             <button className={classes.Button}>Dive In</button>
                         </Link>
                     </div>

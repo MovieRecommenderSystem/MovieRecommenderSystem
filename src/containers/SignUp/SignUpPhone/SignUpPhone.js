@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Fade from "react-reveal/Fade";
 
-import Input from "../../components/UI/Input/Input";
-import NavBar from "../../components/Navigation/NavBar";
-import Modal from "../../components/UI/Modal/Modal";
-import classes from "./SignUp.module.css";
-import Footer from "../../components/UI/Footer/Footer";
-import Aux from "../../hoc/Aux/Aux";
+import Input from "../../../components/UI/Input/Input";
+import NavBar from "../../../components/Navigation/NavBar";
+import Modal from "../../../components/UI/Modal/Modal";
+import classes from "../SignUpEmail/SignUpEmail.module.css";
+import Footer from "../../../components/UI/Footer/Footer";
+import Aux from "../../../hoc/Aux/Aux";
 
 class SignUp extends Component {
   state = {
@@ -22,11 +22,12 @@ class SignUp extends Component {
         pattern: true,
       },
     },
-    email: {
+    phone: {
       value: "",
       isValid: {
         required: false,
-        pattern: true,
+        minLength: true,
+        isNumeric: true,
       },
     },
     password: {
@@ -43,17 +44,33 @@ class SignUp extends Component {
         required: false,
       },
     },
-    phone: {
+    email: {
       value: "",
       isValid: {
-        minLength: true,
-        isNumeric: true,
+        pattern: true,
       },
     },
-    gender: "",
-    dob: new Date(),
+    gender: "male",
+    dob: this.formatDate(),
     uniqueUsername: true,
   };
+
+  formatDate(){
+    var d = new Date(),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  };
+
+  changePaginationHandler = (item) => {
+    this.setState({ auxRendered: { id: item - 1 } });
+  };
+
   isValid = (validProps) => {
     let valid = true;
     for (let key in validProps) {
@@ -61,41 +78,7 @@ class SignUp extends Component {
     }
     return valid;
   };
-  onContinueHandler = () => {
-    switch (this.state.auxRendered.id) {
-      case 0:
-        // check for existing username and registered email
-        // if username exists window.scrollTo and set state.uniqueUsername to false and else{}
-        let firstDivValidation =
-          this.isValid(this.state.username.isValid) &&
-          this.isValid(this.state.email.isValid);
-        if (firstDivValidation&&this.state.uniqueUsername) {
-          this.setState({
-            auxRendered: {
-              id: this.state.auxRendered.id + 1,
-            },
-          });
-        } else {
-          window.scrollTo(0, 105);
-        }
-        break;
-      case 1:
-        let secondDivValidation =
-          this.isValid(this.state.password.isValid) &&
-          this.isValid(this.state.confirmPassword.isValid);
-        if (secondDivValidation) {
-          this.setState({
-            auxRendered: {
-              id: this.state.auxRendered.id + 1,
-            },
-          });
-        } else {
-          window.scrollTo(0, 105);
-        }
-        break;
-      default:
-    }
-  };
+
   onBackHandler = () => {
     this.setState({
       auxRendered: {
@@ -103,6 +86,7 @@ class SignUp extends Component {
       },
     });
   };
+
   onChangeHandler = (event, inputType) => {
     let pattern, minLength, checkPattern, required;
     switch (inputType) {
@@ -125,13 +109,11 @@ class SignUp extends Component {
       case "email":
         pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
         checkPattern = pattern.test(event.target.value);
-        required = event.target.value.length > 0;
         this.setState({
           email: {
             value: event.target.value,
             isValid: {
               pattern: checkPattern,
-              required: required,
             },
           },
         });
@@ -161,11 +143,13 @@ class SignUp extends Component {
         break;
       case "phone":
         minLength = event.target.value.length === 10;
+        required = event.target.value.length > 0;
         let isNumeric = /^[\d ]*$/.test(event.target.value);
         this.setState({
           phone: {
             value: event.target.value,
             isValid: { minLength: minLength, isNumeric: isNumeric },
+            required: required,
           },
         });
         break;
@@ -179,24 +163,80 @@ class SignUp extends Component {
         break;
     }
   };
+
+  onContinueHandler = () => {
+    switch (this.state.auxRendered.id) {
+      case 0:
+        // check for existing username and registered email
+        // if username exists window.scrollTo and set state.uniqueUsername to false and else{}
+        let firstDivValidation =
+          this.isValid(this.state.username.isValid) &&
+          this.isValid(this.state.phone.isValid);
+        if (firstDivValidation && this.state.uniqueUsername) {
+          this.setState({
+            auxRendered: {
+              id: this.state.auxRendered.id + 1,
+            },
+          });
+        } else {
+          window.scrollTo(0, 105);
+        }
+        break;
+      case 1:
+        let secondDivValidation =
+          this.isValid(this.state.password.isValid) &&
+          this.isValid(this.state.confirmPassword.isValid);
+        if (secondDivValidation) {
+          this.setState({
+            auxRendered: {
+              id: this.state.auxRendered.id + 1,
+            },
+          });
+        } else {
+          window.scrollTo(0, 105);
+        }
+        break;
+      default:
+    }
+  };
+
   onSubmitHandler = (event) => {
     event.preventDefault();
-    let thirdDivValidation = this.isValid(this.state.phone.isValid);
+    let thirdDivValidation = this.isValid(this.state.email.isValid);
     if (thirdDivValidation) {
       console.log(this.state);
     } else {
       window.scrollTo(0, 105);
     }
   };
+
   render() {
+    let paginationItems = [1, 2, 3];
     return (
       <div>
         <NavBar />
         <Modal>
-          <p className={classes.P}>Step {this.state.auxRendered.id + 1}</p>
-          {this.state.auxRendered.id > 0 && (
-            <i className="fas fa-angle-left" onClick={this.onBackHandler}></i>
-          )}
+          <ul className={classes.Pagination}>
+            {paginationItems.map((item) => {
+              return (
+                <li key={item}>
+                  <p
+                    onClick={() => this.changePaginationHandler(item)}
+                    className={
+                      classes.P +
+                      " " +
+                      (this.state.auxRendered.id === item - 1 && classes.active)
+                    }
+                  >
+                    {item}
+                  </p>
+                </li>
+              );
+            })}
+            {/* <li><p className={classes.P+ ' ' + classes.active}>1</p></li>
+            <li><p className={classes.P}>2</p></li>
+            <li><p className={classes.P}>3</p></li> */}
+          </ul>
           <form className={classes.Form} onSubmit={this.onSubmitHandler}>
             {this.state.auxRendered.id === 0 && (
               <Fade right opposite when={this.state.show} appear distance="5vw">
@@ -218,15 +258,15 @@ class SignUp extends Component {
                     <p className={classes.validateP}>*Username already taken</p>
                   )}
                   <Input
-                    id="email"
-                    type="email"
-                    name="email"
-                    isValid={this.state.email.isValid}
-                    autoComplete="true"
-                    placeholder="Your Email"
+                    id="phone"
                     required
-                    value={this.state.email.value}
-                    label="Your Email"
+                    isValid={this.state.phone.isValid}
+                    type="tel"
+                    autofocus
+                    name="phone"
+                    placeholder="Your Phone Number"
+                    value={this.state.phone.value}
+                    label="Your Phone Number"
                     onChange={this.onChangeHandler}
                   />
                 </Aux>
@@ -265,14 +305,14 @@ class SignUp extends Component {
               <Fade right opposite when={this.state.show} appear distance="5vw">
                 <Aux>
                   <Input
-                    id="phone"
-                    isValid={this.state.phone.isValid}
-                    type="tel"
-                    autofocus
-                    name="phone"
-                    placeholder="Your Phone Number"
-                    value={this.state.phone.value}
-                    label="Your Phone Number"
+                    id="email"
+                    type="email"
+                    name="email"
+                    isValid={this.state.email.isValid}
+                    autoComplete="true"
+                    placeholder="Your Email"
+                    value={this.state.email.value}
+                    label="Your Email"
                     onChange={this.onChangeHandler}
                   />
                   <Input
