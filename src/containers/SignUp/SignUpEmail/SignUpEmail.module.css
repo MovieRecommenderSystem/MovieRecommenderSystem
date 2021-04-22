@@ -7,7 +7,6 @@
   color: white;
   padding: 2vh 2vw;
   margin: auto;
-  width: 15vw;
   margin-top: 9vh;
   display: inline-block;
   outline: none;
@@ -17,6 +16,22 @@
   color: #ec4646;
   background-color: white;
   font-size: 2vw;
+}
+
+.Divider{
+  width: 0.1vw;
+  border: none;
+  background-color: white;
+}
+
+.Flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.FlexItem{
+ margin: 0 8vw;
 }
 
 .Form {
@@ -34,6 +49,18 @@
   font-size: 1.5vw;
 }
 
+.Link{
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 255, 255);
+  font-size: 1.5vw;
+  margin: 0;
+  margin-bottom: 2vh;
+}
+
+.Link:hover{
+  color: #ec4646;
+}
+
 .P {
   font-family: "Alegreya Sans", sans-serif;
   color: rgb(255, 255, 255);
@@ -42,7 +69,7 @@
   margin-bottom: 2vh;
 }
 
-.Pagination{
+.Pagination {
   display: flex;
   flex-direction: row;
   width: 15vw;
@@ -50,7 +77,7 @@
   margin: auto;
   padding: 0;
 }
-.Pagination .P{
+.Pagination .P {
   padding: 0.1vw;
   background-color: white;
   color: black;
@@ -58,11 +85,11 @@
   height: 3vw;
   border-radius: 100%;
 }
-.Pagination .P:hover{
+.Pagination .P:hover {
   cursor: pointer;
   color: #ec4646;
 }
-.Pagination .P.active{
+.Pagination .P.active {
   background-color: #ec4646;
   color: white;
 }

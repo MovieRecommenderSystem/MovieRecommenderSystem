@@ -11,15 +11,19 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 :global .fa-facebook-square:hover {
   color: #1873ea;
 }
+
 :global .fa-twitter-square:hover {
   color: #1d9cea;
 }
+
 :global .fa-youtube-square:hover {
   color: #f24423;
 }
+
 .Footer i {
   color: white;
   font-size: 2.5vw;

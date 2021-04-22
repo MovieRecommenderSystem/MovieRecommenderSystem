@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classes from "../SignUp/SignUpEmail/SignUpEmail.module.css";
 import Fade from "react-reveal/Fade";
+import { Link } from "react-router-dom";
 
 import NavBar from "../../components/Navigation/NavBar";
 import Footer from "../../components/UI/Footer/Footer";
@@ -13,7 +14,6 @@ class SignIn extends Component {
     email: {
       value: "",
       isValid: {
-        // required: false,
         pattern: true,
       },
     },
@@ -21,14 +21,12 @@ class SignIn extends Component {
       value: "",
       isValid: {
         required: false,
-        // minLength: true,
       },
     },
     phone: {
       value: "",
       isValid: {
         minLength: true,
-        // required: false,
         isNumeric: true,
       },
     },
@@ -42,7 +40,9 @@ class SignIn extends Component {
     }
     return valid;
   };
-
+  componentDidMount(){
+    window.scrollTo(0, 105);
+  }
   onChangeHandler = (event, inputType) => {
     let pattern, minLength, checkPattern, required;
     switch (inputType) {
@@ -55,7 +55,6 @@ class SignIn extends Component {
             value: event.target.value,
             isValid: {
               pattern: checkPattern,
-              // required: required,
             },
           },
           oneRequired: !(required || this.state.phone.value.length > 0),
@@ -95,12 +94,12 @@ class SignIn extends Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
     let divValidation =
-      (!this.state.oneRequired) && this.isValid(this.state.password);
+      !this.state.oneRequired && this.isValid(this.state.password);
     if (this.state.email.value.length > 0)
       divValidation = this.isValid(this.state.email.isValid) && divValidation;
     if (this.state.phone.value.length > 0)
       divValidation = this.isValid(this.state.phone.isValid) && divValidation;
-    console.log(divValidation)
+    console.log(divValidation);
     if (divValidation) {
       console.log(this.state);
     } else {
@@ -114,56 +113,75 @@ class SignIn extends Component {
         <NavBar />
         <Modal>
           <p className={classes.P}>Sign In</p>
-          <form className={classes.Form} onSubmit={this.onSubmitHandler}>
-            <Fade right appear distance="5vw">
-              <Aux>
-                <Input
-                  id="email"
-                  type="email"
-                  name="email"
-                  isValid={this.state.email.isValid}
-                  value={this.state.email.value}
-                  onChange={this.onChangeHandler}
-                  placeholder="Your Email"
-                  autofocus
-                  label="Email"
-                />
-                <p className={classes.P} style={{ margin: "3vh auto 0 auto" }}>
-                  OR
-                </p>
-                <Input
-                  id="phone"
-                  isValid={this.state.phone.isValid}
-                  value={this.state.phone.value}
-                  onChange={this.onChangeHandler}
-                  type="tel"
-                  name="phone"
-                  placeholder="Your Mobile Number"
-                  label="Your Mobile Number"
-                />
+          <div className={classes.Flex}>
+            <div className={classes.FlexItem}>
+              <form className={classes.Form} onSubmit={this.onSubmitHandler}>
+                <Fade right appear distance="5vw">
+                  <Aux>
+                    <Input
+                      id="email"
+                      type="email"
+                      name="email"
+                      isValid={this.state.email.isValid}
+                      value={this.state.email.value}
+                      onChange={this.onChangeHandler}
+                      placeholder="Your Email"
+                      autofocus
+                      label="Email"
+                    />
+                    <p
+                      className={classes.P}
+                      style={{ margin: "3vh auto 0 auto" }}
+                    >
+                      OR
+                    </p>
+                    <Input
+                      id="phone"
+                      isValid={this.state.phone.isValid}
+                      value={this.state.phone.value}
+                      onChange={this.onChangeHandler}
+                      type="tel"
+                      name="phone"
+                      placeholder="Your Mobile Number"
+                      label="Your Mobile Number"
+                    />
 
-                {this.state.oneRequired && (
-                  <p className={classes.validateP}>
-                    *Please fill one of email and password
-                  </p>
-                )}
-                <Input
-                  id="password"
-                  type="password"
-                  name="password"
-                  isValid={this.state.password.isValid}
-                  value={this.state.password.value}
-                  onChange={this.onChangeHandler}
-                  placeholder="Your Password"
-                  required
-                  label="Password"
-                />
-              </Aux>
+                    {this.state.oneRequired && (
+                      <p className={classes.validateP}>
+                        *Please fill one of email and password
+                      </p>
+                    )}
+                    <Input
+                      id="password"
+                      type="password"
+                      name="password"
+                      isValid={this.state.password.isValid}
+                      value={this.state.password.value}
+                      onChange={this.onChangeHandler}
+                      placeholder="Your Password"
+                      required
+                      label="Password"
+                    />
+                  </Aux>
+                  <Link to="/forgot-password" className={classes.Link}>Forgot Password?</Link>
+                </Fade>
+                <button className={classes.Button + " " + classes.SignInButton}>
+                  Sign In
+                </button>
+              </form>
+            </div>
+            <hr className={classes.Divider} />
+            <div className={classes.FlexItem}>
+            <Fade right appear distance="5vw">
+              <Link to="/signup/google" className={classes.Link}>
+                <button className={classes.Button} id="google">
+                  <i class="fab fa-google" style={{ marginRight: "10px" }}></i>
+                  Sign Up with Google
+                </button>
+              </Link>
             </Fade>
-            <button className={classes.Button + " " + classes.SignInButton}>
-              Sign In
-            </button>
-          </form>
+            </div>
+          </div>
         </Modal>
         <Footer />
       </Aux>

@@ -5,7 +5,7 @@ import Landing from "./components/Landing/Landing";
 import "./App.css";
 import SignUpEmail from "./containers/SignUp/SignUpEmail/SignUpEmail";
 import SignIn from "./containers/SignIn/SignIn";
-import AuthOptions from "./containers/authOptions/authOptions";
+import AuthOptions from "./containers/AuthOptions/AuthOptions";
 import SignUpPhone from "./containers/SignUp/SignUpPhone/SignUpPhone";
 
 class App extends Component {

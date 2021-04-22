@@ -56,9 +56,8 @@ class SignUp extends Component {
   };
 
   changePaginationHandler = (item) => {
-    
-    this.setState({auxRendered:{id: item - 1}})
-  }
+    this.setState({ auxRendered: { id: item - 1 } });
+  };
 
   isValid = (validProps) => {
     let valid = true;
@@ -200,19 +199,21 @@ class SignUp extends Component {
   };
 
   render() {
-    let paginationItems = [1,2,3];
+    let paginationItems = [1, 2, 3];
     return (
       <div>
         <NavBar />
         <Modal>
           <ul className={classes.Pagination}>
-          {paginationItems.map((item) => {
+            {paginationItems.map((item) => {
               return (
                 <li key={item}>
-                  <p onClick={()=>this.changePaginationHandler(item)}
+                  <p
+                    onClick={() => this.changePaginationHandler(item)}
                     className={
-                      classes.P + " " + ((this.state.auxRendered.id === item-1) &&
-                      classes.active)
+                      classes.P +
+                      " " +
+                      (this.state.auxRendered.id === item - 1 && classes.active)
                     }
                   >
                     {item}
@@ -220,9 +221,6 @@ class SignUp extends Component {
                 </li>
               );
             })}
-            {/* <li><p className={classes.P+ ' ' + classes.active}>1</p></li>
-            <li><p className={classes.P}>2</p></li>
-            <li><p className={classes.P}>3</p></li> */}
           </ul>
           <form className={classes.Form} onSubmit={this.onSubmitHandler}>
             {this.state.auxRendered.id === 0 && (

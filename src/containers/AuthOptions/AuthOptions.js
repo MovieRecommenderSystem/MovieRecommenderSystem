@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import classes from "./authOptions.module.css";
+import classes from "./AuthOptions.module.css";
 import NavBar from "../../components/Navigation/NavBar";
 import Footer from "../../components/UI/Footer/Footer";
 import Aux from "../../hoc/Aux/Aux";
@@ -22,8 +22,9 @@ const AuthOptions = (props) => {
           </Link>
           <Link to="/signup/phone" className={classes.Link}>
             <button className={classes.Button}>
-            <i class="fas fa-mobile" style={{ marginRight: "10px" }}></i>
-            Sign Up with Phone</button>
+              <i class="fas fa-mobile" style={{ marginRight: "10px" }}></i>
+              Sign Up with Phone
+            </button>
           </Link>
           <p className={classes.P} style={{ margin: "3vh auto 0 auto" }}>
             OR
@@ -31,8 +32,9 @@ const AuthOptions = (props) => {
 
           <Link to="/signup/google" className={classes.Link}>
             <button className={classes.Button} id="google">
-            <i class="fab fa-google" style={{ marginRight: "10px" }}></i>
-            Sign Up with Google</button>
+              <i class="fab fa-google" style={{ marginRight: "10px" }}></i>
+              Sign Up with Google
+            </button>
           </Link>
         </div>
       </Modal>

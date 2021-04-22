@@ -55,7 +55,7 @@ class SignUp extends Component {
     uniqueUsername: true,
   };
 
-  formatDate(){
+  formatDate() {
     var d = new Date(),
       month = "" + (d.getMonth() + 1),
       day = "" + d.getDate(),
@@ -65,7 +65,7 @@ class SignUp extends Component {
     if (day.length < 2) day = "0" + day;
 
     return [year, month, day].join("-");
-  };
+  }
 
   changePaginationHandler = (item) => {
     this.setState({ auxRendered: { id: item - 1 } });
@@ -167,7 +167,7 @@ class SignUp extends Component {
   onContinueHandler = () => {
     switch (this.state.auxRendered.id) {
       case 0:
-        // check for existing username and registered email
+        // check for existing username and registered Phone
         // if username exists window.scrollTo and set state.uniqueUsername to false and else{}
         let firstDivValidation =
           this.isValid(this.state.username.isValid) &&
@@ -233,9 +233,6 @@ class SignUp extends Component {
                 </li>
               );
             })}
-            {/* <li><p className={classes.P+ ' ' + classes.active}>1</p></li>
-            <li><p className={classes.P}>2</p></li>
-            <li><p className={classes.P}>3</p></li> */}
           </ul>
           <form className={classes.Form} onSubmit={this.onSubmitHandler}>
             {this.state.auxRendered.id === 0 && (

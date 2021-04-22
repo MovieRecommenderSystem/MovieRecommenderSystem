@@ -26,10 +26,10 @@ const NavBar = (props) => {
           props.location.pathname === "/signup/email" ||
           props.location.pathname === "/auth-options" ||
           props.location.pathname === "/signup/phone") && (
-          <NavItem link="/signin">
-            <button className={classes.Button}>Sign In</button>
-          </NavItem>
-        )}
+            <NavItem link="/signin">
+              <button className={classes.Button}>Sign In</button>
+            </NavItem>
+          )}
       </ul>
     </div>
   );
