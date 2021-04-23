@@ -101,6 +101,7 @@ class SignIn extends Component {
       divValidation = this.isValid(this.state.phone.isValid) && divValidation;
     console.log(divValidation);
     if (divValidation) {
+      // axios request
       console.log(this.state);
     } else {
       window.scrollTo(0, 105);
@@ -176,7 +177,7 @@ class SignIn extends Component {
               <Link to="/signup/google" className={classes.Link}>
                 <button className={classes.Button} id="google">
                   <i class="fab fa-google" style={{ marginRight: "10px" }}></i>
-                  Sign Up with Google
+                  Continue with Google
                 </button>
               </Link>
             </Fade>
