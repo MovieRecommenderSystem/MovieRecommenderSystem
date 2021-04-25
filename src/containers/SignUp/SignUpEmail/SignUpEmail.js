@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Fade from "react-reveal/Fade";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import axios from "../../../axios-auth";
-
 
 import Input from "../../../components/UI/Input/Input";
 import NavBar from "../../../components/Navigation/NavBar";
@@ -10,7 +9,6 @@ import Modal from "../../../components/UI/Modal/Modal";
 import classes from "./SignUpEmail.module.css";
 import Footer from "../../../components/UI/Footer/Footer";
 import Aux from "../../../hoc/Aux/Aux";
-
 
 class SignUp extends Component {
   state = {
@@ -197,9 +195,9 @@ class SignUp extends Component {
     let thirdDivValidation = this.isValid(this.state.phone.isValid);
     if (thirdDivValidation) {
       console.log(this.state);
-      axios.post("/api/signup",{name:"easySolutions"}).then((response)=>{
+      axios.post("/api/signup", { name: "easySolutions" }).then((response) => {
         console.log(response.data);
-      })
+      });
     } else {
       window.scrollTo(0, 105);
     }
@@ -350,13 +348,13 @@ class SignUp extends Component {
                 Sign Up
               </button>
             ) : (
-                <input
-                  type="button"
-                  className={classes.Button}
-                  onClick={this.onContinueHandler}
-                  value="Continue"
-                />
-              )}
+              <input
+                type="button"
+                className={classes.Button}
+                onClick={this.onContinueHandler}
+                value="Continue"
+              />
+            )}
           </form>
         </Modal>
         <Footer />
@@ -366,20 +364,16 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return (
-    {
-      auth: state.auth
-    }
-  )
-}
+  return {
+    auth: state.auth,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
-  return (
-    {
-      onAuthFalse:()=>dispatch({type:'False_Auth'}),
-      onAuthTrue:()=>dispatch({type:'True_Auth'})
-    }
-  )
-}
+  return {
+    onAuthFalse: () => dispatch({ type: "False_Auth" }),
+    onAuthTrue: () => dispatch({ type: "True_Auth" }),
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
