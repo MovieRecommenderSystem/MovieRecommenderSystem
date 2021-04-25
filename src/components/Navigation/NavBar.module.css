@@ -73,8 +73,8 @@
 .Active{
   color: #ec4646;
   background-color: black;
-  position: relative;
-  transform: scale(1.1,1.1);
+  /* position: relative;
+  transform: scale(1.1,1.1); */
 }
 
 

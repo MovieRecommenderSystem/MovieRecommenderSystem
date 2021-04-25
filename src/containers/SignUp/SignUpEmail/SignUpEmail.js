@@ -219,12 +219,14 @@ class SignUp extends Component {
         gender: this.state.gender,
         dob: this.state.dob,
       };
-      console.log(userData);
+
       axios.post("/api/signup", userData).then((response) => {
-        console.log(response.data);
-        if (response.data.success) {
+        if (response.data) {
+          this.props.onAuthTrue();
           this.props.history.replace("/dashboard");
         } else {
+          this.props.onAuthFalse();
+          this.props.onErrorTrue();
           this.props.history.push("/authFailed");
         }
       });
@@ -235,6 +237,7 @@ class SignUp extends Component {
 
   render() {
     let paginationItems = [1, 2, 3];
+    console.log(this.props);
     return (
       <div>
         <NavBar />
@@ -395,6 +398,7 @@ class SignUp extends Component {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    error: state.error
   };
 };
 
@@ -402,6 +406,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAuthFalse: () => dispatch({ type: "False_Auth" }),
     onAuthTrue: () => dispatch({ type: "True_Auth" }),
+    onErrorFalse: () => dispatch({ type: "False_Error" }),
+    onErrorTrue: () => dispatch({ type: "True_Error" }),
   };
 };
 
