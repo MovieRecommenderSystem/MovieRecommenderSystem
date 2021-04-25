@@ -53,21 +53,9 @@ class SignUp extends Component {
       },
     },
     gender: "male",
-    dob: this.formatDate(),
+    dob: new Date(),
     uniqueUsername: true,
   };
-
-  formatDate() {
-    var d = new Date(),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-
-    return [year, month, day].join("-");
-  }
 
   changePaginationHandler = (item) => {
     this.setState({ auxRendered: { id: item - 1 } });
@@ -147,12 +135,11 @@ class SignUp extends Component {
         break;
       case "phone":
         minLength = event.target.value.length === 10;
-        let shouldValidate = (event.target.value.length === 0);
         let isNumeric = /^[\d ]*$/.test(event.target.value);
         this.setState({
           phone: {
             value: event.target.value,
-            isValid: { minLength: shouldValidate || minLength, isNumeric: shouldValidate&&isNumeric },
+            isValid: { minLength: minLength, isNumeric: isNumeric },
           },
         });
         break;
@@ -208,7 +195,7 @@ class SignUp extends Component {
     let thirdDivValidation = this.isValid(this.state.phone.isValid);
     if (thirdDivValidation) {
       console.log(this.state);
-      axios.post("/api/signup", {name: "Ravi"}).then((response) => {
+      axios.post("/api/signup", { name: "easySolutions" }).then((response) => {
         console.log(response.data);
       });
     } else {
@@ -334,6 +321,7 @@ class SignUp extends Component {
                     className={classes.Select}
                     id="gender"
                     name="gender"
+                    defaultValue="male"
                     value={this.state.gender}
                     onChange={(event) => this.onChangeHandler(event, "gender")}
                   >

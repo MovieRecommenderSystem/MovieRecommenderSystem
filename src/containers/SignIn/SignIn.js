@@ -40,7 +40,7 @@ class SignIn extends Component {
     }
     return valid;
   };
-  componentDidMount() {
+  componentDidMount(){
     window.scrollTo(0, 105);
   }
   onChangeHandler = (event, inputType) => {
@@ -164,9 +164,7 @@ class SignIn extends Component {
                       label="Password"
                     />
                   </Aux>
-                  <Link to="/forgot-password" className={classes.Link}>
-                    Forgot Password?
-                  </Link>
+                  <Link to="/forgot-password" className={classes.Link}>Forgot Password?</Link>
                 </Fade>
                 <button className={classes.Button + " " + classes.SignInButton}>
                   Sign In
@@ -175,17 +173,14 @@ class SignIn extends Component {
             </div>
             <hr className={classes.Divider} />
             <div className={classes.FlexItem}>
-              <Fade right appear distance="5vw">
-                <Link to="/signup/google" className={classes.Link}>
-                  <button className={classes.Button} id="google">
-                    <i
-                      class="fab fa-google"
-                      style={{ marginRight: "10px" }}
-                    ></i>
-                    Continue with Google
-                  </button>
-                </Link>
-              </Fade>
+            <Fade right appear distance="5vw">
+              <Link to="/signup/google" className={classes.Link}>
+                <button className={classes.Button} id="google">
+                  <i class="fab fa-google" style={{ marginRight: "10px" }}></i>
+                  Continue with Google
+                </button>
+              </Link>
+            </Fade>
             </div>
           </div>
         </Modal>
