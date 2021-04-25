@@ -18,20 +18,20 @@
   font-size: 2vw;
 }
 
-.Divider{
+.Divider {
   width: 0.1vw;
   border: none;
   background-color: white;
 }
 
-.Flex{
+.Flex {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.FlexItem{
- margin: 0 8vw;
+.FlexItem {
+  margin: 0 8vw;
 }
 
 .Form {
@@ -49,7 +49,7 @@
   font-size: 1.5vw;
 }
 
-.Link{
+.Link {
   font-family: "Alegreya Sans", sans-serif;
   color: rgb(255, 255, 255);
   font-size: 1.5vw;
@@ -57,7 +57,7 @@
   margin-bottom: 2vh;
 }
 
-.Link:hover{
+.Link:hover {
   color: #ec4646;
 }
 

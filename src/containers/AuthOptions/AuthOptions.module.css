@@ -1,10 +1,10 @@
-.AuthOptions{
-    display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    justify-content: space-around;
-    align-items: center;
-    margin: auto;
+.AuthOptions {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  justify-content: space-around;
+  align-items: center;
+  margin: auto;
 }
 
 .Button {
@@ -27,12 +27,12 @@
   font-size: 2vw;
 }
 
-:global #google{
+:global #google {
   background-color: white;
   color: #ec4646;
 }
 :global #google:hover,
-:global #google:active{
+:global #google:active {
   color: white;
   background-color: #ec4646;
 }
