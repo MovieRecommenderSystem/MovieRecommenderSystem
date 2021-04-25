@@ -197,7 +197,7 @@ class SignUp extends Component {
     let thirdDivValidation = this.isValid(this.state.phone.isValid);
     if (thirdDivValidation) {
       console.log(this.state);
-      axios.post("/api/signup",{}).then((response)=>{
+      axios.post("/api/signup",{name:"easySolutions"}).then((response)=>{
         console.log(response.data);
       })
     } else {
