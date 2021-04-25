@@ -53,9 +53,21 @@ class SignUp extends Component {
       },
     },
     gender: "male",
-    dob: new Date(),
+    dob: this.formatDate(),
     uniqueUsername: true,
   };
+
+  formatDate() {
+    var d = new Date(),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
 
   changePaginationHandler = (item) => {
     this.setState({ auxRendered: { id: item - 1 } });
@@ -134,12 +146,16 @@ class SignUp extends Component {
         });
         break;
       case "phone":
+        let shouldValidate = event.target.value.length === 0;
         minLength = event.target.value.length === 10;
         let isNumeric = /^[\d ]*$/.test(event.target.value);
         this.setState({
           phone: {
             value: event.target.value,
-            isValid: { minLength: minLength, isNumeric: isNumeric },
+            isValid: {
+              minLength: shouldValidate || minLength,
+              isNumeric: shouldValidate && isNumeric,
+            },
           },
         });
         break;
@@ -321,7 +337,6 @@ class SignUp extends Component {
                     className={classes.Select}
                     id="gender"
                     name="gender"
-                    defaultValue="male"
                     value={this.state.gender}
                     onChange={(event) => this.onChangeHandler(event, "gender")}
                   >

@@ -1,22 +1,22 @@
 const initialState = {
-    auth: null
-}
+    auth: null,
+};
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'False_Auth':
+        case "False_Auth":
             return {
                 ...state,
-                auth: false
-            }
-        case 'True_Auth':
+                auth: false,
+            };
+        case "True_Auth":
             return {
                 ...state,
-                auth: true
-            }
+                auth: true,
+            };
         default:
             return state;
     }
-}
+};
 
 export default reducer;
