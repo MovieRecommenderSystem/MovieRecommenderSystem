@@ -88,7 +88,6 @@ class SignUp extends Component {
       },
     });
   };
-
   onChangeHandler = (event, inputType) => {
     let pattern, minLength, checkPattern, required;
     switch (inputType) {
@@ -123,7 +122,7 @@ class SignUp extends Component {
         });
         break;
       case "password":
-        minLength = event.target.value.length >= 8;
+        minLength = event.target.value.length >= 1;
         required = event.target.value.length > 0;
         this.setState({
           password: {
@@ -154,7 +153,7 @@ class SignUp extends Component {
             value: event.target.value,
             isValid: {
               minLength: shouldValidate || minLength,
-              isNumeric: shouldValidate && isNumeric,
+              isNumeric: shouldValidate || isNumeric,
             },
           },
         });
@@ -211,8 +210,23 @@ class SignUp extends Component {
     let thirdDivValidation = this.isValid(this.state.phone.isValid);
     if (thirdDivValidation) {
       console.log(this.state);
-      axios.post("/api/signup", { name: "easySolutions" }).then((response) => {
+      const userData = {
+        username: this.state.username.value,
+        email: this.state.email.value,
+        password: this.state.password.value,
+        phone:
+          this.state.phone.value.length === 0 ? "-1" : this.state.phone.value,
+        gender: this.state.gender,
+        dob: this.state.dob,
+      };
+      console.log(userData);
+      axios.post("/api/signup", userData).then((response) => {
         console.log(response.data);
+        // if (response.data.success) {
+        //   this.props.history.replace("/dashboard");
+        // } else {
+        //   this.props.history.push("/authFailed");
+        // }
       });
     } else {
       window.scrollTo(0, 105);
@@ -313,7 +327,7 @@ class SignUp extends Component {
                   <Input
                     id="phone"
                     isValid={this.state.phone.isValid}
-                    type="tel"
+                    type="text"
                     autofocus
                     name="phone"
                     placeholder="Your Phone Number"

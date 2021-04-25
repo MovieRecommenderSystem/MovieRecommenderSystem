@@ -7,7 +7,7 @@ import classes from "./Logo.module.css";
 const Logo = (props) => {
   return (
     <div className={classes.Logo}>
-      <InlineIcon icon={popcornIcon} /> Popkorn
+      <InlineIcon icon={popcornIcon} style={{color: "#ffdb58"}}/> Popkorn
     </div>
   );
 };

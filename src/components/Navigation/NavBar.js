@@ -11,7 +11,15 @@ const NavBar = (props) => {
       <NavLink to="/" className={classes.NavLink}>
         <Logo />
       </NavLink>
+      {/* <form>
+        <input className={classes.Search} id="Search" placeholder="0xf002"/>
+        </form> */}
       <ul className={classes.NavItems}>
+        {props.location.pathname === "/dashboard" && (
+          <NavItem link="/watchlist">
+            <button className={classes.Button}>Watchlist</button>
+          </NavItem>
+        )}
         <NavItem link="/premium">
           <button className={classes.Button + " " + classes.Plus}>
             Get Plus
@@ -26,10 +34,17 @@ const NavBar = (props) => {
           props.location.pathname === "/signup/email" ||
           props.location.pathname === "/auth-options" ||
           props.location.pathname === "/signup/phone") && (
-            <NavItem link="/signin">
-              <button className={classes.Button}>Sign In</button>
-            </NavItem>
-          )}
+          <NavItem link="/signin">
+            <button className={classes.Button}>Sign In</button>
+          </NavItem>
+        )}
+        {props.location.pathname === "/dashboard" && (
+          <NavItem link="/profile">
+            <button id="profile" className={classes.Button}>
+              <i className="fas fa-user-circle"></i>
+            </button>
+          </NavItem>
+        )}
       </ul>
     </div>
   );

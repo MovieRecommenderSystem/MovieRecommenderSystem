@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 
 import Landing from "./components/Landing/Landing";
 import "./App.css";
+import Dashboard from "./containers/Dashboard/Dashboard";
 import SignUpEmail from "./containers/SignUp/SignUpEmail/SignUpEmail";
 import SignIn from "./containers/SignIn/SignIn";
 import AuthOptions from "./containers/AuthOptions/AuthOptions";
@@ -13,6 +14,7 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/auth-options" component={AuthOptions} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup/phone" component={SignUpPhone} />
