@@ -50,14 +50,33 @@
 
 .Search {
   border: none;
-  background-color: rgba(0, 0, 0, 0.726);
+  background-color: transparent;
   padding: 1.3vh 1.2vw;
   box-sizing: border-box;
-  font-size: 1.9vw;
+  font-size: 1.5vw;
   color: white;
   width: 35vw;
-  margin-left: 3vw;
+  outline: none;
 }
+.SearchParent{
+  display: flex;
+  flex-flow: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5vh 0.7vw;
+  color: white;
+  position: relative;
+  left: 3.1vw;
+  background-color: rgba(0, 0, 0, 0.726);
+}
+.Active{
+  color: #ec4646;
+  background-color: black;
+  position: relative;
+  transform: scale(1.1,1.1);
+}
+
 
 :global #profile {
   background: none;

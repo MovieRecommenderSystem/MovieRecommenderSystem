@@ -1,5 +1,5 @@
 const initialState = {
-    auth: null, // change the default to null
+    auth: true, // change the default to null
 };
 
 const reducer = (state = initialState, action) => {

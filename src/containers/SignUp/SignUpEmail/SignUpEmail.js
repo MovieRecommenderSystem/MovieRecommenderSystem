@@ -222,11 +222,11 @@ class SignUp extends Component {
       console.log(userData);
       axios.post("/api/signup", userData).then((response) => {
         console.log(response.data);
-        // if (response.data.success) {
-        //   this.props.history.replace("/dashboard");
-        // } else {
-        //   this.props.history.push("/authFailed");
-        // }
+        if (response.data.success) {
+          this.props.history.replace("/dashboard");
+        } else {
+          this.props.history.push("/authFailed");
+        }
       });
     } else {
       window.scrollTo(0, 105);
