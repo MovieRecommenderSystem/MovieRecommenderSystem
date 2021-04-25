@@ -22,7 +22,7 @@ const AuthOptions = (props) => {
           </Link>
           <Link to="/signup/phone" className={classes.Link}>
             <button className={classes.Button}>
-              <i class="fas fa-mobile" style={{ marginRight: "10px" }}></i>
+              <i className="fas fa-mobile" style={{ marginRight: "10px" }}></i>
               Sign Up with Phone
             </button>
           </Link>
@@ -32,7 +32,7 @@ const AuthOptions = (props) => {
 
           <Link to="/signup/google" className={classes.Link}>
             <button className={classes.Button} id="google">
-              <i class="fab fa-google" style={{ marginRight: "10px" }}></i>
+              <i className="fab fa-google" style={{ marginRight: "10px" }}></i>
               Sign Up with Google
             </button>
           </Link>

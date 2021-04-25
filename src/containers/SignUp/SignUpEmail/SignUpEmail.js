@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Fade from "react-reveal/Fade";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import axios from "../../../axios-auth";
-
 
 import Input from "../../../components/UI/Input/Input";
 import NavBar from "../../../components/Navigation/NavBar";
@@ -10,7 +9,6 @@ import Modal from "../../../components/UI/Modal/Modal";
 import classes from "./SignUpEmail.module.css";
 import Footer from "../../../components/UI/Footer/Footer";
 import Aux from "../../../hoc/Aux/Aux";
-
 
 class SignUp extends Component {
   state = {
@@ -55,9 +53,21 @@ class SignUp extends Component {
       },
     },
     gender: "male",
-    dob: new Date(),
+    dob: this.formatDate(),
     uniqueUsername: true,
   };
+
+  formatDate() {
+    var d = new Date(),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
 
   changePaginationHandler = (item) => {
     this.setState({ auxRendered: { id: item - 1 } });
@@ -137,11 +147,12 @@ class SignUp extends Component {
         break;
       case "phone":
         minLength = event.target.value.length === 10;
+        let shouldValidate = (event.target.value.length === 0);
         let isNumeric = /^[\d ]*$/.test(event.target.value);
         this.setState({
           phone: {
             value: event.target.value,
-            isValid: { minLength: minLength, isNumeric: isNumeric },
+            isValid: { minLength: shouldValidate || minLength, isNumeric: shouldValidate&&isNumeric },
           },
         });
         break;
@@ -197,9 +208,9 @@ class SignUp extends Component {
     let thirdDivValidation = this.isValid(this.state.phone.isValid);
     if (thirdDivValidation) {
       console.log(this.state);
-      axios.post("/api/signup",{}).then((response)=>{
+      axios.post("/api/signup", {name: "Ravi"}).then((response) => {
         console.log(response.data);
-      })
+      });
     } else {
       window.scrollTo(0, 105);
     }
@@ -323,7 +334,6 @@ class SignUp extends Component {
                     className={classes.Select}
                     id="gender"
                     name="gender"
-                    defaultValue="male"
                     value={this.state.gender}
                     onChange={(event) => this.onChangeHandler(event, "gender")}
                   >
@@ -350,13 +360,13 @@ class SignUp extends Component {
                 Sign Up
               </button>
             ) : (
-                <input
-                  type="button"
-                  className={classes.Button}
-                  onClick={this.onContinueHandler}
-                  value="Continue"
-                />
-              )}
+              <input
+                type="button"
+                className={classes.Button}
+                onClick={this.onContinueHandler}
+                value="Continue"
+              />
+            )}
           </form>
         </Modal>
         <Footer />
@@ -366,20 +376,16 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return (
-    {
-      auth: state.auth
-    }
-  )
-}
+  return {
+    auth: state.auth,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
-  return (
-    {
-      onAuthFalse:()=>dispatch({type:'False_Auth'}),
-      onAuthTrue:()=>dispatch({type:'True_Auth'})
-    }
-  )
-}
+  return {
+    onAuthFalse: () => dispatch({ type: "False_Auth" }),
+    onAuthTrue: () => dispatch({ type: "True_Auth" }),
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
