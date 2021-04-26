@@ -179,7 +179,7 @@ class SignIn extends Component {
                 <Link to="/signup/google" className={classes.Link}>
                   <button className={classes.Button} id="google">
                     <i
-                      class="fab fa-google"
+                      className="fab fa-google"
                       style={{ marginRight: "10px" }}
                     ></i>
                     Continue with Google
