@@ -55,6 +55,7 @@ class SignUp extends Component {
     gender: "male",
     dob: this.formatDate(),
     uniqueUsername: true,
+    uniqueLoading: false,
   };
 
   formatDate() {
@@ -174,6 +175,19 @@ class SignUp extends Component {
       case 0:
         // check for existing username and registered email
         // if username exists window.scrollTo and set state.uniqueUsername to false and else{}
+        axios
+          .post("/api/checkUsernameAndEmail", {
+            username: this.state.username.value,
+            email: this.state.email.value,
+          })
+          .then((response) => {
+            if (response.data.registeredEmail) {
+              this.props.history.push("/signin");
+            } else {
+              this.setState({ uniqueUsername: response.data.uniqueUsername });
+            }
+          });
+        // {uniqueUsername: true, registeredEmail: true}
         let firstDivValidation =
           this.isValid(this.state.username.isValid) &&
           this.isValid(this.state.email.isValid);
@@ -376,6 +390,10 @@ class SignUp extends Component {
             {this.state.auxRendered.id === 2 ? (
               <button className={classes.Button + " " + classes.SignUpButton}>
                 Sign Up
+              </button>
+            ) : this.state.uniqueLoading ? (
+              <button disabled className={classes.Button}>
+                <div className={classes.Loader}>Loading...</div>
               </button>
             ) : (
               <input
