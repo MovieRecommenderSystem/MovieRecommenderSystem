@@ -236,7 +236,6 @@ class SignUp extends Component {
 
   render() {
     let paginationItems = [1, 2, 3];
-    console.log(this.props);
     return (
       <div>
         <NavBar />
