@@ -10,9 +10,22 @@ type NewUser struct {
 	Gender   string `json:"gender,omitempty" bson:"gender,omitempty"`
 }
 
-//Data coming for verification while signing in!
-
+//Data coming for verification while signing in
 type SignInData struct{
 	Username string `json:"username,omitempty" bson:"username,omitempty"`
 	Password string `json:"password,omitempty" bson:"password,omitempty"`
+}
+
+// Struct which checks whether an email already exists or not.
+
+type CheckExistance struct{
+	UniqueUsername bool `json:"uniqueUsername" bson:"uniqueUsername"`
+	RegisteredEmail bool `json:"registeredEmail" bson:"registeredEmail"`
+}
+
+//Check whether thr stored email and username exists or not
+
+type CheckUsernameEmail struct{
+	Username string `json:"username,omitempty" bson:"username,omitempty"`
+	Email    string `json:"email,omitempty" bson:"email,omitempty"`
 }

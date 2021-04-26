@@ -18,6 +18,9 @@ import (
 )
 
 var user db_tables.NewUser
+//var cred db_tables.SignInData
+var check db_tables.CheckExistance
+var usrPass db_tables.CheckUsernameEmail
 var ClientVar *mongo.Client
 
 func main() {
@@ -27,6 +30,10 @@ func main() {
 	//fmt.Println(cl)
 	r := mux.NewRouter()
 
+	//checking about the uniqueness of email and username
+	r.HandleFunc("/api/checkUsernameAndEmail", userPassExistance).Methods("POST", "OPTIONS")
+
+	//Handling signup with email route
 	r.HandleFunc("/api/signup", sendUserData).Methods("POST", "OPTIONS")
 
 	log.Fatal(http.ListenAndServe(":9000", r))
@@ -59,15 +66,87 @@ func sendUserData(w http.ResponseWriter, r *http.Request) {
 
 		}
 		insertResult := InsertCollection(user)
-		
+
 		json.NewEncoder(w).Encode(insertResult)
+	}
+
+}
+
+func userPassExistance(w http.ResponseWriter, r *http.Request) {
+
+	//Setting header to content type will tell client to expect data in json format
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+	json.NewDecoder(r.Body).Decode(&usrPass)
+	
+	//checkExistance(usrPass)
+	if (db_tables.CheckUsernameEmail{}) != usrPass {
+		fmt.Println("in if conditions!")
+		fmt.Println(usrPass)
+		checkExistance(usrPass)
+		fmt.Println(check)
+		json.NewEncoder(w).Encode(check)
+		
+	}
+	
+
+}
+
+//checking whether an email and password are unique
+func checkExistance(usrpass db_tables.CheckUsernameEmail) {
+
+	//fmt.Println(usrpass)
+	collection := ClientVar.Database("popkorn_db").Collection("SignUpEmail")
+
+	filter := bson.D{{"email", usrpass.Email}}
+
+	var result db_tables.NewUser
+	
+	fmt.Println("lassan")
+	err := collection.FindOne(context.TODO(), filter).Decode(&result)
+	fmt.Println(err)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	fmt.Println("lassan")
+	if (db_tables.NewUser{}) == result {
+		check.RegisteredEmail = false
+		fmt.Println("user does not exists")
+		
+	} else {
+		check.RegisteredEmail = true
+		check.UniqueUsername = true
+		return
+	}
+	fmt.Println("In next")
+	if !check.RegisteredEmail {
+
+		filter2 := bson.D{{"username", usrpass.Username}}
+		var result_new db_tables.NewUser
+
+		err := collection.FindOne(context.TODO(), filter2).Decode(&result_new)
+		// if err != nil {
+		// 	log.Fatal(err)
+		// }
+		fmt.Println(err)
+		if (db_tables.NewUser{}) == result_new {
+			check.UniqueUsername = true
+		}else{
+			check.UniqueUsername = false
+		}
+
+
 	}
 
 }
 
 func InsertCollection(user db_tables.NewUser) bool {
 	status := false
-	fmt.Println("In Insert collection")
+	//fmt.Println("In Insert collection")
+	///api/checkUsernameAndEmail
 	databases, err := ClientVar.ListDatabaseNames(context.TODO(), bson.M{})
 	if err != nil {
 		log.Fatal(err)
