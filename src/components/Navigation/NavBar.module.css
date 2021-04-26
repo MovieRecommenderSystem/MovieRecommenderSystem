@@ -1,0 +1,84 @@
+.Button {
+  padding: 1.3vh 1vw;
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 1.7vw;
+  background-color: #ec4646;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 1.3vh 1vw;
+}
+.Button:hover,
+.Button:active {
+  color: #ec4646;
+  background-color: white;
+  font-size: 1.9vw;
+}
+
+:global .fa-user-circle {
+  font-size: 3vw;
+}
+
+.NavBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2vh 5vw;
+}
+
+.NavItems {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  flex-direction: row;
+}
+
+.NavLink {
+  text-decoration: none;
+}
+
+.Plus {
+  background-color: white;
+  color: #ec4646;
+}
+.Plus:hover,
+.Plus:active {
+  color: white;
+  background-color: #ec4646;
+  font-size: 1.9vw;
+}
+
+.Search {
+  border: none;
+  background-color: transparent;
+  padding: 1.3vh 1.2vw;
+  box-sizing: border-box;
+  font-size: 1.5vw;
+  color: white;
+  width: 35vw;
+  outline: none;
+}
+.SearchParent{
+  display: flex;
+  flex-flow: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5vh 0.7vw;
+  color: white;
+  position: relative;
+  left: 3.1vw;
+  background-color: rgba(0, 0, 0, 0.726);
+}
+.Active{
+  color: #ec4646;
+  background-color: black;
+  /* position: relative;
+  transform: scale(1.1,1.1); */
+}
+
+
+:global #profile {
+  background: none;
+  padding: 0;
+}

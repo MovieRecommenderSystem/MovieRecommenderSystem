@@ -1,0 +1,126 @@
+.Button {
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 1.8vw;
+  background-color: #ec4646;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 2vh 2vw;
+  margin: auto;
+  margin-top: 9vh;
+  display: inline-block;
+  outline: none;
+}
+.Button:hover,
+.Button:active {
+  color: #ec4646;
+  background-color: white;
+  font-size: 2vw;
+}
+
+.Divider {
+  width: 0.1vw;
+  border: none;
+  background-color: white;
+}
+
+.Flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.FlexItem {
+  margin: 0 8vw;
+}
+
+.Form {
+  display: inline-flex;
+  flex-direction: column;
+  margin: auto;
+  width: 28vw;
+}
+
+.Label {
+  color: white;
+  text-align: left;
+  box-sizing: border-box;
+  display: block;
+  font-size: 1.5vw;
+}
+
+.Link {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 255, 255);
+  font-size: 1.5vw;
+  margin-top: 5vh;
+  margin-bottom: 2vh;
+}
+
+.Link:hover {
+  color: #ec4646;
+}
+
+.P {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 255, 255);
+  font-size: 2.5vw;
+  margin: 0;
+  margin-bottom: 2vh;
+}
+
+.Pagination {
+  display: flex;
+  flex-direction: row;
+  width: 15vw;
+  justify-content: space-around;
+  margin: auto;
+  padding: 0;
+}
+.Pagination .P {
+  padding: 0.1vw;
+  background-color: white;
+  color: black;
+  width: 3vw;
+  height: 3vw;
+  border-radius: 100%;
+}
+.Pagination .P:hover {
+  cursor: pointer;
+  color: #ec4646;
+}
+.Pagination .P.active {
+  background-color: #ec4646;
+  color: white;
+}
+
+.SignUpButton {
+  margin-top: 0vh;
+}
+
+.Select {
+  height: 8vh;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.493);
+  border-bottom: 0.2vw solid #ec4646;
+  padding: 0vh 1.2vw;
+  box-sizing: border-box;
+  margin-top: 3vh;
+  margin-bottom: 9vh;
+  font-size: 1.8vw;
+  color: white;
+  outline: none;
+  width: 25vw;
+}
+.Select:focus {
+  color: black;
+  outline: none;
+  background-color: #ccc;
+}
+
+.validateP {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 0, 0);
+  font-size: 1.2vw;
+  text-align: left;
+}

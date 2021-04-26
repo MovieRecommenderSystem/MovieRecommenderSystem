@@ -1,0 +1,12 @@
+Landing -> Sign Up
+        -> Sign In
+Sign Up -> Email(Confirmation Mail), Phone-Number, Username, Password(minimum 8 characters), Confirm Password -> Movie Preferences(...)
+	-> Dashboard/(Error Page->Sign Up)
+Sign In -> Dashboard/(Error-Page->Sign In)
+Dashboard (Display Recommended movies) -> Profile Page
+				       -> Search -> Display searched movie/ Not found -> Movie Page
+				       -> Movie Page
+				       -> WatchList
+Movie Page -> Movie Details, Youtube Trailer
+	   -> Premium Membership
+Get Pro button on Dashboard, Landing, Movie Page(Watch Now).

@@ -1,0 +1,45 @@
+.Button {
+  padding: 1.3vh 1vw;
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 2.5vw;
+  background-color: #ec4646;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 2vh 10vw;
+  margin-top: 0vh;
+}
+.Button:hover,
+.Button:active {
+  color: white;
+  background-color: black;
+  font-size: 3vw;
+}
+
+.Content {
+  font-family: "Alfa Slab One", cursive;
+  font-size: 7vw;
+  width: 45vw;
+  margin: auto auto 1.2vh auto;
+  color: white;
+  letter-spacing: 11px;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #ff0000da;
+  text-align: center;
+  line-height: 15vh;
+}
+
+.Flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5vh;
+}
+
+.P {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 255, 255);
+  font-size: 2.5vw;
+  margin: 0 auto 3vh 0;
+}
