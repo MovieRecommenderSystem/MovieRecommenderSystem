@@ -57,7 +57,8 @@ class NavBar extends Component {
           {(this.props.location.pathname === "/" ||
             this.props.location.pathname === "/signup/email" ||
             this.props.location.pathname === "/auth-options" ||
-            this.props.location.pathname === "/signup/phone") && (
+            this.props.location.pathname === "/signup/phone" ||
+            this.props.location.pathname === "/choose") && (
               <NavItem link="/signin">
                 <button className={classes.Button}>Sign In</button>
               </NavItem>

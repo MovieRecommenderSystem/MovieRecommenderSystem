@@ -201,7 +201,7 @@ class SignUp extends Component {
               }
             }
           });
-          // {uniqueUsername: true, registeredEmail: true}
+        // {uniqueUsername: true, registeredEmail: true}
         break;
       case 1:
         let secondDivValidation =
@@ -237,9 +237,10 @@ class SignUp extends Component {
       };
 
       axios.post("/api/signup", userData).then((response) => {
-        if (response.data) {
+        if (response.data !== null) {
+          this.props.setUsername(this.state.username.value);
           this.props.onAuthTrue();
-          this.props.history.replace("/dashboard");
+          this.props.history.replace("/choose");
         } else {
           this.props.onAuthFalse();
           this.props.history.push("/authFailed");
@@ -424,6 +425,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setUsername: (username) =>
+      dispatch({ type: "Set_Username", username: username }),
     onAuthFalse: () => dispatch({ type: "False_Auth" }),
     onAuthTrue: () => dispatch({ type: "True_Auth" }),
   };

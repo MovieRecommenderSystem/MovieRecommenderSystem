@@ -1,5 +1,6 @@
 const initialState = {
   auth: null, // change the default to null
+  username: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,6 +14,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         auth: true,
+      };
+    case "Set_Username":
+      console.log(action);
+      return{
+        ...state,
+        username: action.username
       };
     default:
       return state;

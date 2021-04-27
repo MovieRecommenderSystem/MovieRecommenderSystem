@@ -1,0 +1,69 @@
+.Button {
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 1.8vw;
+  background-color: #ec4646;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 2vh 2vw;
+  margin: auto;
+  margin-top: 9vh;
+  display: inline-block;
+  outline: none;
+}
+.Button:hover,
+.Button:active {
+  color: #ec4646;
+  background-color: white;
+  font-size: 2vw;
+}
+
+.CheckBox {
+  margin: 1.5vh 1vw;
+}
+.CheckBoxInput:checked + .Label {
+  color: #ff76ab;
+}
+
+.CheckBoxes {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 80%;
+}
+
+.Label {
+  color: rgb(202, 202, 202);
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1.5vw;
+  margin-right: 1.1vw;
+}
+.Label:hover {
+  color: #ffa3c7;
+}
+
+.Link {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(202, 202, 202);
+  font-size: 1.5vw;
+  display: block;
+  margin-top: 5vh;
+  margin-bottom: 2vh;
+}
+
+.Link:hover {
+  color: #ec4646;
+}
+
+.P {
+  color: #ec4646;
+  font-family: "Alegreya Sans", sans-serif;
+  /* color: rgb(255, 255, 255); */
+  font-size: 2.5vw;
+  /* display: inline-block; */
+  /* margin: 0;
+  margin-bottom: 2vh; */
+}

@@ -39,6 +39,11 @@ const SignUpPhone = React.lazy(() =>
     import("./containers/SignUp/SignUpPhone/SignUpPhone")
   )
 );
+const Choose = React.lazy(() =>
+  new Promise((resolve) => setTimeout(resolve, 100)).then(() =>
+    import("./containers/Choose/Choose")
+  )
+);
 
 class App extends Component {
   render() {
@@ -46,6 +51,7 @@ class App extends Component {
       <div className="App">
         <Suspense fallback={<div className="loader">Loading...</div>}>
           <Switch>
+            <Route path="/choose" component={Choose} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/auth-options" component={AuthOptions} />
             <Route path="/signin" component={SignIn} />
