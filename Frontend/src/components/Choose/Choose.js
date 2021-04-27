@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
-import NavBar from "../../components/Navigation/NavBar";
-import Footer from "../../components/UI/Footer/Footer";
-import Aux from "../../hoc/Aux/Aux";
+import NavBar from "../Navigation/NavBar";
+import Footer from "../UI/Footer/Footer";
 import classes from "./Choose.module.css";
-import Modal from "../../components/UI/Modal/Modal";
 import axios from "../../axios-auth";
 
 class Choose extends Component {
@@ -115,7 +113,7 @@ class Choose extends Component {
                 this.state.selectedLanguages.length > 0
                     ? this.state.selectedLanguages
                     : ["en"],
-            username: this.props.username
+            username: this.props.username,
         };
         console.log(preferences);
         axios
@@ -129,61 +127,59 @@ class Choose extends Component {
     };
 
     render() {
-        // return this.props.auth ? (
-        return true ? (
-            <Aux>
+        return this.props.auth ? (
+            // return true ? (
+            <div className={classes.Choose}>
                 <NavBar />
-                <Modal>
-                    <p className={classes.P}>Tell us what you like to watch:</p>
-                    <p className={classes.P} style={{ marginTop: "8vh" }}>
-                        Genres:
-          </p>
-                    <div className={classes.CheckBoxes}>
-                        {this.availableGenres.map((genre) => (
-                            <div key={genre} className={classes.CheckBox}>
-                                <input
-                                    type="checkbox"
-                                    name={genre}
-                                    value={genre}
-                                    id={genre}
-                                    onClick={this.genreBoxHandler}
-                                    className={classes.CheckBoxInput}
-                                />
-                                <label htmlFor={genre} className={classes.Label}>
-                                    {genre}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
-                    <p className={classes.P} style={{ marginTop: "8vh" }}>
-                        Languages:
-          </p>
-                    <div className={classes.CheckBoxes}>
-                        {this.availableLanguages.map((lang) => (
-                            <div key={Object.keys(lang)[0]} className={classes.CheckBox}>
-                                <input
-                                    type="checkbox"
-                                    name={Object.keys(lang)[0]}
-                                    value={Object.keys(lang)[0]}
-                                    id={Object.keys(lang)[0]}
-                                    className={classes.CheckBoxInput}
-                                    onClick={this.langBoxHandler}
-                                />
-                                <label htmlFor={Object.keys(lang)[0]} className={classes.Label}>
-                                    {Object.values(lang)[0]}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
-                    <button className={classes.Button} onClick={this.onSubmitHandler}>
-                        Continue
-          </button>
-                    <Link to="/dashboard" className={classes.Link}>
-                        Skip for now
-          </Link>
-                </Modal>
+                <p className={classes.P}>Tell us what you like to watch:</p>
+                <p className={classes.P} style={{ marginTop: "8vh" }}>
+                    Genres:
+        </p>
+                <div className={classes.CheckBoxes}>
+                    {this.availableGenres.map((genre) => (
+                        <div key={genre} className={classes.CheckBox}>
+                            <input
+                                type="checkbox"
+                                name={genre}
+                                value={genre}
+                                id={genre}
+                                onClick={this.genreBoxHandler}
+                                className={classes.CheckBoxInput}
+                            />
+                            <label htmlFor={genre} className={classes.Label}>
+                                {genre}
+                            </label>
+                        </div>
+                    ))}
+                </div>
+                <p className={classes.P} style={{ marginTop: "8vh" }}>
+                    Languages:
+        </p>
+                <div className={classes.CheckBoxes}>
+                    {this.availableLanguages.map((lang) => (
+                        <div key={Object.keys(lang)[0]} className={classes.CheckBox}>
+                            <input
+                                type="checkbox"
+                                name={Object.keys(lang)[0]}
+                                value={Object.keys(lang)[0]}
+                                id={Object.keys(lang)[0]}
+                                className={classes.CheckBoxInput}
+                                onClick={this.langBoxHandler}
+                            />
+                            <label htmlFor={Object.keys(lang)[0]} className={classes.Label}>
+                                {Object.values(lang)[0]}
+                            </label>
+                        </div>
+                    ))}
+                </div>
+                <button className={classes.Button} onClick={this.onSubmitHandler}>
+                    Continue
+        </button>
+                <Link to="/dashboard" className={classes.Link}>
+                    Skip for now
+        </Link>
                 <Footer />
-            </Aux>
+            </div>
         ) : (
             <Redirect from="/choose" to="/" />
         );
@@ -191,8 +187,7 @@ class Choose extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return { auth: state.auth,
-    username: state.username};
+    return { auth: state.auth, username: state.username };
 };
 
 export default connect(mapStateToProps)(Choose);

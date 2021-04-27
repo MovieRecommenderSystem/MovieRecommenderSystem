@@ -31,7 +31,7 @@ const SignIn = React.lazy(() =>
 );
 const AuthOptions = React.lazy(() =>
   new Promise((resolve) => setTimeout(resolve, 100)).then(() =>
-    import("./containers/AuthOptions/AuthOptions")
+    import("./components/AuthOptions/AuthOptions")
   )
 );
 const SignUpPhone = React.lazy(() =>
@@ -41,7 +41,7 @@ const SignUpPhone = React.lazy(() =>
 );
 const Choose = React.lazy(() =>
   new Promise((resolve) => setTimeout(resolve, 100)).then(() =>
-    import("./containers/Choose/Choose")
+    import("./components/Choose/Choose")
   )
 );
 

@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import classes from "./AuthOptions.module.css";
-import NavBar from "../../components/Navigation/NavBar";
-import Footer from "../../components/UI/Footer/Footer";
+import NavBar from "../Navigation/NavBar";
+import Footer from "../UI/Footer/Footer";
 import Aux from "../../hoc/Aux/Aux";
-import Modal from "../../components/UI/Modal/Modal";
+import Modal from "../UI/Modal/Modal";
 
 const AuthOptions = (props) => {
   return (

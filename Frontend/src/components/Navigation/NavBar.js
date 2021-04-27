@@ -4,15 +4,29 @@ import { NavLink, withRouter } from "react-router-dom";
 import NavItem from "./NavItem/NavItem";
 import Logo from "../UI/Logo/Logo";
 import classes from "./NavBar.module.css";
+import axios from "../../axios-auth";
 
 class NavBar extends Component {
   state = {
     focus: false,
+    searchQuery: "",
   };
 
   onFocusHandler = () => {
     this.setState({
       focus: !this.state.focus,
+    });
+  };
+
+  onSearchChangeHandler = (event) => {
+    this.setState({
+      searchQuery: event.target.value,
+    });
+  };
+
+  submitQueryHandler = () => {
+    axios.post("/api/search", this.state.searchQuery).then((response) => {
+      console.log(response.data);
     });
   };
 
@@ -30,11 +44,14 @@ class NavBar extends Component {
             onFocus={this.onFocusHandler}
             onBlur={this.onFocusHandler}
           >
-            <i className="fas fa-search"></i>
+            <i onClick={this.submitQueryHandler} className="fas fa-search"></i>
             <input
               className={classes.Search}
               id="Search"
               placeholder="Search for a movie"
+              name="Search"
+              value={this.state.Search}
+              onChange={this.onSearchChangeHandler}
             />
           </div>
         )}
@@ -59,10 +76,10 @@ class NavBar extends Component {
             this.props.location.pathname === "/auth-options" ||
             this.props.location.pathname === "/signup/phone" ||
             this.props.location.pathname === "/choose") && (
-              <NavItem link="/signin">
-                <button className={classes.Button}>Sign In</button>
-              </NavItem>
-            )}
+            <NavItem link="/signin">
+              <button className={classes.Button}>Sign In</button>
+            </NavItem>
+          )}
           {this.props.location.pathname === "/dashboard" && (
             <NavItem link="/profile">
               <button id="profile" className={classes.Button}>

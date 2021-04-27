@@ -34,6 +34,11 @@
   width: 80%;
 }
 
+.Choose {
+  background-color: rgba(0, 0, 0, 0.829);
+  display: inline-block;
+}
+
 .Label {
   color: rgb(202, 202, 202);
   box-sizing: border-box;
