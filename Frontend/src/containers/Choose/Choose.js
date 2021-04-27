@@ -115,6 +115,7 @@ class Choose extends Component {
                 this.state.selectedLanguages.length > 0
                     ? this.state.selectedLanguages
                     : ["en"],
+            username: this.props.username
         };
         console.log(preferences);
         axios
@@ -190,7 +191,8 @@ class Choose extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return { auth: state.auth };
+    return { auth: state.auth,
+    username: state.username};
 };
 
 export default connect(mapStateToProps)(Choose);
