@@ -12,7 +12,7 @@ type NewUser struct {
 
 //Data coming for verification while signing in
 type SignInData struct{
-	Username string `json:"username,omitempty" bson:"username,omitempty"`
+	Email string `json:"email,omitempty" bson:"username,omitempty"`
 	Password string `json:"password,omitempty" bson:"password,omitempty"`
 }
 
