@@ -15,9 +15,17 @@ class Img extends Component {
     //   .then((response) => {
     //     this.setState({ url: response.data, loading: false });
     //   });
+    setTimeout(() => {
+      this.setState({
+        url:
+          "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_UX182_CR0,0,182,268_AL__QL50.jpg",
+        loading: false,
+      });
+    }, 1000);
   }
   render() {
     return (
+        <div className={classes.Img}>
       <Fade onReveal={this.componentDidReveal}>
         <div>
           {this.state.loading ? (
@@ -27,6 +35,7 @@ class Img extends Component {
           )}
         </div>
       </Fade>
+      </div>
     );
   }
 }
