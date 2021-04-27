@@ -1,13 +1,7 @@
 import React, { Component, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 
-// import Landing from "./components/Landing/Landing";
 import "./App.css";
-// import Dashboard from "./containers/Dashboard/Dashboard";
-// import SignUpEmail from "./containers/SignUp/SignUpEmail/SignUpEmail";
-// import SignIn from "./containers/SignIn/SignIn";
-// import AuthOptions from "./containers/AuthOptions/AuthOptions";
-// import SignUpPhone from "./containers/SignUp/SignUpPhone/SignUpPhone";
 
 const SignUpEmail = React.lazy(() =>
   new Promise((resolve) => setTimeout(resolve, 100)).then(() =>
@@ -44,6 +38,11 @@ const Choose = React.lazy(() =>
     import("./components/Choose/Choose")
   )
 );
+const SearchResults = React.lazy(() =>
+  new Promise((resolve) => setTimeout(resolve, 100)).then(() =>
+    import("./containers/SearchResults/SearchResults")
+  )
+);
 
 class App extends Component {
   render() {
@@ -51,6 +50,7 @@ class App extends Component {
       <div className="App">
         <Suspense fallback={<div className="loader">Loading...</div>}>
           <Switch>
+            <Route path="/search-results" component={SearchResults} />
             <Route path="/choose" component={Choose} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/auth-options" component={AuthOptions} />

@@ -25,9 +25,19 @@ class NavBar extends Component {
   };
 
   submitQueryHandler = () => {
-    axios.post("/api/search", this.state.searchQuery).then((response) => {
-      console.log(response.data);
-    });
+    // this.props.history.push({
+    //   pathname: "/search-results",
+    //   search: "?search=" + this.state.searchQuery,
+    // });
+    axios
+      .post("/api/search", { query: this.state.searchQuery })
+      .then((response) => {
+        console.log(response.data);
+        this.props.history.push({
+          pathname: "/search-results",
+          search: "?search=" + this.state.searchQuery,
+        });
+      });
   };
 
   render() {
