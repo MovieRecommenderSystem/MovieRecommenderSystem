@@ -1,0 +1,6 @@
+.Cards{
+  display: inline-flex;
+  background-color: rgba(0, 0, 0, 0.829);
+  padding: 5vh 5vw;
+  flex-flow: column;
+}

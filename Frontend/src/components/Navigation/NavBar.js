@@ -4,7 +4,6 @@ import { NavLink, withRouter } from "react-router-dom";
 import NavItem from "./NavItem/NavItem";
 import Logo from "../UI/Logo/Logo";
 import classes from "./NavBar.module.css";
-import axios from "../../axios-auth";
 
 class NavBar extends Component {
   state = {
@@ -25,19 +24,10 @@ class NavBar extends Component {
   };
 
   submitQueryHandler = () => {
-    // this.props.history.push({
-    //   pathname: "/search-results",
-    //   search: "?search=" + this.state.searchQuery,
-    // });
-    axios
-      .post("/api/search", { query: this.state.searchQuery })
-      .then((response) => {
-        console.log(response.data);
-        this.props.history.push({
-          pathname: "/search-results",
-          search: "?search=" + this.state.searchQuery,
-        });
-      });
+    this.props.history.push({
+      pathname: "/search-results",
+      search: "?search=" + this.state.searchQuery,
+    });
   };
 
   render() {
@@ -46,31 +36,33 @@ class NavBar extends Component {
         <NavLink to="/" className={classes.NavLink}>
           <Logo />
         </NavLink>
-        {this.props.location.pathname === "/dashboard" && (
-          <div
-            className={
-              classes.SearchParent + " " + (this.state.focus && classes.Active)
-            }
-            onFocus={this.onFocusHandler}
-            onBlur={this.onFocusHandler}
-          >
-            <i onClick={this.submitQueryHandler} className="fas fa-search"></i>
-            <input
-              className={classes.Search}
-              id="Search"
-              placeholder="Search for a movie"
-              name="Search"
-              value={this.state.Search}
-              onChange={this.onSearchChangeHandler}
-            />
-          </div>
-        )}
-        <ul className={classes.NavItems}>
-          {this.props.location.pathname === "/dashboard" && (
-            <NavItem link="/watchlist">
-              <button className={classes.Button}>Watchlist</button>
-            </NavItem>
+        {(this.props.location.pathname === "/dashboard" ||
+          this.props.location.pathname === "/search-results") && (
+            <div
+              className={
+                classes.SearchParent + " " + (this.state.focus && classes.Active)
+              }
+              onFocus={this.onFocusHandler}
+              onBlur={this.onFocusHandler}
+            >
+              <i onClick={this.submitQueryHandler} className="fas fa-search"></i>
+              <input
+                className={classes.Search}
+                id="Search"
+                placeholder="Search for a movie"
+                name="Search"
+                value={this.state.Search}
+                onChange={this.onSearchChangeHandler}
+              />
+            </div>
           )}
+        <ul className={classes.NavItems}>
+          {(this.props.location.pathname === "/dashboard" ||
+            this.props.location.pathname === "/search-results") && (
+              <NavItem link="/watchlist">
+                <button className={classes.Button}>Watchlist</button>
+              </NavItem>
+            )}
           <NavItem link="/premium">
             <button className={classes.Button + " " + classes.Plus}>
               Get Plus
@@ -86,17 +78,18 @@ class NavBar extends Component {
             this.props.location.pathname === "/auth-options" ||
             this.props.location.pathname === "/signup/phone" ||
             this.props.location.pathname === "/choose") && (
-            <NavItem link="/signin">
-              <button className={classes.Button}>Sign In</button>
-            </NavItem>
-          )}
-          {this.props.location.pathname === "/dashboard" && (
-            <NavItem link="/profile">
-              <button id="profile" className={classes.Button}>
-                <i className="fas fa-user-circle"></i>
-              </button>
-            </NavItem>
-          )}
+              <NavItem link="/signin">
+                <button className={classes.Button}>Sign In</button>
+              </NavItem>
+            )}
+          {(this.props.location.pathname === "/dashboard" ||
+            this.props.location.pathname === "/search-results") && (
+              <NavItem link="/profile">
+                <button id="profile" className={classes.Button}>
+                  <i className="fas fa-user-circle"></i>
+                </button>
+              </NavItem>
+            )}
         </ul>
       </div>
     );
