@@ -33,6 +33,7 @@ class SignIn extends Component {
       },
     },
     oneRequired: true,
+    loading: false,
     incorrectCredientials: false,
   };
 
@@ -105,6 +106,7 @@ class SignIn extends Component {
     console.log(divValidation);
     if (divValidation) {
       this.setState({ incorrectCredientials: false });
+      this.setState({ loading: true });
       axios
         .post("/api/signin", {
           email: this.state.email.value,
@@ -116,6 +118,7 @@ class SignIn extends Component {
             this.props.onAuthTrue();
             this.props.history.replace("/dashboard");
           } else {
+            this.setState({ loading: false });
             window.scrollTo(0, 105);
             this.setState({ incorrectCredientials: true });
           }
@@ -188,9 +191,16 @@ class SignIn extends Component {
                     Forgot Password?
                   </Link>
                 </Fade>
-                <button className={classes.Button + " " + classes.SignInButton}>
-                  Sign In
+                {this.state.loading ? <button
+                  disabled
+                  className={classes.Button + " " + classes.LoadingButton}
+                >
+                  <div className={classes.Loader}>Loading...</div>
                 </button>
+                  : <button className={classes.Button + " " + classes.SignInButton}>
+                    Sign In
+                </button>}
+
               </form>
             </div>
             <hr className={classes.Divider} />
