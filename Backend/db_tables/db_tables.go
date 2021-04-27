@@ -33,7 +33,7 @@ type CheckUsernameEmail struct {
 //Storing user preferences
 
 type Preferences struct {
-	Username string `json:"username" bson:"username"`
+	Username string   `json:"username" bson:"username"`
 	Language []string `json:"selectedLanguages,omitempty" bson:"language"`
 	Genre    []string `json:"selectedGenres,omitempty" bson:"genre"`
 }
@@ -41,8 +41,24 @@ type Preferences struct {
 //Returning at max 10 relevant search results to the username
 
 type SearchResult struct {
-	Results []string `json:"results,omitempty" bson:"results"`
-
+	Results []SearchDetails `json:"results,omitempty" bson:"results"`
+}
+type SearchDetails struct {
+	Title     string  `json:"title" bson:"title"`
+	//PosterURL string  `json:"posterURL" bson:"posterURL"`
+	Imdb_id   string  `json:"imdbID" bson:"imdbID"`
+	Year int `json:"year" bson:"year"`
+	//Genre   []string `json:"genre" bson:"genre"`
 }
 
+type Query struct {
+	Query string `json:"query" bson:"query"`
+}
 
+type ImdbID struct {
+	Imdbid string `json:"imdbID" bson:"imdbID"`
+}
+
+type Poster struct {
+	PosterUrl string `json:"poster" bson:"poster"`
+}
