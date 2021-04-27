@@ -1,5 +1,8 @@
 package main
 
+//nodemon in golang
+//nodemon --exec go run . --ext go
+
 import (
 	"context"
 	"encoding/json"
@@ -15,6 +18,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	//"net/smtp"
 	"pranav.com/db_tables"
+	//"github.com/codegangsta/gin"
+	//"github.com/cespare/reflex"
 )
 
 var user db_tables.NewUser
@@ -23,6 +28,7 @@ var cred db_tables.SignInData
 var check db_tables.CheckExistance
 var usrPass db_tables.CheckUsernameEmail
 var ClientVar *mongo.Client
+var pref db_tables.Preferences
 
 func main() {
 
@@ -37,7 +43,15 @@ func main() {
 	//Handling signup with email route
 	r.HandleFunc("/api/signup", sendUserData).Methods("POST", "OPTIONS")
 
+	//Checking up signin page
 	r.HandleFunc("/api/signin", signInResult).Methods("POST", "OPTIONS")
+
+	//Taking genres and languages in db
+	r.HandleFunc("/api/preferences", savePreferences).Methods("POST", "OPTIONS")
+
+	//Search a Movie/web-series query (using imdb api)
+	r.HandleFunc("/api/search", searchMovie).Methods("POST", "OPTIONS")
+
 	log.Fatal(http.ListenAndServe(":9000", r))
 
 }
@@ -193,8 +207,6 @@ func signInValidation(data db_tables.SignInData) bool {
 
 	filter := bson.D{{"email", data.Email}}
 
-
-
 	var result db_tables.NewUser
 	var statusSoFar bool
 
@@ -217,5 +229,52 @@ func signInValidation(data db_tables.SignInData) bool {
 		}
 	}
 	return statusSoFar
+
+}
+
+func savePreferences(w http.ResponseWriter, r *http.Request) {
+
+	//Setting header to content type will tell client to expect data in json format
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+	json.NewDecoder(r.Body).Decode(&pref)
+
+	//Logic for rejecting empty requests
+	if len(pref.Username) == 0{
+		fmt.Println("reject")
+	}else{
+	status_pref := storePreferences(pref)
+
+	json.NewEncoder(w).Encode(status_pref)
+	}
+
+}
+
+//Storing user preferences in database
+
+func storePreferences(preferences db_tables.Preferences) bool {
+
+	fmt.Println(preferences)
+	collection := ClientVar.Database("popkorn_db").Collection("UserPreferences")
+
+	status_pref := false
+
+	insertResult, err := collection.InsertOne(context.TODO(), preferences)
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		status_pref = true
+	}
+
+	fmt.Println("Inserted one documents for preferences: ", insertResult.InsertedID)
+	return status_pref
+
+}
+
+func searchMovie(w http.ResponseWriter, r *http.Request) {
+
 
 }
