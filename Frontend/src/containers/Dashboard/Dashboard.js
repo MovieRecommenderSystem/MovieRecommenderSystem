@@ -14,7 +14,7 @@ class Dashboard extends Component {
         <Footer />
       </Aux>
     ) : (
-      <Redirect from="/dashboard" to="/signup/email" />
+      <Redirect from="/dashboard" to="/signin" />
     );
   }
 }

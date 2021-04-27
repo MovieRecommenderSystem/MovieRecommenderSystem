@@ -1,17 +1,18 @@
 .App {
   text-align: center;
 }
+
 .loader,
 .loader:before,
 .loader:after {
-  background: #ec4646;
+  background: white;
   -webkit-animation: load1 1s infinite ease-in-out;
   animation: load1 1s infinite ease-in-out;
   width: 1em;
   height: 4em;
 }
 .loader {
-  color: #ec4646;
+  color: white;
   text-indent: -9999em;
   margin: 20% auto;
   position: relative;
@@ -26,7 +27,7 @@
 .loader:after {
   position: absolute;
   top: 0;
-  content: '';
+  content: "";
 }
 .loader:before {
   left: -1.5em;
