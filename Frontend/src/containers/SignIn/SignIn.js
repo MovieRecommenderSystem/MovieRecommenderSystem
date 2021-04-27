@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import classes from "../SignUp/SignUpEmail/SignUpEmail.module.css";
 import Fade from "react-reveal/Fade";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
+import axios from "../../axios-auth";
 import NavBar from "../../components/Navigation/NavBar";
 import Footer from "../../components/UI/Footer/Footer";
 import Aux from "../../hoc/Aux/Aux";
@@ -31,6 +33,7 @@ class SignIn extends Component {
       },
     },
     oneRequired: true,
+    incorrectCredientials: false,
   };
 
   isValid = (validProps) => {
@@ -101,8 +104,22 @@ class SignIn extends Component {
       divValidation = this.isValid(this.state.phone.isValid) && divValidation;
     console.log(divValidation);
     if (divValidation) {
-      // axios request
-      console.log(this.state);
+      this.setState({ incorrectCredientials: false });
+      axios
+        .post("/api/signin", {
+          email: this.state.email.value,
+          password: this.state.password.value,
+        })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data) {
+            this.props.onAuthTrue();
+            this.props.history.replace("/dashboard");
+          } else {
+            window.scrollTo(0, 105);
+            this.setState({ incorrectCredientials: true });
+          }
+        });
     } else {
       window.scrollTo(0, 105);
     }
@@ -116,6 +133,9 @@ class SignIn extends Component {
           <p className={classes.P}>Sign In</p>
           <div className={classes.Flex}>
             <div className={classes.FlexItem}>
+              {this.state.incorrectCredientials && (
+                <p className={classes.validateP}>*Wrong Credentials</p>
+              )}
               <form className={classes.Form} onSubmit={this.onSubmitHandler}>
                 <Fade right appear distance="5vw">
                   <Aux>
@@ -195,4 +215,17 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuthFalse: () => dispatch({ type: "False_Auth" }),
+    onAuthTrue: () => dispatch({ type: "True_Auth" }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

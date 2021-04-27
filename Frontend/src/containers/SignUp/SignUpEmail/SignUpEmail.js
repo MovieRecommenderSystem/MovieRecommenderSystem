@@ -175,6 +175,7 @@ class SignUp extends Component {
       case 0:
         // check for existing username and registered email
         // if username exists window.scrollTo and set state.uniqueUsername to false and else{}
+        this.setState({ uniqueLoading: true });
         axios
           .post("/api/checkUsernameAndEmail", {
             username: this.state.username.value,
@@ -185,21 +186,22 @@ class SignUp extends Component {
               this.props.history.push("/signin");
             } else {
               this.setState({ uniqueUsername: response.data.uniqueUsername });
+              this.setState({ uniqueLoading: false });
+              let firstDivValidation =
+                this.isValid(this.state.username.isValid) &&
+                this.isValid(this.state.email.isValid);
+              if (firstDivValidation && this.state.uniqueUsername) {
+                this.setState({
+                  auxRendered: {
+                    id: this.state.auxRendered.id + 1,
+                  },
+                });
+              } else {
+                window.scrollTo(0, 105);
+              }
             }
           });
-        // {uniqueUsername: true, registeredEmail: true}
-        let firstDivValidation =
-          this.isValid(this.state.username.isValid) &&
-          this.isValid(this.state.email.isValid);
-        if (firstDivValidation && this.state.uniqueUsername) {
-          this.setState({
-            auxRendered: {
-              id: this.state.auxRendered.id + 1,
-            },
-          });
-        } else {
-          window.scrollTo(0, 105);
-        }
+          // {uniqueUsername: true, registeredEmail: true}
         break;
       case 1:
         let secondDivValidation =
@@ -392,7 +394,10 @@ class SignUp extends Component {
                 Sign Up
               </button>
             ) : this.state.uniqueLoading ? (
-              <button disabled className={classes.Button}>
+              <button
+                disabled
+                className={classes.Button + " " + classes.LoadingButton}
+              >
                 <div className={classes.Loader}>Loading...</div>
               </button>
             ) : (
