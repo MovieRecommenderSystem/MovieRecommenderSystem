@@ -22,20 +22,22 @@ import (
 	"pranav.com/insert_operations"
 	//"github.com/codegangsta/gin"
 	//"github.com/cespare/reflex"
+	"pranav.com/yt"
 )
-
-
 
 var cred db_tables.SignInData
 var check db_tables.CheckExistance
 var usrPass db_tables.CheckUsernameEmail
 var ClientVar *mongo.Client
 
-
 func main() {
 
 	// Connecting with database
 	ClientVar = db.DatabaseConnection()
+
+	collection_n := ClientVar.Database("popkorn_db").Collection("Recommended_Movies")
+
+
 	//fmt.Println(cl)
 	r := mux.NewRouter()
 
@@ -55,12 +57,17 @@ func main() {
 	r.HandleFunc("/api/search", external_api.SearchMovieOrShow).Methods("POST", "OPTIONS")
 
 	//Send a poster Url
-	r.HandleFunc("/api/getPoster",external_api.GetPosterUrl).Methods("POST", "OPTIONS")
+	r.HandleFunc("/api/getPoster", external_api.GetPosterUrl).Methods("POST", "OPTIONS")
+
+	//Sending Movie SearchDetails
+	r.HandleFunc("/api/details", external_api.SendDetails).Methods("POST", "OPTIONS")
+
+	//Send Embedded Trailer embeddedLink
+	r.HandleFunc("/api/trailer", yt.SendTrailer).Methods("POST", "OPTIONS")
 
 	log.Fatal(http.ListenAndServe(":9000", r))
 
 }
-
 
 func userPassExistance(w http.ResponseWriter, r *http.Request) {
 
@@ -130,7 +137,6 @@ func checkExistance(usrpass db_tables.CheckUsernameEmail) {
 
 }
 
-
 func signInResult(w http.ResponseWriter, r *http.Request) {
 
 	//Setting header to content type will tell client to expect data in json format
@@ -182,4 +188,3 @@ func signInValidation(data db_tables.SignInData) bool {
 	return statusSoFar
 
 }
-

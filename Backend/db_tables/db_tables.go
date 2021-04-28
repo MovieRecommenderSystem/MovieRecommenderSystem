@@ -44,21 +44,53 @@ type SearchResult struct {
 	Results []SearchDetails `json:"results,omitempty" bson:"results"`
 }
 type SearchDetails struct {
-	Title     string  `json:"title" bson:"title"`
-	//PosterURL string  `json:"posterURL" bson:"posterURL"`
-	Imdb_id   string  `json:"imdbID" bson:"imdbID"`
-	Year int `json:"year" bson:"year"`
-	//Genre   []string `json:"genre" bson:"genre"`
+	Title string `json:"title" `
+	Tmdb_id int64 `json:"tmdb_id" `
+	Year    string    `json:"year" `
 }
 
 type Query struct {
 	Query string `json:"query" bson:"query"`
 }
 
-type ImdbID struct {
-	Imdbid string `json:"imdbID" bson:"imdbID"`
+type TmdbID struct {
+	Tmdbid int	 `json:"tmdbID"`
 }
 
 type Poster struct {
 	PosterUrl string `json:"poster" bson:"poster"`
 }
+
+//detailed movie page
+type DetailsPage struct {
+	ID          string   `json: "imdbId,omitempty"`
+	Name        string   `json: name",omitempty"`
+	Type        string   `json:"type,omitempty"`
+	Year        int      `json:"year,omitempty"`
+	Rating      string   `json:"rating,omitempty"`
+	Duration    string   `json:"duration,omitempty"`
+	Actors      []string `json:actors",omitempty"`
+	Genres      []string `json:genres",omitempty"`
+	Languages   []string `json:languages",omitempty"`
+	Description string   `json:"description,omitempty"`
+	Directors   []string   `json:"director,omitempty"`
+	Poster      string   `json:"poster,omitempty"`
+	
+}
+
+type YtUrlLink struct {
+	EmbeddedLink string `json:"embeddedLink"`
+}
+
+//   `json: "imdbId,omitempty"`
+//    `json: name",omitempty"`
+//   `json:"type,omitempty"`
+//    `json:"year,omitempty"`
+//  `json:"rating,omitempty"`
+// `json:"duration,omitempty"`
+//  `json:actors",omitempty"`
+// `json:genres",omitempty"`
+// `json:languages",omitempty"`
+// `json:"description,omitempty"`
+//   `json:"director,omitempty"`
+//  `json:"poster,omitempty"`
