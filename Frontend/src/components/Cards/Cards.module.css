@@ -4,3 +4,13 @@
   padding: 5vh 5vw;
   flex-flow: column;
 }
+
+.P {
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 2vw;
+  /* display: inline-block; */
+  margin: auto;
+  margin-bottom: 2vh;
+  color: white;
+  /* text-align: left; */
+}

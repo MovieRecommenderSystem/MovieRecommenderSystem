@@ -7,15 +7,16 @@ import classes from "./Card.module.css";
 class Card extends Component {
   render() {
     return (
-      <Link to={"/movie/" + this.props.id} style={{ textDecoration: "none" }}>
+      <Link
+        to={{
+          pathname: "/movie/" + this.props.id,
+          search: "?title=" + this.props.title,
+        }}
+        style={{ textDecoration: "none" }}
+      >
         <div className={classes.Card}>
           <div className={classes.Content1}>
-            <Img
-              src={this.props.img}
-              className={classes.Img}
-              alt="POSTER"
-              imdbID={this.props.id}
-            />
+            <Img alt="POSTER" imdbID={this.props.id} />
           </div>
           <div className={classes.Content2}>
             <p className={classes.P1}>{this.props.title}</p>

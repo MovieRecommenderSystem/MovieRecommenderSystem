@@ -1,0 +1,34 @@
+.Content {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  margin-top: 8vh;
+  margin: auto;
+  width: 90vw;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.829);
+}
+
+.ContentChildren {
+  padding: 3vw;
+  width: 15vw;
+  height: 50vh;
+  color: white;
+}
+
+.ContentChildren:hover {
+  color: #ec4646;
+}
+
+.P1 {
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 2vw;
+  margin: 0;
+  margin-bottom: 2vh;
+}
+
+.P2 {
+  font-family: "Alegreya Sans", sans-serif;
+  color: #ec4646;
+  font-size: 1.5vw;
+}

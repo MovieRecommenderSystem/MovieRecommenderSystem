@@ -6,6 +6,8 @@ import classes from "./Cards.module.css";
 const Cards = (props) => {
   return (
     <div className={classes.Cards}>
+        <p className={classes.P}>Search results for {props.query}</p>
+
       {props.movies.map((movie) => {
         return (
           <Card

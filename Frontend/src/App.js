@@ -43,6 +43,11 @@ const SearchResults = React.lazy(() =>
     import("./containers/SearchResults/SearchResults")
   )
 );
+const Movie = React.lazy(() =>
+  new Promise((resolve) => setTimeout(resolve, 100)).then(() =>
+    import("./containers/Movie/Movie")
+  )
+);
 
 class App extends Component {
   render() {
@@ -50,6 +55,7 @@ class App extends Component {
       <div className="App">
         <Suspense fallback={<div className="loader">Loading...</div>}>
           <Switch>
+            <Route path="/movie/:id" component={Movie} />
             <Route path="/search-results" component={SearchResults} />
             <Route path="/choose" component={Choose} />
             <Route path="/dashboard" component={Dashboard} />

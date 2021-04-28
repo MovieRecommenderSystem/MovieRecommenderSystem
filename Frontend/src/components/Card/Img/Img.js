@@ -33,7 +33,7 @@ class Img extends Component {
     //     }
     //   });
     axios
-      .post("/api/getPoster", { tmdbID: this.props.tmdbID })
+      .post("/api/getPoster", { imdbID: this.props.imdbID })
       .then((response) => {
         console.log(response.data);
         this.setState({ url: response.data.poster, loading: false });
@@ -43,11 +43,20 @@ class Img extends Component {
     return (
       <div>
         <Fade onReveal={this.componentDidReveal}>
-          <div>
+          <div className={classes.Wrapper}>
             {this.state.loading ? (
               <div className={classes.Loader}>Loading...</div>
             ) : this.state.url ? (
-              <img src={this.state.url} className={classes.Img} alt="POSTER" />
+              <img
+                src={this.state.url}
+                className={classes.Img}
+                style={{
+                  width: this.props.customWidth
+                    ? this.props.customWidth
+                    : "auto",
+                }}
+                alt="POSTER"
+              />
             ) : (
               <div className={classes.Loader}>We are working on it...</div>
             )}
