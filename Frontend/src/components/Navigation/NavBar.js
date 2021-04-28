@@ -24,7 +24,7 @@ class NavBar extends Component {
   };
 
   submitQueryHandler = () => {
-    this.props.history.push({
+    this.props.history.replace({
       pathname: "/search-results",
       search: "?search=" + this.state.searchQuery,
     });

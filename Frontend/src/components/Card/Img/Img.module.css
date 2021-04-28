@@ -1,3 +1,6 @@
+.Img{
+  width: 11vw;
+}
 .Loader,
 .Loader:after {
   border-radius: 50%;

@@ -11,30 +11,48 @@ class Img extends Component {
   };
   componentDidReveal = () => {
     // axios
-    //   .post("/api/getPoster", { imdbID: this.props.imdbID })
+    //   .get("https://imdb8.p.rapidapi.com/title/get-images", {
+    //     params: {
+    //       tconst: this.props.imdbID,
+    //       limit: "1",
+    //     },
+    //     headers: {
+    //       "x-rapidapi-key":
+    //         "4179e2d1a4msh3b6c87754d770d3p140658jsn6f2a764f599f",
+    //       "x-rapidapi-host": "imdb8.p.rapidapi.com",
+    //       useQueryString: true,
+    //     },
+    //   })
     //   .then((response) => {
-    //     this.setState({ url: response.data, loading: false });
+    //     // console.log(response.data.images[0].relatedTitles[0].image.url);
+    //     if (response.data.images !== null) {
+    //       this.setState({
+    //         url:typeof(response.data.images) !== undefined && response.data.images[0].relatedTitles[0].image.url,
+    //         loading: false,
+    //       });
+    //     }
     //   });
-    setTimeout(() => {
-      this.setState({
-        url:
-          "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_UX182_CR0,0,182,268_AL__QL50.jpg",
-        loading: false,
+    axios
+      .post("/api/getPoster", { tmdbID: this.props.tmdbID })
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ url: response.data.poster, loading: false });
       });
-    }, 1000);
-  }
+  };
   render() {
     return (
-        <div className={classes.Img}>
-      <Fade onReveal={this.componentDidReveal}>
-        <div>
-          {this.state.loading ? (
-            <div className={classes.Loader}>Loading...</div>
-          ) : (
-            <img src={this.state.url} className={classes.Img} alt="POSTER" />
-          )}
-        </div>
-      </Fade>
+      <div>
+        <Fade onReveal={this.componentDidReveal}>
+          <div>
+            {this.state.loading ? (
+              <div className={classes.Loader}>Loading...</div>
+            ) : this.state.url ? (
+              <img src={this.state.url} className={classes.Img} alt="POSTER" />
+            ) : (
+              <div className={classes.Loader}>We are working on it...</div>
+            )}
+          </div>
+        </Fade>
       </div>
     );
   }

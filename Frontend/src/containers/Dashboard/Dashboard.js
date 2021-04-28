@@ -7,10 +7,16 @@ import Footer from "../../components/UI/Footer/Footer";
 import NavBar from "../../components/Navigation/NavBar";
 
 class Dashboard extends Component {
+
+  state={
+    
+  }
+
   render() {
     return this.props.auth ? (
       <Aux>
         <NavBar />
+
         <Footer />
       </Aux>
     ) : (
