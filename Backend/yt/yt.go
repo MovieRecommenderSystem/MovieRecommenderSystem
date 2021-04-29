@@ -11,6 +11,7 @@ import (
 	"google.golang.org/api/googleapi/transport"
 	"google.golang.org/api/youtube/v3"
 	"pranav.com/db_tables"
+	"os"
 )
 var queryy db_tables.Query
 
@@ -40,7 +41,7 @@ var (
 	maxResults = flag.Int64("max-results", 1, "Max YouTube results")
 )
 
-const developerKey = "AIzaSyBzdeGiIlTfVND2vItd0AsSDOfcMXgsRmw"
+const developerKey = os.Getenv(key_yt)
 
 var url string
 
