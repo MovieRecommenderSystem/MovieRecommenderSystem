@@ -8,6 +8,7 @@ import (
 	"github.com/cyruzin/golang-tmdb"
 	"net/http"
 	"pranav.com/db_tables"
+	"os"
 )
 
 var result db_tables.SearchResult
@@ -16,7 +17,7 @@ var details db_tables.SearchDetails
 
 var length int
 
-const developerKey = "AIzaSyBzdeGiIlTfVND2vItd0AsSDOfcMXgsRmw"
+const developerKey = os.Getenv(key_api_yt)
 
 func SearchMovieOrShow(w http.ResponseWriter, r *http.Request) {
 	//Setting header to content type will tell client to expect data in json format
@@ -76,7 +77,7 @@ func SearchQuery(query db_tables.Query) db_tables.SearchResult {
 	// 	fmt.Errorf("Error while fetching details from Api")
 	// }
 	var result db_tables.SearchResult
-	tmdbClient, err := tmdb.Init("5eb2364b8f1e1222ff9d522297f3b554")
+	tmdbClient, err := tmdb.Init(os.Getenv(key))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -111,7 +112,7 @@ func SearchQuery(query db_tables.Query) db_tables.SearchResult {
 func getPoster(id db_tables.TmdbID) db_tables.Poster {
 
 	var poster db_tables.Poster
-	tmdbClient, err := tmdb.Init("5eb2364b8f1e1222ff9d522297f3b554")
+	tmdbClient, err := tmdb.Init(os.Getenv(key))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -174,7 +175,7 @@ func getDetail(det db_tables.TmdbID) db_tables.DetailsPage {
 }
 
 func getImdbId(i int) string {
-	tmdbClient, err := tmdb.Init("5eb2364b8f1e1222ff9d522297f3b554")
+	tmdbClient, err := tmdb.Init(os.Getenv(key))  //API KEY
 	if err != nil {
 		fmt.Println(err)
 	}
