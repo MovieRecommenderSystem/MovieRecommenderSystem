@@ -17,6 +17,10 @@
 ```go run api.go```
 ### Step 9: FINISH
 
+## Note: 
+Since we have udef youtube,imdb,tmdb api's their api key will be stored in the form of envoiroment varible.In order to run the above code
+One should request an API key on tmdb and goolge cloud platform(youtube_api) respectively.
+
 ## Tech Stack Used 
 
 ### Frontend: 
