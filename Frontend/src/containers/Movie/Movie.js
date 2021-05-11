@@ -10,6 +10,7 @@ import MoreLikeThis from "../MoreLikeThis/MoreLikeThis";
 import Trailer from "../../components/Trailer/Trailer";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
 import { Redirect } from "react-router";
+import axios from "../../axios-auth";
 
 class Movie extends Component {
   state = {
@@ -55,6 +56,9 @@ class Movie extends Component {
     let [title] = queries;
     let id = this.props.match.params.id;
     // axios request
+    axios.post("/api/details", { tmdbID: id }).then((response) => {
+      console.log(response.data);
+    });
     this.setState({ id: id, title: title, loading: false });
   }
 
@@ -96,8 +100,12 @@ class Movie extends Component {
             <div className={classes.Container}>
               <div className={classes.Content1}>
                 <Img imdbID={this.props.id} customWidth="15vw" />
-                {this.state.show && <Backdrop hideTrailer={this.hideTrailer} />}
-                {this.state.show && <Trailer />}
+                {!this.state.loading && this.state.show && (
+                  <Backdrop hideTrailer={this.hideTrailer} />
+                )}
+                {!this.state.loading && this.state.show && (
+                  <Trailer name={this.state.title} />
+                )}
                 <p className={classes.Trailer} onClick={this.showTrailer}>
                   View Trailer
                 </p>
