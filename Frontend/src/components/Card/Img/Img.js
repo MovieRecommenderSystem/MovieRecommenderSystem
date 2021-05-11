@@ -10,23 +10,38 @@ class Img extends Component {
     url: "",
   };
   componentDidReveal = () => {
-    // axios
-    //   .post("/api/getPoster", { imdbID: this.props.imdbID })
-    //   .then((response) => {
-    //     this.setState({ url: response.data, loading: false });
-    //   });
-  }
+    console.log(this.props.imdbID)
+    axios
+      .post("/api/getPoster", { tmdbID: this.props.imdbID })
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ url: response.data.poster, loading: false });
+      });
+  };
   render() {
     return (
-      <Fade onReveal={this.componentDidReveal}>
-        <div>
-          {this.state.loading ? (
-            <div className={classes.Loader}>Loading...</div>
-          ) : (
-            <img src={this.state.url} className={classes.Img} alt="POSTER" />
-          )}
-        </div>
-      </Fade>
+      <div>
+        <Fade onReveal={this.componentDidReveal}>
+          <div className={classes.Wrapper}>
+            {this.state.loading ? (
+              <div className={classes.Loader}>Loading...</div>
+            ) : this.state.url ? (
+              <img
+                src={this.state.url}
+                className={classes.Img}
+                style={{
+                  width: this.props.customWidth
+                    ? this.props.customWidth
+                    : "auto",
+                }}
+                alt="POSTER"
+              />
+            ) : (
+              <div className={classes.Loader}>We are working on it...</div>
+            )}
+          </div>
+        </Fade>
+      </div>
     );
   }
 }

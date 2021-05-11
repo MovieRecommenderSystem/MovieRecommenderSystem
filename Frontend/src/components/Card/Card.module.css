@@ -1,9 +1,10 @@
 .Card {
   display: inline-flex;
-  justify-content: center;
+  justify-content: left;
   color: white;
   padding: 2vh;
   align-items: center;
+  width: 100%;
 }
 .Card:hover {
   background-color: #000000;

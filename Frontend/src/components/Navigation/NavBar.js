@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 import NavItem from "./NavItem/NavItem";
 import Logo from "../UI/Logo/Logo";
@@ -24,7 +25,7 @@ class NavBar extends Component {
   };
 
   submitQueryHandler = () => {
-    this.props.history.push({
+    this.props.history.replace({
       pathname: "/search-results",
       search: "?search=" + this.state.searchQuery,
     });
@@ -33,11 +34,15 @@ class NavBar extends Component {
   render() {
     return (
       <div className={classes.NavBar}>
-        <NavLink to="/" className={classes.NavLink}>
+        <NavLink
+          to={this.props.auth ? "/dashboard" : "/"}
+          className={classes.NavLink}
+        >
           <Logo />
         </NavLink>
         {(this.props.location.pathname === "/dashboard" ||
-          this.props.location.pathname === "/search-results") && (
+          this.props.location.pathname === "/search-results" ||
+          this.props.match.path === "/movie/:id") && (
             <div
               className={
                 classes.SearchParent + " " + (this.state.focus && classes.Active)
@@ -58,7 +63,8 @@ class NavBar extends Component {
           )}
         <ul className={classes.NavItems}>
           {(this.props.location.pathname === "/dashboard" ||
-            this.props.location.pathname === "/search-results") && (
+            this.props.location.pathname === "/search-results" ||
+            this.props.match.path === "/movie/:id") && (
               <NavItem link="/watchlist">
                 <button className={classes.Button}>Watchlist</button>
               </NavItem>
@@ -83,7 +89,8 @@ class NavBar extends Component {
               </NavItem>
             )}
           {(this.props.location.pathname === "/dashboard" ||
-            this.props.location.pathname === "/search-results") && (
+            this.props.location.pathname === "/search-results" ||
+            this.props.match.path === "/movie/:id") && (
               <NavItem link="/profile">
                 <button id="profile" className={classes.Button}>
                   <i className="fas fa-user-circle"></i>
@@ -96,4 +103,8 @@ class NavBar extends Component {
   }
 }
 
-export default withRouter(NavBar);
+const mapStateToProps = (state) => {
+  return { auth: state.auth };
+};
+
+export default connect(mapStateToProps)(withRouter(NavBar));
