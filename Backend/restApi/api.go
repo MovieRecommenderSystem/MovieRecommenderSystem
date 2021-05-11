@@ -7,12 +7,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"log"
-	"net/http"
 	db "pranav.com/db"
+
 	//"go.mongodb.org/mongo-driver/mongo/options"
 	//"go.mongodb.org/mongo-driver/mongo/readpref"
 	"golang.org/x/crypto/bcrypt"
@@ -20,6 +22,7 @@ import (
 	"pranav.com/db_tables"
 	"pranav.com/external_api"
 	"pranav.com/insert_operations"
+
 	//"github.com/codegangsta/gin"
 	//"github.com/cespare/reflex"
 	"pranav.com/yt"
@@ -30,12 +33,16 @@ var check db_tables.CheckExistance
 var usrPass db_tables.CheckUsernameEmail
 var ClientVar *mongo.Client
 
+
+
+
 func main() {
 
 	// Connecting with database
+	fmt.Println("Hellio")
 	ClientVar = db.DatabaseConnection()
 
-	collection_n := ClientVar.Database("popkorn_db").Collection("Recommended_Movies")
+	//collection_n := ClientVar.Database("popkorn_db").Collection("Recommended_Movies")
 
 
 	//fmt.Println(cl)
@@ -66,6 +73,7 @@ func main() {
 	r.HandleFunc("/api/trailer", yt.SendTrailer).Methods("POST", "OPTIONS")
 
 	log.Fatal(http.ListenAndServe(":9000", r))
+
 
 }
 
