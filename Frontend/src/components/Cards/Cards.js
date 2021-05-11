@@ -11,8 +11,8 @@ const Cards = (props) => {
       {props.movies.map((movie) => {
         return (
           <Card
-            key={movie.imdbID}
-            id={movie.imdbID}
+            key={movie.tmdb_id}
+            id={movie.tmdb_id}
             alt="POSTER"
             year={movie.year}
             title={movie.title}

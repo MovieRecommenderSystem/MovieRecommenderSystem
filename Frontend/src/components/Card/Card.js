@@ -20,7 +20,7 @@ class Card extends Component {
           </div>
           <div className={classes.Content2}>
             <p className={classes.P1}>{this.props.title}</p>
-            <p className={classes.P2}>{"(" + this.props.year + ")"}</p>
+            <p className={classes.P2}>{"(" + this.props.year.substring(0,4) + ")"}</p>
           </div>
         </div>
       </Link>
