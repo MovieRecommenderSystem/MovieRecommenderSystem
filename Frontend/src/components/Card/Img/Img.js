@@ -10,30 +10,9 @@ class Img extends Component {
     url: "",
   };
   componentDidReveal = () => {
-    // axios
-    //   .get("https://imdb8.p.rapidapi.com/title/get-images", {
-    //     params: {
-    //       tconst: this.props.imdbID,
-    //       limit: "1",
-    //     },
-    //     headers: {
-    //       "x-rapidapi-key":
-    //         "4179e2d1a4msh3b6c87754d770d3p140658jsn6f2a764f599f",
-    //       "x-rapidapi-host": "imdb8.p.rapidapi.com",
-    //       useQueryString: true,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     // console.log(response.data.images[0].relatedTitles[0].image.url);
-    //     if (response.data.images !== null) {
-    //       this.setState({
-    //         url:typeof(response.data.images) !== undefined && response.data.images[0].relatedTitles[0].image.url,
-    //         loading: false,
-    //       });
-    //     }
-    //   });
+    console.log(this.props.imdbID)
     axios
-      .post("/api/getPoster", { imdbID: this.props.imdbID })
+      .post("/api/getPoster", { tmdbID: this.props.imdbID })
       .then((response) => {
         console.log(response.data);
         this.setState({ url: response.data.poster, loading: false });

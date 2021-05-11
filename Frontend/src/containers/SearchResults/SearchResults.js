@@ -20,8 +20,10 @@ class SearchResults extends Component {
     for (let param of query.entries()) {
       queryParam = param[1];
     }
+
     this.setState({query: queryParam});
     axios.post("/api/search", { query: queryParam }).then((response) => {
+      console.log(response.data.results)
       this.setState({
         movies: response.data.results,
       });

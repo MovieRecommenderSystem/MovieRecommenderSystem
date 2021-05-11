@@ -7,6 +7,7 @@ class Trailer extends Component {
     url: "",
   };
   componentDidMount() {
+    console.log(this.props.name)
     axios.post("/api/trailer", { query: this.props.name }).then((response) => {
       this.setState({ url: response.data.embeddedLink });
       console.log(response.data);

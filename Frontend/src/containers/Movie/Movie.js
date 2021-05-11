@@ -45,7 +45,7 @@ class Movie extends Component {
       "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
     directors: ["Joss Whedon"],
     actors: ["Robert Downey Jr.", "Chris Evans", "Scarlett Johansson"],
-    show: false,
+    show: false, 
   };
   componentDidMount() {
     let query = new URLSearchParams(this.props.location.search);
@@ -54,12 +54,14 @@ class Movie extends Component {
       queries.push(value);
     }
     let [title] = queries;
+    console.log(this.props)
     let id = this.props.match.params.id;
     // axios request
-    axios.post("/api/details", { tmdbID: id }).then((response) => {
+    console.log(id)
+    axios.post("/api/details", { tmdbID: Number(id) }).then((response) => {
       console.log(response.data);
     });
-    this.setState({ id: id, title: title, loading: false });
+    this.setState({ id: id, title: title, loading: false});
   }
 
   componentDidUpdate(prevProps) {
