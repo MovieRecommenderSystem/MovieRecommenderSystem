@@ -56,7 +56,7 @@ class App extends Component {
         <Suspense fallback={<div className="loader">Loading...</div>}>
           <Switch>
             <Route path="/movie/:id" component={Movie} />
-            <Route path="/search-results" component={SearchResults} />
+            <Route path="/search-results/:query" component={SearchResults} />
             <Route path="/choose" component={Choose} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/auth-options" component={AuthOptions} />

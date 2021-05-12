@@ -3,11 +3,13 @@ package external_api
 import (
 	"encoding/json"
 	"github.com/StalkR/imdb"
-	//"log"
+	"log"
+	"os"
 	"fmt"
 	"github.com/cyruzin/golang-tmdb"
 	"net/http"
 	"pranav.com/db_tables"
+	"github.com/joho/godotenv"
 )
 
 var result db_tables.SearchResult
@@ -18,6 +20,19 @@ var length int
 
 const developerKey = "AIzaSyBzdeGiIlTfVND2vItd0AsSDOfcMXgsRmw"
 
+func goDotEnvVariable(key string) string {
+
+	// load .env file
+	err := godotenv.Load("../.env")
+  
+	if err != nil {
+	  log.Fatalf("Error loading .env file")
+	}
+  
+	return os.Getenv(key)
+  }
+
+
 func SearchMovieOrShow(w http.ResponseWriter, r *http.Request) {
 	//Setting header to content type will tell client to expect data in json format
 	w.Header().Set("Content-Type", "application/json")
@@ -26,7 +41,7 @@ func SearchMovieOrShow(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	var query db_tables.Query
 	json.NewDecoder(r.Body).Decode(&query)
-	fmt.Println(query)
+	//fmt.Println(query)
 	if len(query.Query) > 0 {
 		answer := SearchQuery(query)
 		fmt.Println(answer)
@@ -43,7 +58,7 @@ func GetPosterUrl(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	var id db_tables.TmdbID
 	json.NewDecoder(r.Body).Decode(&id)
-	fmt.Println(id)
+	//fmt.Println(id)
 	if id.Tmdbid > 0 {
 		answer := getPoster(id)
 		fmt.Println(answer)
@@ -58,7 +73,9 @@ func SendDetails(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	var det db_tables.TmdbID
+	
 	json.NewDecoder(r.Body).Decode(&det)
+	fmt.Println(det)
 	if det.Tmdbid > 0 {
 		answer := getDetail(det)
 		fmt.Println(answer)
@@ -76,7 +93,8 @@ func SearchQuery(query db_tables.Query) db_tables.SearchResult {
 	// 	fmt.Errorf("Error while fetching details from Api")
 	// }
 	var result db_tables.SearchResult
-	tmdbClient, err := tmdb.Init("5eb2364b8f1e1222ff9d522297f3b554")
+	tmdb_key:=goDotEnvVariable("TMDB_KEY")
+	tmdbClient, err := tmdb.Init(tmdb_key)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -111,7 +129,8 @@ func SearchQuery(query db_tables.Query) db_tables.SearchResult {
 func getPoster(id db_tables.TmdbID) db_tables.Poster {
 
 	var poster db_tables.Poster
-	tmdbClient, err := tmdb.Init("5eb2364b8f1e1222ff9d522297f3b554")
+	tmdb_key:=goDotEnvVariable("TMDB_KEY")
+	tmdbClient, err := tmdb.Init(tmdb_key)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -129,10 +148,10 @@ func getPoster(id db_tables.TmdbID) db_tables.Poster {
 	link := "https://image.tmdb.org/t/p/w500"
 	a := title.BackdropPath
 	//fmt.Println(tmdb.GetImageURL(movie.BackdropPath, tmdb.W500))
-	fmt.Println(link + a)
+	//fmt.Println(link + a)
 	// b:=link+a
 	//a:=movie.Results[0].ReleaseDate
-	fmt.Println(a)
+	//fmt.Println(a)
 	poster.PosterUrl = link + a
 	return poster
 
@@ -165,7 +184,7 @@ func getDetail(det db_tables.TmdbID) db_tables.DetailsPage {
 		DetailsPage.Actors = temp
 		var temp2 []string
 		for i := 0; i < len(Movie_everyting.Directors); i++ {
-			temp2 = append(temp2, Movie_everyting.Actors[i].FullName)
+			temp2 = append(temp2, Movie_everyting.Directors[i].FullName)
 		}
 		DetailsPage.Directors = temp2
 
@@ -174,7 +193,8 @@ func getDetail(det db_tables.TmdbID) db_tables.DetailsPage {
 }
 
 func getImdbId(i int) string {
-	tmdbClient, err := tmdb.Init("5eb2364b8f1e1222ff9d522297f3b554")
+	tmdb_key:=goDotEnvVariable("TMDB_KEY")
+	tmdbClient, err := tmdb.Init(tmdb_key	)
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -6,15 +6,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
+	"os"
 	//"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"google.golang.org/api/googleapi/transport"
 	"google.golang.org/api/youtube/v3"
 	"pranav.com/db_tables"
 )
-var queryy db_tables.Query
 
+var queryy db_tables.Query
 var a db_tables.YtUrlLink
+
 func SendTrailer(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -22,30 +24,42 @@ func SendTrailer(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	//var query db_tables.Query
 	json.NewDecoder(r.Body).Decode(&queryy)
-	fmt.Println(query)
+	fmt.Println(queryy)
 	if len(queryy.Query) > 0 {
 		YtUrl()
-		a.EmbeddedLink=url
+		a.EmbeddedLink = url
 		json.NewEncoder(w).Encode(a)
 	}
-	
+
 }
 
+func goDotEnvVariable(key string) string {
 
-var trialerStr string = " trailer"
-var movieName string =	queryy.Query
-var queryStr string =trialerStr+movieName
-var (
-	query      = flag.String("query", queryStr, "Search term")
-	maxResults = flag.Int64("max-results", 1, "Max YouTube results")
-)
+	// load .env file
+	err := godotenv.Load("../.env")
 
-const developerKey = "AIzaSyBzdeGiIlTfVND2vItd0AsSDOfcMXgsRmw"
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	return os.Getenv(key)
+}
 
 var url string
 
-
 func YtUrl() {
+	var trialerStr string = " trailer"
+	var movieName string = queryy.Query
+	var queryStr string = movieName + trialerStr
+
+	var (
+		//query      = flag.String("quer", queryStr, "Search term")
+		//maxResults = flag.Int64("max-results", 1, "Max YouTube results")
+		service  *youtube.Service
+		response *youtube.SearchListResponse
+	)
+
+	developerKey := goDotEnvVariable("GOOGLE_API")
 	flag.Parse()
 
 	client := &http.Client{
@@ -60,9 +74,13 @@ func YtUrl() {
 	// Make the API call to YouTube.
 	//made changes here== from service.Search.List("id,snippet") to service.Search.List([]string{"id,snippet"})
 	call := service.Search.List([]string{"id,snippet"}).
-		Q(*query).
-		MaxResults(*maxResults)
-	response, _ := call.Do()
+		Q(queryStr).
+		MaxResults(1)
+	// Changed above 2 lines
+	// Q(*query).
+	// MaxResults(*max-results)
+
+	response, _ = call.Do()
 	//handleError(err, "")
 
 	// Group video, channel, and playlist results in separate lists.
