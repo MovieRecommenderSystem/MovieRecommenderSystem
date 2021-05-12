@@ -129,7 +129,8 @@ func SearchQuery(query db_tables.Query) db_tables.SearchResult {
 func getPoster(id db_tables.TmdbID) db_tables.Poster {
 
 	var poster db_tables.Poster
-	tmdbClient, err := tmdb.Init("5eb2364b8f1e1222ff9d522297f3b554")
+	tmdb_key:=goDotEnvVariable("TMDB_KEY")
+	tmdbClient, err := tmdb.Init(tmdb_key)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -183,7 +184,7 @@ func getDetail(det db_tables.TmdbID) db_tables.DetailsPage {
 		DetailsPage.Actors = temp
 		var temp2 []string
 		for i := 0; i < len(Movie_everyting.Directors); i++ {
-			temp2 = append(temp2, Movie_everyting.Actors[i].FullName)
+			temp2 = append(temp2, Movie_everyting.Directors[i].FullName)
 		}
 		DetailsPage.Directors = temp2
 
@@ -192,7 +193,8 @@ func getDetail(det db_tables.TmdbID) db_tables.DetailsPage {
 }
 
 func getImdbId(i int) string {
-	tmdbClient, err := tmdb.Init("5eb2364b8f1e1222ff9d522297f3b554")
+	tmdb_key:=goDotEnvVariable("TMDB_KEY")
+	tmdbClient, err := tmdb.Init(tmdb_key	)
 	if err != nil {
 		fmt.Println(err)
 	}

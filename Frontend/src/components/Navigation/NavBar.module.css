@@ -6,7 +6,6 @@
   border: none;
   cursor: pointer;
   color: white;
-  padding: 1.3vh 1vw;
 }
 .Button:hover,
 .Button:active {
@@ -37,17 +36,6 @@
   text-decoration: none;
 }
 
-.Plus {
-  background-color: white;
-  color: #ec4646;
-}
-.Plus:hover,
-.Plus:active {
-  color: white;
-  background-color: #ec4646;
-  font-size: 1.9vw;
-}
-
 .Search {
   border: none;
   background-color: transparent;
@@ -58,7 +46,7 @@
   width: 35vw;
   outline: none;
 }
-.SearchParent{
+.SearchParent {
   display: flex;
   flex-flow: row;
   box-sizing: border-box;
@@ -70,15 +58,40 @@
   left: 3.1vw;
   background-color: rgba(0, 0, 0, 0.726);
 }
-.Active{
+.Active {
   color: #ec4646;
   background-color: black;
   /* position: relative;
   transform: scale(1.1,1.1); */
 }
 
-
 :global #profile {
   background: none;
   padding: 0;
+}
+
+@media (max-width: 768px) {
+  .Button {
+    padding: 1.3vh 2vw;
+    font-size: 3.5vw;
+  }
+  .Button:hover,
+  .Button:active {
+    font-size: 2vw;
+  }
+  :global .fa-user-circle {
+    font-size: 7vw;
+  }
+  .NavBar {
+    margin: 1vh 0.2vw;
+  }
+
+  .Search {
+    padding: 1.3vh 2vw;
+    font-size: 3vw;
+    width: 35vw;
+  }
+  .SearchParent {
+    padding: 0.5vh 2.5vw;
+  }
 }

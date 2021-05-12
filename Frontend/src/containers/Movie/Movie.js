@@ -47,17 +47,20 @@ class Movie extends Component {
         id: id,
         title: title,
         loading: false,
-        rating: response.data.rating,
-        year: response.data.year,
-        genre: response.data.Genres,
-        runtime:
-          response.data.duration.substring(0, 2) +
-          " " +
-          response.data.duration.substring(2),
-        language: response.data.Languages,
-        description: response.data.description,
-        directors: response.data.director,
-        actors: response.data.Actors,
+        rating: response.data.rating ? response.data.rating : null,
+        year: response.data.year ? response.data.year : null,
+        genre: response.data.Genres ? response.data.Genres : null,
+        runtime: response.data.duration
+          ? response.data.duration.substring(0, 2) +
+            " " +
+            response.data.duration.substring(2)
+          : null,
+        language: response.data.Languages ? response.data.Languages : null,
+        description: response.data.description
+          ? response.data.description
+          : null,
+        directors: response.data.director ? response.data.director : null,
+        actors: response.data.Actors ? response.data.Actors : null,
       });
     });
   }

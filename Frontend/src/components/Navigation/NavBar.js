@@ -70,11 +70,6 @@ class NavBar extends Component {
               <button className={classes.Button}>Watchlist</button>
             </NavItem>
           )}
-          <NavItem link="/premium">
-            <button className={classes.Button + " " + classes.Plus}>
-              Get Plus
-            </button>
-          </NavItem>
           {this.props.location.pathname === "/signin" && (
             <NavItem link="/auth-options">
               <button className={classes.Button}>Sign Up</button>

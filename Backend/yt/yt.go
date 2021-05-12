@@ -50,12 +50,15 @@ var url string
 func YtUrl() {
 	var trialerStr string = " trailer"
 	var movieName string = queryy.Query
-	var queryStr string =  movieName + trialerStr
+	var queryStr string = movieName + trialerStr
+
 	var (
-		query      = flag.String("query", queryStr, "Search term")
-		maxResults = flag.Int64("max-results", 1, "Max YouTube results")
+		//query      = flag.String("quer", queryStr, "Search term")
+		//maxResults = flag.Int64("max-results", 1, "Max YouTube results")
+		service  *youtube.Service
+		response *youtube.SearchListResponse
 	)
-	fmt.Println(queryStr)
+
 	developerKey := goDotEnvVariable("GOOGLE_API")
 	flag.Parse()
 
@@ -71,9 +74,13 @@ func YtUrl() {
 	// Make the API call to YouTube.
 	//made changes here== from service.Search.List("id,snippet") to service.Search.List([]string{"id,snippet"})
 	call := service.Search.List([]string{"id,snippet"}).
-		Q(*query).
-		MaxResults(*maxResults)
-	response, _ := call.Do()
+		Q(queryStr).
+		MaxResults(1)
+	// Changed above 2 lines
+	// Q(*query).
+	// MaxResults(*max-results)
+
+	response, _ = call.Do()
 	//handleError(err, "")
 
 	// Group video, channel, and playlist results in separate lists.
