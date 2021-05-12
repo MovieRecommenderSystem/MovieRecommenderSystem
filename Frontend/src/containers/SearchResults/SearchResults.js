@@ -12,22 +12,25 @@ import { Redirect } from "react-router";
 class SearchResults extends Component {
   state = {
     movies: [],
-    query: ""
   };
   componentDidMount() {
-    let query = new URLSearchParams(this.props.location.search);
-    let queryParam = "";
-    for (let param of query.entries()) {
-      queryParam = param[1];
-    }
-
-    this.setState({query: queryParam});
-    axios.post("/api/search", { query: queryParam }).then((response) => {
-      console.log(response.data.results)
+    axios.post("/api/search", { query: this.props.query }).then((response) => {
       this.setState({
         movies: response.data.results,
       });
     });
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.query !== this.props.query) {
+      this.setState({ movies: [] });
+      axios
+        .post("/api/search", { query: this.props.query })
+        .then((response) => {
+          this.setState({
+            movies: response.data.results,
+          });
+        });
+    }
   }
   render() {
     return this.props.auth ? (
@@ -36,7 +39,7 @@ class SearchResults extends Component {
         {this.state.movies.length === 0 ? (
           <div className={classes.Loader}>Loading...</div>
         ) : (
-          <Cards query={this.state.query} movies={this.state.movies} />
+          <Cards query={this.props.query} movies={this.state.movies} />
         )}
         <Footer />
       </Aux>
@@ -47,7 +50,7 @@ class SearchResults extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { auth: state.auth };
+  return { auth: state.auth, query: state.query };
 };
 
 export default connect(mapStateToProps)(SearchResults);

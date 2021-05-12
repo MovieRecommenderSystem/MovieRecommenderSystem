@@ -1,6 +1,7 @@
 const initialState = {
   auth: null, // change the default to null
-  username: ''
+  username: "",
+  query: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,10 +17,14 @@ const reducer = (state = initialState, action) => {
         auth: true,
       };
     case "Set_Username":
-      console.log(action);
-      return{
+      return {
         ...state,
-        username: action.username
+        username: action.username,
+      };
+    case "Set_Query":
+      return {
+        ...state,
+        query: action.query,
       };
     default:
       return state;

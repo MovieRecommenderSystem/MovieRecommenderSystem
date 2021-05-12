@@ -115,7 +115,6 @@ class Choose extends Component {
                     : ["en"],
             username: this.props.username,
         };
-        console.log(preferences);
         axios
             .post("/api/preferences", preferences)
             .then((response) => {

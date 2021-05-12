@@ -225,7 +225,6 @@ class SignUp extends Component {
     event.preventDefault();
     let thirdDivValidation = this.isValid(this.state.phone.isValid);
     if (thirdDivValidation) {
-      console.log(this.state);
       const userData = {
         username: this.state.username.value,
         email: this.state.email.value,

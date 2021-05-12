@@ -16,7 +16,7 @@ class Card extends Component {
       >
         <div className={classes.Card}>
           <div className={classes.Content1}>
-            <Img alt="POSTER" imdbID={this.props.id} />
+            <Img alt="POSTER" imdbID={this.props.id} customWidth="15vw"/>
           </div>
           <div className={classes.Content2}>
             <p className={classes.P1}>{this.props.title}</p>

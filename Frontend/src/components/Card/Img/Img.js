@@ -10,9 +10,8 @@ class Img extends Component {
     url: "",
   };
   componentDidReveal = () => {
-    console.log(this.props.imdbID)
     axios
-      .post("/api/getPoster", { tmdbID: this.props.imdbID })
+      .post("/api/getPoster", { tmdbID: Number(this.props.imdbID) })
       .then((response) => {
         console.log(response.data);
         this.setState({ url: response.data.poster, loading: false });

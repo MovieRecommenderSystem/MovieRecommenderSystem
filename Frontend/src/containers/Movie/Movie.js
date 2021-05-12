@@ -14,21 +14,6 @@ import axios from "../../axios-auth";
 
 class Movie extends Component {
   state = {
-    //   // come from URL
-    // id: null,
-    // title: "",
-    // // come from component itself
-    // loading: true,
-    // like: null,
-    // // come from external API
-    // rating: null,
-    // year: null,
-    // genre: [],
-    // runtime: "",
-    // language: [],
-    // description: "",
-    // directors: [],
-    // actors: [],
     // come from URL
     id: "",
     title: "",
@@ -36,16 +21,16 @@ class Movie extends Component {
     loading: true,
     like: null,
     // come from external API
-    rating: 8,
-    year: 2012,
-    genre: ["Action", "Adventure", "Sci-Fi"],
-    runtime: "2h 23min",
-    language: ["English", "Russian", "Hindi"],
-    description:
-      "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
-    directors: ["Joss Whedon"],
-    actors: ["Robert Downey Jr.", "Chris Evans", "Scarlett Johansson"],
-    show: false, 
+    rating: null,
+    year: null,
+    genre: [],
+    runtime: "",
+    language: [],
+    description: "",
+    directors: [],
+    actors: [],
+    // come from URL
+    show: false,
   };
   componentDidMount() {
     let query = new URLSearchParams(this.props.location.search);
@@ -54,14 +39,27 @@ class Movie extends Component {
       queries.push(value);
     }
     let [title] = queries;
-    console.log(this.props)
     let id = this.props.match.params.id;
+    console.log(id);
     // axios request
-    console.log(id)
     axios.post("/api/details", { tmdbID: Number(id) }).then((response) => {
-      console.log(response.data);
+      this.setState({
+        id: id,
+        title: title,
+        loading: false,
+        rating: response.data.rating,
+        year: response.data.year,
+        genre: response.data.Genres,
+        runtime:
+          response.data.duration.substring(0, 2) +
+          " " +
+          response.data.duration.substring(2),
+        language: response.data.Languages,
+        description: response.data.description,
+        directors: response.data.director,
+        actors: response.data.Actors,
+      });
     });
-    this.setState({ id: id, title: title, loading: false});
   }
 
   componentDidUpdate(prevProps) {
@@ -91,7 +89,6 @@ class Movie extends Component {
   };
 
   render() {
-    console.log(this.props);
     return this.props.auth ? (
       <Aux>
         <NavBar />
@@ -101,13 +98,9 @@ class Movie extends Component {
           <Aux>
             <div className={classes.Container}>
               <div className={classes.Content1}>
-                <Img imdbID={this.props.id} customWidth="15vw" />
-                {!this.state.loading && this.state.show && (
-                  <Backdrop hideTrailer={this.hideTrailer} />
-                )}
-                {!this.state.loading && this.state.show && (
-                  <Trailer name={this.state.title} />
-                )}
+                <Img imdbID={this.state.id} customWidth="15vw" />
+                {this.state.show && <Backdrop hideTrailer={this.hideTrailer} />}
+                {this.state.show && <Trailer name={this.state.title} />}
                 <p className={classes.Trailer} onClick={this.showTrailer}>
                   View Trailer
                 </p>

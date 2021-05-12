@@ -103,7 +103,6 @@ class SignIn extends Component {
       divValidation = this.isValid(this.state.email.isValid) && divValidation;
     if (this.state.phone.value.length > 0)
       divValidation = this.isValid(this.state.phone.isValid) && divValidation;
-    //console.log(divValidation);
     if (divValidation) {
       this.setState({ incorrectCredientials: false });
       this.setState({ loading: true });
@@ -113,7 +112,6 @@ class SignIn extends Component {
           password: this.state.password.value,
         })
         .then((response) => {
-          console.log(response.data);
           if (response.data) {
             this.props.onAuthTrue();
             this.props.history.replace("/dashboard");
