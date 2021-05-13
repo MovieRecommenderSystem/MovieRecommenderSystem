@@ -100,5 +100,13 @@ dist
 # DynamoDB Local files
 .dynamodb/
 
+Model/dataset/credits.csv
+Model/.ipynb_checkpoints/
+Model/Count_Matrix.pickle
+Model/keywords.csv
+Model/links_small.csv
+Model/movies_metadata.csv
+Model/Small_Movies.pickle
+
 # TernJS port file
 .tern-port
