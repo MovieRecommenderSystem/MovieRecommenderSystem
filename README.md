@@ -46,3 +46,5 @@ One should request an API key on tmdb and goolge cloud platform(youtube_api) res
 5. scipy
 6. scikit learn
 7. Different data visualisation libraries(matplotlib.pyplot, seaborn) 
+
+[Dataset](https://drive.google.com/file/d/1QTMhTcclyl3WRdaxgHdLBWfPp_IxoMwg/view?usp=sharing)
