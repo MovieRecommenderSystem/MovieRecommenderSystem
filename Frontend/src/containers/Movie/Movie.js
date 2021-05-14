@@ -103,7 +103,12 @@ class Movie extends Component {
               <div className={classes.Content1}>
                 <Img imdbID={this.state.id} customWidth="15vw" />
                 {this.state.show && <Backdrop hideTrailer={this.hideTrailer} />}
-                {this.state.show && <Trailer name={this.state.title} />}
+                {this.state.show && (
+                  <Trailer
+                    name={this.state.title}
+                    hideTrailer={this.hideTrailer}
+                  />
+                )}
                 <p className={classes.Trailer} onClick={this.showTrailer}>
                   View Trailer
                 </p>

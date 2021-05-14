@@ -81,7 +81,7 @@
   }
   .Button:hover,
   .Button:active {
-    font-size: 2vw;
+    font-size: 5.5vw;
   }
   :global .fa-user-circle {
     font-size: 7vw;

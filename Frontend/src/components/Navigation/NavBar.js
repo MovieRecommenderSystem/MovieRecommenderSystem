@@ -104,7 +104,7 @@ class NavBar extends Component {
             </NavItem>
           )}
         </ul>
-        {(this.props.location.pathname === "/dashboard" ||
+        {/* {(this.props.location.pathname === "/dashboard" ||
           this.props.match.path === "/search-results/:query" ||
           this.props.match.path === "/movie/:id") && (
           <div
@@ -131,8 +131,12 @@ class NavBar extends Component {
               onChange={this.onSearchChangeHandler}
             />
           </div>
+        )} */}
+        {(this.props.location.pathname === "/dashboard" ||
+          this.props.match.path === "/search-results/:query" ||
+          this.props.match.path === "/movie/:id") && (
+          <img src={menuImg} alt="Hamburger" className={classes.OnMobile} />
         )}
-        <img src={menuImg} alt="Hamburger" className={classes.OnMobile} />
       </div>
     );
   }
