@@ -36,6 +36,10 @@
   text-decoration: none;
 }
 
+.OnMobile{
+  display: none;
+}
+
 .Search {
   border: none;
   background-color: transparent;
@@ -73,25 +77,35 @@
 @media (max-width: 768px) {
   .Button {
     padding: 1.3vh 2vw;
-    font-size: 3.5vw;
+    font-size: 4.5vw;
   }
   .Button:hover,
   .Button:active {
-    font-size: 2vw;
+    font-size: 5.5vw;
   }
   :global .fa-user-circle {
     font-size: 7vw;
   }
   .NavBar {
-    margin: 1vh 0.2vw;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 5vw;
   }
 
   .Search {
     padding: 1.3vh 2vw;
     font-size: 3vw;
-    width: 35vw;
+    width: auto;
   }
   .SearchParent {
     padding: 0.5vh 2.5vw;
+  }
+  .NotOnMobile{
+    display: none;
+  }
+  .OnMobile{
+    color:white;
+    display: inline-block;
+    width: 15vw;
   }
 }

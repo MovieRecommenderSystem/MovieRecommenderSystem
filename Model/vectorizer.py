@@ -1,7 +1,7 @@
 import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
-%matplotlib inline
+# %matplotlib inline
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
@@ -18,7 +18,7 @@ pd.options.display.max_columns=None
 import warnings; warnings.simplefilter('ignore')
 from tabulate import tabulate
 md = pd.read_csv('movies_metadata.csv')
-md=md[md['imdb_id'].notnull()]
+md=md[md['id'].notnull()]
 md['genres']=md['genres'].fillna('[]').apply(literal_eval).apply(lambda x: [i['name'] for i in x] if isinstance(x,list) else [])
 credits=pd.read_csv('dataset/credits.csv')
 keywords=pd.read_csv('keywords.csv')
@@ -34,7 +34,7 @@ md['crew']=md['crew'].apply(literal_eval)
 md['cast']=md['cast'].apply(lambda x: [i['name'] for i in x] if isinstance(x,list) else[])
 md['cast']=md['cast'].apply(lambda x: x[:4] if len(x)>=4 else x)
 md['keywords']=md['keywords'].apply(lambda x: [i['name'] for i in x] if isinstance(x,list) else[])
-md=md[md['imdb_id'].notnull()]
+md=md[md['id'].notnull()]
 def get_director(x):
     for i in x:
         if i['job']=='Director':

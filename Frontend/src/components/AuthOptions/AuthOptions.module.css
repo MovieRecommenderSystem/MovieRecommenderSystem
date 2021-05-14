@@ -45,3 +45,27 @@
   width: 100%;
   margin-bottom: 2vh;
 }
+
+@media (max-width: 768px) {
+  .AuthOptions {
+    display: block;
+  }
+
+  .Button {
+    width: 70%;
+    font-size: 4vw;
+    padding: 2vh 3vw;
+    margin-top: 4vh;
+  }
+  .Button:hover,
+  .Button:active {
+    font-size: 5vw;
+  }
+
+  .P {
+    font-size: 7vw;
+    margin: 0;
+    width: 100%;
+    margin-bottom: 2vh;
+  }
+}

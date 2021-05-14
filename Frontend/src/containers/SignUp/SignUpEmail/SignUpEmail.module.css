@@ -129,7 +129,7 @@
   }
 }
 
-.LoadingButton:hover{
+.LoadingButton:hover {
   background-color: #ec4646;
   cursor: not-allowed;
 }
@@ -196,4 +196,88 @@
   color: rgb(255, 0, 0);
   font-size: 1.2vw;
   text-align: left;
+}
+
+@media (max-width: 768px) {
+  .Button {
+    font-size: 4vw;
+    padding: 2vh 3vw;
+    margin: auto;
+    margin-top: 4vh;
+  }
+  .Button:hover,
+  .Button:active {
+    font-size: 5vw;
+  }
+
+  .Divider {
+    display: none;
+  }
+
+  .Flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .FlexItem {
+    margin: 0 5vw;
+  }
+
+  .Form {
+    width: 90%;
+  }
+
+  .Label{
+    font-size: 4.5vw;
+    margin-top: 2vh;
+  }
+
+  .Link {
+    font-size: 3.5vw;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+  }
+
+  .P {
+    font-size: 9vw;
+    margin: 0;
+    margin-bottom: 0vh;
+  }
+
+  .Pagination {
+    list-style: none;
+    width: 30vw;
+    justify-content: space-around;
+    margin: auto;
+    margin-bottom: 2vh;
+    padding: 0;
+  }
+  .Pagination .P {
+    font-size: 7vw;
+    padding: 0.1vw;
+    width: 8vw;
+    height: 8vw;
+    border-radius: 100%;
+  }
+
+  .SignUpButton {
+    margin-top: 0vh;
+    font-size: 6vw;
+  }
+
+  .Select {
+    height: 8vh;
+    border-bottom: 0.2vw solid #ec4646;
+    padding: 0vh 1.2vw;
+    margin-top: 3vh;
+    margin-bottom: 9vh;
+    font-size: 4vw;
+    width: 25vw;
+  }
+
+  .validateP {
+    font-size: 2.5vw;
+    text-align: left;
+  }
 }

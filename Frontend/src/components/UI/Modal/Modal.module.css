@@ -3,3 +3,12 @@
   padding: 10vh 3vw;
   display: inline-block;
 }
+
+@media (max-width: 768px) {
+  .Modal{
+    display: block;
+    width: 80%;
+    margin: auto;
+    padding: 5vh 0vw;
+  }
+}

@@ -26,6 +26,7 @@ import (
 	//"github.com/codegangsta/gin"
 	//"github.com/cespare/reflex"
 	"pranav.com/yt"
+	"pranav.com/recommend"
 )
 
 var cred db_tables.SignInData
@@ -39,7 +40,6 @@ var ClientVar *mongo.Client
 func main() {
 
 	// Connecting with database
-	fmt.Println("Hellio")
 	ClientVar = db.DatabaseConnection()
 
 	//collection_n := ClientVar.Database("popkorn_db").Collection("Recommended_Movies")
@@ -48,6 +48,7 @@ func main() {
 	//fmt.Println(cl)
 	r := mux.NewRouter()
 
+	
 	//checking about the uniqueness of email and username
 	r.HandleFunc("/api/checkUsernameAndEmail", userPassExistance).Methods("POST", "OPTIONS")
 
@@ -71,6 +72,11 @@ func main() {
 
 	//Send Embedded Trailer embeddedLink
 	r.HandleFunc("/api/trailer", yt.SendTrailer).Methods("POST", "OPTIONS")
+
+	//Get Genres and Language for simple recommendations
+	r.HandleFunc("/api/simpleRecommender",recommend.SimpleRecommender).Methods("POST", "OPTIONS")
+
+	
 
 	log.Fatal(http.ListenAndServe(":9000", r))
 

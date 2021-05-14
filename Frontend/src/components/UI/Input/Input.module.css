@@ -57,3 +57,34 @@
   -webkit-box-shadow: 0 0 0px 1000px #000 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+@media (max-width: 768px) {
+  .Error {
+    border-bottom: none;
+    border: 0.2vw solid red;
+  }
+  
+  .Input {
+    height: 8vh;
+    width: 100%;
+    padding: 0vh 1.2vw;
+    margin-top: 1vh;
+    font-size: 4vw;
+  }
+  .Input[id="dob"] {
+    width: 100%;
+  }
+  .Input[type="date"] {
+    margin-bottom: 4vh;
+  }
+  
+  .Label {
+    font-size: 4.5vw;
+    margin-top: 2vh;
+  }
+  
+  .validateP {
+    font-size: 2.5vw;
+    text-align: left;
+  }
+}

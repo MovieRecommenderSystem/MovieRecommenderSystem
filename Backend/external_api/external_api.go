@@ -18,7 +18,6 @@ var details db_tables.SearchDetails
 
 var length int
 
-const developerKey = "AIzaSyBzdeGiIlTfVND2vItd0AsSDOfcMXgsRmw"
 
 func goDotEnvVariable(key string) string {
 

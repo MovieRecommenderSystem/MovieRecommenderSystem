@@ -6,7 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   background-image: url("./assets/background.png");
-  /* background-image: url("../../assets/rect3221.png"); */
+  /* background-image: url("./assets/wp3213951.jpg"); */
   background-size: 100% 100%;
   width: 100vw;
   position: absolute;
@@ -20,4 +20,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@media (max-width: 768px){
+  body{
+  background-image: url("./assets/background-mobile.png");
+  background-size: cover;
+  overflow-x: hidden;
+  }
 }
