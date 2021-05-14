@@ -18,3 +18,9 @@
       0 0 43px #ff4da6, 0 0 53px #ff4da6, 0 0 63px #ff4da6, 0 0 73px #ff4da6;
   }
 }
+
+@media (max-width: 768px) {
+  .Logo {
+    font-size: 8vw;
+  }
+}

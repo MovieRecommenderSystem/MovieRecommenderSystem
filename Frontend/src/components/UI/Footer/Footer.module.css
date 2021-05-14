@@ -42,3 +42,16 @@
 .P {
   color: white;
 }
+
+@media (max-width: 768px) {
+  .Footer i {
+    font-size: 7vw;
+    margin-left: 1.25vw;
+  }
+  
+  .Footer {
+    width: 14vw;
+    left: 24vw;
+    margin-top: 15vh;
+  }
+}

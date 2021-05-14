@@ -1,5 +1,4 @@
 .Button {
-  padding: 1.3vh 1vw;
   font-family: "Alegreya Sans", sans-serif;
   font-size: 2.5vw;
   background-color: #ec4646;
@@ -42,4 +41,35 @@
   color: rgb(255, 255, 255);
   font-size: 2.5vw;
   margin: 0 auto 3vh 0;
+}
+
+@media (max-width: 768px) {
+  .Button {
+    font-size: 9vw;
+    padding: 3vh 25vw;
+    /* margin-top: 0vh; */
+  }
+  .Button:hover,
+  .Button:active {
+    font-size: 8vw;
+  }
+
+  .Content {
+    font-size: 15vw;
+    width: auto;
+    margin: auto;
+    letter-spacing: 9px;
+    -webkit-text-stroke-width: 2px;
+    line-height: 10vh;
+  }
+
+  .Flex {
+    margin-top: 9vh;
+  }
+
+  .P {
+    font-size: 7vw;
+    margin: auto;
+    margin-bottom: 4vh;
+  }
 }

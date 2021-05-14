@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import NavItem from "./NavItem/NavItem";
 import Logo from "../UI/Logo/Logo";
 import classes from "./NavBar.module.css";
+import menuImg from "../../assets/menu.svg";
 
 class NavBar extends Component {
   state = {
@@ -43,7 +44,11 @@ class NavBar extends Component {
           this.props.match.path === "/movie/:id") && (
           <div
             className={
-              classes.SearchParent + " " + (this.state.focus && classes.Active)
+              classes.SearchParent +
+              " " +
+              (this.state.focus && classes.Active) +
+              " " +
+              classes.NotOnMobile
             }
             onFocus={this.onFocusHandler}
             onBlur={this.onFocusHandler}
@@ -67,7 +72,9 @@ class NavBar extends Component {
             this.props.match.path === "/search-results/:query" ||
             this.props.match.path === "/movie/:id") && (
             <NavItem link="/watchlist">
-              <button className={classes.Button}>Watchlist</button>
+              <button className={classes.Button + " " + classes.NotOnMobile}>
+                Watchlist
+              </button>
             </NavItem>
           )}
           {this.props.location.pathname === "/signin" && (
@@ -88,12 +95,44 @@ class NavBar extends Component {
             this.props.match.path === "/search-results/:query" ||
             this.props.match.path === "/movie/:id") && (
             <NavItem link="/profile">
-              <button id="profile" className={classes.Button}>
+              <button
+                id="profile"
+                className={classes.Button + " " + classes.NotOnMobile}
+              >
                 <i className="fas fa-user-circle"></i>
               </button>
             </NavItem>
           )}
         </ul>
+        {(this.props.location.pathname === "/dashboard" ||
+          this.props.match.path === "/search-results/:query" ||
+          this.props.match.path === "/movie/:id") && (
+          <div
+            className={
+              classes.SearchParent +
+              " " +
+              (this.state.focus && classes.Active) +
+              " " +
+              classes.OnMobile
+            }
+            onFocus={this.onFocusHandler}
+            onBlur={this.onFocusHandler}
+          >
+            <i
+              onClick={() => this.submitQueryHandler(this.state.search)}
+              className="fas fa-search"
+            ></i>
+            <input
+              className={classes.Search}
+              id="Search"
+              placeholder="Search for a movie"
+              name="Search"
+              value={this.state.Search}
+              onChange={this.onSearchChangeHandler}
+            />
+          </div>
+        )}
+        <img src={menuImg} alt="Hamburger" className={classes.OnMobile} />
       </div>
     );
   }
