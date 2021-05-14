@@ -82,15 +82,11 @@ type YtUrlLink struct {
 	EmbeddedLink string `json:"embeddedLink"`
 }
 
-//   `json: "imdbId,omitempty"`
-//    `json: name",omitempty"`
-//   `json:"type,omitempty"`
-//    `json:"year,omitempty"`
-//  `json:"rating,omitempty"`
-// `json:"duration,omitempty"`
-//  `json:actors",omitempty"`
-// `json:genres",omitempty"`
-// `json:languages",omitempty"`
-// `json:"description,omitempty"`
-//   `json:"director,omitempty"`
-//  `json:"poster,omitempty"`
+type SimpleRecommender struct {
+	ID []int `json:"result_id"`
+	Name []string `json:"result_name"`
+}
+
+type UsernameForRecommendation struct{
+Username string `json:"username"`
+}

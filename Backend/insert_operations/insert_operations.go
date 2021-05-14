@@ -1,17 +1,20 @@
 package insert_operations
 
-import(
-	"net/http"
+import (
+	"context"
 	"encoding/json"
-	"pranav.com/db_tables"
 	"fmt"
-	"golang.org/x/crypto/bcrypt"
-	db "pranav.com/db"
+	//"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"context"
+	"golang.org/x/crypto/bcrypt"
 	"log"
-	
+	"net/http"
+	//"net/url"
+	db "pranav.com/db"
+	"pranav.com/db_tables"
+	//"pranav.com/recommend"
+//	"bytes"
 )
 
 var user db_tables.NewUser
@@ -50,9 +53,8 @@ func SendUserData(w http.ResponseWriter, r *http.Request) {
 
 }
 
-
 func InsertCollection(user db_tables.NewUser) bool {
-	ClientVar=db.ClientVar
+	ClientVar = db.ClientVar
 	status := false
 	//fmt.Println("In Insert collection")
 	///api/checkUsernameAndEmail
@@ -76,7 +78,6 @@ func InsertCollection(user db_tables.NewUser) bool {
 
 }
 
-
 func SavePreferences(w http.ResponseWriter, r *http.Request) {
 
 	//Setting header to content type will tell client to expect data in json format
@@ -88,14 +89,14 @@ func SavePreferences(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&pref)
 
 	//Logic for rejecting empty requests
-	if len(pref.Username) == 0{
+	if len(pref.Username) == 0 {
 		fmt.Println("reject")
-	}else{
-	status_pref := storePreferences(pref)
+	} else {
+		status_pref := storePreferences(pref)
 
-	json.NewEncoder(w).Encode(status_pref)
+		json.NewEncoder(w).Encode(status_pref)
 	}
-
+	
 }
 
 //Storing user preferences in database
@@ -118,5 +119,3 @@ func storePreferences(preferences db_tables.Preferences) bool {
 	return status_pref
 
 }
-
-

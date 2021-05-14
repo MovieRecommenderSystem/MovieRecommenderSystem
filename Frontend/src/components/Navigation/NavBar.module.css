@@ -36,6 +36,10 @@
   text-decoration: none;
 }
 
+.OnMobile{
+  display: none;
+}
+
 .Search {
   border: none;
   background-color: transparent;
@@ -111,6 +115,14 @@
   }
   .OnMobile {
     color: white;
+    display: inline-block;
+    width: 15vw;
+  }
+  .NotOnMobile{
+    display: none;
+  }
+  .OnMobile{
+    color:white;
     display: inline-block;
     width: 15vw;
   }

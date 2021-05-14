@@ -120,7 +120,6 @@ class NavBar extends Component {
             </NavItem>
           )}
         </ul>
-
         {/* {(this.props.location.pathname === "/dashboard" ||
           this.props.match.path === "/search-results/:query" ||
           this.props.match.path === "/movie/:id") && (

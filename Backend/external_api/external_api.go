@@ -18,7 +18,6 @@ var details db_tables.SearchDetails
 
 var length int
 
-const developerKey = "AIzaSyBzdeGiIlTfVND2vItd0AsSDOfcMXgsRmw"
 
 func goDotEnvVariable(key string) string {
 
@@ -145,8 +144,9 @@ func getPoster(id db_tables.TmdbID) db_tables.Poster {
 
 	//17965
 	title, _ := tmdbClient.GetMovieDetails(id.Tmdbid, options)
-	link := "https://image.tmdb.org/t/p/w500"
-	a := title.BackdropPath
+	//link := "https://image.tmdb.org/t/p/w500"
+	link := "https://www.themoviedb.org/t/p/w300_and_h450_bestv2"
+	a := title.PosterPath
 	//fmt.Println(tmdb.GetImageURL(movie.BackdropPath, tmdb.W500))
 	//fmt.Println(link + a)
 	// b:=link+a
