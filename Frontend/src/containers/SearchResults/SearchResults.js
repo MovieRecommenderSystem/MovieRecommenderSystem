@@ -8,6 +8,7 @@ import Aux from "../../hoc/Aux/Aux";
 import classes from "./SearchResults.module.css";
 import Cards from "../../components/Cards/Cards";
 import { Redirect } from "react-router";
+import notFoundImg from "../../assets/flamenco-page-not-found-1.svg";
 
 class SearchResults extends Component {
   state = {
@@ -26,9 +27,11 @@ class SearchResults extends Component {
       axios
         .post("/api/search", { query: this.props.query })
         .then((response) => {
-          this.setState({
-            movies: response.data.results,
-          });
+          if (response.data) {
+            this.setState({
+              movies: response.data.results,
+            });
+          }
         });
     }
   }
@@ -36,10 +39,19 @@ class SearchResults extends Component {
     return this.props.auth ? (
       <Aux>
         <NavBar />
-        {this.state.movies.length === 0 ? (
-          <div className={classes.Loader}>Loading...</div>
+
+        {this.state.movies ? (
+          this.state.movies.length === 0 ? (
+            <div className={classes.Loader}>Loading...</div>
+          ) : (
+            <Cards query={this.props.query} movies={this.state.movies} />
+          )
         ) : (
-          <Cards query={this.props.query} movies={this.state.movies} />
+          <img
+            src={notFoundImg}
+            alt="404"
+            style={{ width: "40vw", height: "50vh" }}
+          />
         )}
         <Footer />
       </Aux>
