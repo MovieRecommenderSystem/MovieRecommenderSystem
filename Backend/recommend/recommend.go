@@ -43,13 +43,24 @@ func SimpleRecommender(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 		//var output db_tables.SimpleRecommender
-		output:=GetRecommendations(result)
+		output := GetRecommendations(result)
 		json.NewEncoder(w).Encode(output)
 	}
 
 }
+func ContentRecommender(w http.ResponseWriter, r *http.Request) {
 
-func GetRecommendations(s db_tables.Preferences) db_tables.SimpleRecommender{
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	fmt.Println("Hello!")
+	var id db_tables.RecieveContentBased
+	json.NewDecoder(r.Body).Decode(&id)
+	output := ContentBased(id)
+	json.NewEncoder(w).Encode(output)
+}
+func GetRecommendations(s db_tables.Preferences) db_tables.SimpleRecommender {
 
 	values := map[string][]string{"GENRE": s.Genre, "LANG": s.Language}
 	json_data, err := json.Marshal(values)
@@ -69,5 +80,25 @@ func GetRecommendations(s db_tables.Preferences) db_tables.SimpleRecommender{
 	//fmt.Println("nowww")
 	fmt.Println(res)
 	return res
+
+}
+
+func ContentBased(id db_tables.RecieveContentBased) db_tables.ContentBased {
+	value := map[string]int{"TMDB": id.TMDB}
+	json_data, err := json.Marshal(value)
+	if err != nil {
+		fmt.Println("Error while Marshalling")
+	}
+	var res db_tables.ContentBased
+	resp, err2 := http.Post("http://localhost:7000/apiRecommender/content", "application/json",
+	 bytes.NewBuffer(json_data))
+
+	 if err2!=nil{
+		 fmt.Println("Error in Posting")
+	 }
+	 json.NewDecoder(resp.Body).Decode(&res)
+	 fmt.Println(res)
+	 return res
+
 
 }

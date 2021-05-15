@@ -25,17 +25,14 @@ import (
 
 	//"github.com/codegangsta/gin"
 	//"github.com/cespare/reflex"
-	"pranav.com/yt"
 	"pranav.com/recommend"
+	"pranav.com/yt"
 )
 
 var cred db_tables.SignInData
 var check db_tables.CheckExistance
 var usrPass db_tables.CheckUsernameEmail
 var ClientVar *mongo.Client
-
-
-
 
 func main() {
 
@@ -44,11 +41,9 @@ func main() {
 
 	//collection_n := ClientVar.Database("popkorn_db").Collection("Recommended_Movies")
 
-
 	//fmt.Println(cl)
 	r := mux.NewRouter()
 
-	
 	//checking about the uniqueness of email and username
 	r.HandleFunc("/api/checkUsernameAndEmail", userPassExistance).Methods("POST", "OPTIONS")
 
@@ -74,12 +69,12 @@ func main() {
 	r.HandleFunc("/api/trailer", yt.SendTrailer).Methods("POST", "OPTIONS")
 
 	//Get Genres and Language for simple recommendations
-	r.HandleFunc("/api/simpleRecommender",recommend.SimpleRecommender).Methods("POST", "OPTIONS")
+	r.HandleFunc("/api/simpleRecommender", recommend.SimpleRecommender).Methods("POST", "OPTIONS")
 
-	
+	//Content Based Recommendations
+	r.HandleFunc("/api/ContentRecommender", recommend.ContentRecommender).Methods("POST", "OPTIONS")
 
 	log.Fatal(http.ListenAndServe(":9000", r))
-
 
 }
 
@@ -165,14 +160,13 @@ func signInResult(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Reject")
 
 	} else {
-		var status bool = false
-		status = signInValidation(cred)
-		json.NewEncoder(w).Encode(status)
+		answer:= signInValidation(cred)
+		json.NewEncoder(w).Encode(answer)
 	}
 
 }
 
-func signInValidation(data db_tables.SignInData) bool {
+func signInValidation(data db_tables.SignInData) (db_tables.AfterSignIn) {
 	fmt.Println(data)
 	collection := ClientVar.Database("popkorn_db").Collection("SignUpEmail")
 
@@ -186,6 +180,7 @@ func signInValidation(data db_tables.SignInData) bool {
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
+	var v db_tables.AfterSignIn
 	if (db_tables.NewUser{}) == result {
 		statusSoFar = false
 	} else {
@@ -195,10 +190,15 @@ func signInValidation(data db_tables.SignInData) bool {
 		err_new := bcrypt.CompareHashAndPassword(hash, pword)
 		if err_new != nil {
 			statusSoFar = false
+			v.Status =statusSoFar
+			v.Username="NO_USER_EXISTS"
 		} else {
 			statusSoFar = true
+			v.Status =statusSoFar
+			v.Username=result.Username
 		}
 	}
-	return statusSoFar
+
+	return v
 
 }

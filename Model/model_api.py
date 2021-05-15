@@ -82,7 +82,8 @@ def process_request2():
     sim_scores=sorted(sim_scores, key=lambda x:x[1], reverse=True)
     sim_scores=sim_scores[1:11]
     response = {'result': [smd.iloc[t_vect[0]].loc["id"] for t_vect in sim_scores]}
-    response = {"response": list(map(str,response["result"]))}
+    response2 = {'result_name': [smd.iloc[t_vect[0]].loc["original_title"] for t_vect in sim_scores]}
+    response = {"response": list(map(int,response["result"])),"name": list(map(str,response2["result_name"]))}
     return jsonify(response)
 
 if __name__ == '__main__':

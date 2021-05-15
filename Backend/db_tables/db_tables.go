@@ -91,3 +91,17 @@ type SimpleRecommender struct {
 type UsernameForRecommendation struct{
 Username string `json:"username"`
 }
+
+type AfterSignIn struct {
+	Status bool `json:"status"`
+	Username string `json:"username"`
+}
+
+type RecieveContentBased struct {
+	TMDB int `json:"TMDB"`
+}
+
+type ContentBased struct {
+	Response []int `json:"response"`
+	Name []string `json:"name"`
+}
