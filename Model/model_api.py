@@ -8,14 +8,12 @@ import time
 app = Flask(__name__)
 # app.config['JSON_SORT_KEYS'] = False
 
-smd = pickle.load(open('Small_Movies.pickle', 'rb'))
-count_matrix = pickle.load(open('Count_Matrix.pickle', 'rb'))
-md = pd.read_csv('movies_metadata.csv', low_memory=False)
-md['genres'] = md['genres'].fillna('[]').apply(literal_eval).apply(
-    lambda x: [i['name'] for i in x] if isinstance(x, list) else [])
-md['original_language'] = md['original_language'].astype('str')
-md = md[md['id'].notnull()]
-
+smd=pickle.load(open('Small_Movies.pickle', 'rb'))
+count_matrix=pickle.load(open('Count_Matrix.pickle', 'rb'))
+md = pd.read_csv('movies_metadata.csv',low_memory=False)
+md['genres']=md['genres'].fillna('[]').apply(literal_eval).apply(lambda x: [i['name'] for i in x] if isinstance(x,list) else [])
+md['original_language']=md['original_language'].astype('str')
+md=md[md['id'].notnull()]
 
 @app.route('/apiRecommender/simple', methods=['POST'])
 def process_request():
@@ -69,27 +67,24 @@ def process_request():
     print(f-i)
     return jsonify(json_dict)
 
-
 @app.route('/apiRecommender/content', methods=['POST'])
 def process_request2():
 
-    # Parse received JSON request
+    #Parse received JSON request
     user_input = request.get_json()
     tmdb = user_input['TMDB']
     try:
-        IDX = smd.index[smd['id'] == tmdb][0]
+        IDX=smd.index[smd['id']==tmdb][0]
     except:
         return "NA"
-    cos_sim = cosine_similarity(count_matrix[IDX], count_matrix).flatten()
-    sim_scores = list(enumerate(cos_sim))
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    sim_scores = sim_scores[1:11]
-    response = {'result': [smd.iloc[t_vect[0]].loc["id"]
-                           for t_vect in sim_scores]}
-    response = {"response": list(map(str, response["result"]))}
+    cos_sim=cosine_similarity(count_matrix[IDX],count_matrix).flatten()
+    sim_scores=list(enumerate(cos_sim))
+    sim_scores=sorted(sim_scores, key=lambda x:x[1], reverse=True)
+    sim_scores=sim_scores[1:11]
+    response = {'result': [smd.iloc[t_vect[0]].loc["id"] for t_vect in sim_scores]}
+    response = {"response": list(map(str,response["result"]))}
     return jsonify(response)
-
 
 if __name__ == '__main__':
 
-    app.run(host="localhost", port=7000, debug=True)
+    app.run(host="localhost",port=7000,debug=True)

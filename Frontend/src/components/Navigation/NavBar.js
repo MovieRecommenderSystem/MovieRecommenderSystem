@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Zoom from "react-reveal/Zoom";
 
 import NavItem from "./NavItem/NavItem";
 import Logo from "../UI/Logo/Logo";
 import classes from "./NavBar.module.css";
 import menuImg from "../../assets/menu.svg";
+import Backdrop from "../UI/Backdrop/Backdrop";
+import Aux from "../../hoc/Aux/Aux";
 
 class NavBar extends Component {
   state = {
@@ -61,6 +64,11 @@ class NavBar extends Component {
               " " +
               classes.NotOnMobile
             }
+            onKeyPress={(event) =>
+              event.key === "Enter"
+                ? this.submitQueryHandler(this.state.search)
+                : null
+            }
             onFocus={this.onFocusHandler}
             onBlur={this.onFocusHandler}
           >
@@ -115,67 +123,55 @@ class NavBar extends Component {
             </NavItem>
           )}
         </ul>
-        {/* {(this.props.location.pathname === "/dashboard" ||
-          this.props.match.path === "/search-results/:query" ||
-          this.props.match.path === "/movie/:id") && (
-          <div
-            className={
-              classes.SearchParent +
-              " " +
-              (this.state.focus && classes.Active) +
-              " " +
-              classes.OnMobile
-            }
-            onFocus={this.onFocusHandler}
-            onBlur={this.onFocusHandler}
-          >
-            <i
-              onClick={() => this.submitQueryHandler(this.state.search)}
-              className="fas fa-search"
-            ></i>
-            <input
-              className={classes.Search}
-              id="Search"
-              placeholder="Search for a movie"
-              name="Search"
-              value={this.state.Search}
-              onChange={this.onSearchChangeHandler}
-            />
-          </div>
-        )} /*}
-
         {(this.props.location.pathname === "/dashboard" ||
           this.props.match.path === "/search-results/:query" ||
           this.props.match.path === "/movie/:id") && (
-          <div
-            className={
-              classes.SearchParent +
-              " " +
-              classes.OnMobile +
-              " " +
-              (this.state.focus && classes.Active)
-            }
-            onKeyPress={(event) =>
-              event.key === "Enter"
-                ? this.submitQueryMobileHandler(this.state.search)
-                : null
-            }
-            onFocus={this.onFocusHandler}
-            onBlur={this.onFocusHandler}
-          >
+          <div>
             <i
               onClick={() => this.submitQueryMobileHandler(this.state.search)}
-              className="fas fa-search"
+              className={"fas fa-search " + classes.OnMobile}
+              style={{ color: "white", fontSize: "6vw" }}
             ></i>
             {this.state.showMobileSearch && (
-              <input
-                className={classes.Search}
-                id="Search"
-                placeholder="Search for a movie"
-                name="Search"
-                value={this.state.Search}
-                onChange={this.onSearchChangeHandler}
-              />
+              <Aux>
+                <Backdrop
+                  hideTrailer={() => this.setState({ showMobileSearch: false })}
+                />
+                <Zoom>
+                <div
+                  className={
+                    classes.SearchParent +
+                    " " +
+                    classes.OnMobile +
+                    " " +
+                    (this.state.focus && classes.Active)
+                  }
+                  onKeyPress={(event) =>
+                    event.key === "Enter"
+                      ? this.submitQueryMobileHandler(this.state.search)
+                      : null
+                  }
+                  onFocus={this.onFocusHandler}
+                  onBlur={this.onFocusHandler}
+                >
+                  <i
+                    onClick={() =>
+                      this.submitQueryMobileHandler(this.state.search)
+                    }
+                    className="fas fa-search"
+                  ></i>
+                  <input
+                    className={classes.Search}
+                    id="Search"
+                    placeholder="Search for a movie"
+                    name="Search"
+                    autofocus
+                    value={this.state.Search}
+                    onChange={this.onSearchChangeHandler}
+                  />
+                </div>
+                </Zoom>
+              </Aux>
             )}
           </div>
         )}
@@ -185,6 +181,7 @@ class NavBar extends Component {
           this.props.match.path === "/movie/:id") && (
           <img src={menuImg} alt="Hamburger" className={classes.OnMobile} />
         )}
+        {/* <Sidedrawer /> */}
       </div>
     );
   }

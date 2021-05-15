@@ -85,6 +85,7 @@ type YtUrlLink struct {
 type SimpleRecommender struct {
 	ID []int `json:"result_id"`
 	Name []string `json:"result_name"`
+	Year []string `json:"year"`
 }
 
 type UsernameForRecommendation struct{
