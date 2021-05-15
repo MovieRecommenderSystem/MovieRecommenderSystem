@@ -6,6 +6,7 @@ import classes from "./Dashboard.module.css";
 import Img from "../../components/Card/Img/Img";
 import Footer from "../../components/UI/Footer/Footer";
 import NavBar from "../../components/Navigation/NavBar";
+import axios from "../../axios-auth";
 
 class Dashboard extends Component {
   state = {
@@ -84,7 +85,7 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    //[AXIOS CODE]
+    axios.get()
   }
 
   render() {

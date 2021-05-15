@@ -67,6 +67,7 @@ func GetRecommendations(s db_tables.Preferences) db_tables.SimpleRecommender{
 	}
 	json.NewDecoder(resp.Body).Decode(&res)
 	//fmt.Println("nowww")
+	fmt.Println(res)
 	return res
 
 }

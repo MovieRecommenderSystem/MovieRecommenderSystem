@@ -21,33 +21,51 @@ def process_request():
     global md
     user_input = request.get_json()
     genres = user_input['GENRE']
+    # print(genres)
     genres = pd.DataFrame(genres)
     languages = user_input['LANG']
     languages = pd.DataFrame(languages)
-    s = md.apply(lambda x: pd.Series(x['genres']),axis=1).stack().reset_index(level=1, drop=True)
+    s = md.apply(lambda x: pd.Series(x['genres']), axis=1).stack(
+    ).reset_index(level=1, drop=True)
     s.name = 'genre'
     gen_md = md.drop('genres', axis=1).join(s)
 #     print(gen_md["title"].head())
-    genres=genres[0]
-    languages=languages[0]
+    genres = genres[0]
+    languages = languages[0]
     print(genres)
-    df=gen_md[gen_md['genre'].isin(genres)]
-    df=df[df['original_language'].isin(languages)]
-    SR=md[md['id'].isin(df['id'])]
+    df = gen_md[gen_md['genre'].isin(genres)]
+    df = df[df['original_language'].isin(languages)]
+    SR = md[md['id'].isin(df['id'])]
     vote_counts_SR = SR[SR['vote_count'].notnull()]['vote_count'].astype('int')
-    vote_averages_SR = SR[SR['vote_average'].notnull()]['vote_average'].astype('int')
+    vote_averages_SR = SR[SR['vote_average'].notnull()
+                          ]['vote_average'].astype('int')
     C_SR = vote_averages_SR.mean()
     m_SR = vote_counts_SR.quantile(0.90)
-    qualified_SR = SR[(SR['vote_count'] >= m_SR) & (SR['vote_count'].notnull()) & (SR['vote_average'].notnull())]
+    qualified_SR = SR[(SR['vote_count'] >= m_SR) & (
+        SR['vote_count'].notnull()) & (SR['vote_average'].notnull())]
     qualified_SR['vote_count'] = qualified_SR['vote_count'].astype('int')
     qualified_SR['vote_average'] = qualified_SR['vote_average'].astype('int')
-    qualified_SR['wr'] = ((qualified_SR['vote_count']*qualified_SR['vote_average'])+(m_SR*C_SR))/(qualified_SR['vote_count']+m_SR)
-    qualified_SR=qualified_SR.sort_values('wr',ascending=False)
+    qualified_SR['wr'] = ((qualified_SR['vote_count']*qualified_SR['vote_average']
+                           )+(m_SR*C_SR))/(qualified_SR['vote_count']+m_SR)
+    qualified_SR = qualified_SR.sort_values('wr', ascending=False)
+    # This line was added
+    names_list = qualified_SR[['original_title']].head(10).values.tolist()
+    release_date = qualified_SR[['release_date']].head(10).values.tolist()
+    names=[]
     answer = qualified_SR[['id']].head(10).values.tolist()
+    
     answer = list(np.concatenate(answer).flat)
+    release_date = list(np.concatenate(release_date).flat)
+    ## 
+    for tr in names_list:
+        names.append(tr[0])
+    # changed string list to integer
+    print(names)
+    answer = list(map(int, answer))
+    json_dict = {"result_id": answer, "result_name": names,"year":release_date}
     f = time.time()
     print(f-i)
-    return jsonify(answer)
+    return jsonify(json_dict)
 
 @app.route('/apiRecommender/content', methods=['POST'])
 def process_request2():
@@ -69,4 +87,4 @@ def process_request2():
 
 if __name__ == '__main__':
 
-    app.run()
+    app.run(host="localhost",port=7000)

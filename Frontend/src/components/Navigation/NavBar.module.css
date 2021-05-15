@@ -102,13 +102,22 @@
 
   .Search {
     padding: 1.3vh 2vw;
-    font-size: 3vw;
+    font-size: 5vw;
     width: auto;
   }
   .SearchParent {
     padding: 0.5vh 2.5vw;
-    margin-right: 2.5vw;
+    margin: auto;
     background-color: transparent;
+  }
+  .SearchParent.OnMobile{
+    display: inline-block;
+    position: absolute;
+    width: 95%;
+    background-color: rgb(0, 0, 0);
+    margin: auto;
+    z-index: 5;
+    font-size: 5vw;
   }
   .NotOnMobile {
     display: none;
