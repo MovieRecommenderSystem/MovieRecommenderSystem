@@ -11,6 +11,7 @@ class NavBar extends Component {
   state = {
     focus: false,
     search: "",
+    showMobileSearch: false,
   };
 
   onFocusHandler = () => {
@@ -27,6 +28,16 @@ class NavBar extends Component {
 
   submitQueryHandler = (query) => {
     this.props.setQuery(query);
+    this.props.history.push("/search-results/" + this.state.search);
+  };
+
+  submitQueryMobileHandler = (query) => {
+    if (!this.state.showMobileSearch) {
+      this.setState({ showMobileSearch: true });
+      return;
+    }
+    this.props.setQuery(query);
+    this.setState({ showMobileSearch: false });
     this.props.history.push("/search-results/" + this.state.search);
   };
 
@@ -131,7 +142,44 @@ class NavBar extends Component {
               onChange={this.onSearchChangeHandler}
             />
           </div>
-        )} */}
+        )} /*}
+
+        {(this.props.location.pathname === "/dashboard" ||
+          this.props.match.path === "/search-results/:query" ||
+          this.props.match.path === "/movie/:id") && (
+          <div
+            className={
+              classes.SearchParent +
+              " " +
+              classes.OnMobile +
+              " " +
+              (this.state.focus && classes.Active)
+            }
+            onKeyPress={(event) =>
+              event.key === "Enter"
+                ? this.submitQueryMobileHandler(this.state.search)
+                : null
+            }
+            onFocus={this.onFocusHandler}
+            onBlur={this.onFocusHandler}
+          >
+            <i
+              onClick={() => this.submitQueryMobileHandler(this.state.search)}
+              className="fas fa-search"
+            ></i>
+            {this.state.showMobileSearch && (
+              <input
+                className={classes.Search}
+                id="Search"
+                placeholder="Search for a movie"
+                name="Search"
+                value={this.state.Search}
+                onChange={this.onSearchChangeHandler}
+              />
+            )}
+          </div>
+        )}
+
         {(this.props.location.pathname === "/dashboard" ||
           this.props.match.path === "/search-results/:query" ||
           this.props.match.path === "/movie/:id") && (

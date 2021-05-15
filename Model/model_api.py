@@ -52,16 +52,19 @@ def process_request():
     qualified_SR = qualified_SR.sort_values('wr', ascending=False)
     # This line was added
     names_list = qualified_SR[['original_title']].head(10).values.tolist()
+    release_date = qualified_SR[['release_date']].head(10).values.tolist()
     names=[]
     answer = qualified_SR[['id']].head(10).values.tolist()
+    
     answer = list(np.concatenate(answer).flat)
+    release_date = list(np.concatenate(release_date).flat)
     ## 
     for tr in names_list:
         names.append(tr[0])
     # changed string list to integer
     print(names)
     answer = list(map(int, answer))
-    json_dict = {"result_id": answer, "result_name": names}
+    json_dict = {"result_id": answer, "result_name": names,"year":release_date}
     f = time.time()
     print(f-i)
     return jsonify(json_dict)

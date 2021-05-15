@@ -62,6 +62,10 @@
   left: 3.1vw;
   background-color: rgba(0, 0, 0, 0.726);
 }
+.OnMobile {
+  display: none;
+}
+
 .Active {
   color: #ec4646;
   background-color: black;
@@ -72,6 +76,10 @@
 :global #profile {
   background: none;
   padding: 0;
+}
+
+:global .fa-search {
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -99,6 +107,16 @@
   }
   .SearchParent {
     padding: 0.5vh 2.5vw;
+    margin-right: 2.5vw;
+    background-color: transparent;
+  }
+  .NotOnMobile {
+    display: none;
+  }
+  .OnMobile {
+    color: white;
+    display: inline-block;
+    width: 15vw;
   }
   .NotOnMobile{
     display: none;

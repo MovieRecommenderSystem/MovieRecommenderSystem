@@ -99,7 +99,7 @@ dist
 
 # DynamoDB Local files
 .dynamodb/
-
+Model/dataset.zip
 Model/dataset/credits.csv
 Model/.ipynb_checkpoints/
 Model/Count_Matrix.pickle
