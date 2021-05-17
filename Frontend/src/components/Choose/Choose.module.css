@@ -1,0 +1,105 @@
+.Button {
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 1.8vw;
+  background-color: #ec4646;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 2vh 2vw;
+  margin: auto;
+  margin-top: 9vh;
+  display: inline-block;
+  outline: none;
+}
+.Button:hover,
+.Button:active {
+  color: #ec4646;
+  background-color: white;
+  font-size: 2vw;
+}
+
+.CheckBox {
+  margin: 1.5vh 1vw;
+}
+.CheckBoxInput:checked + .Label {
+  color: #ff76ab;
+}
+
+.CheckBoxes {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 80%;
+}
+
+.Choose {
+  background-color: rgba(0, 0, 0, 0.829);
+  display: inline-block;
+}
+
+.Label {
+  color: rgb(202, 202, 202);
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1.5vw;
+  margin-right: 1.1vw;
+}
+.Label:hover {
+  color: #ffa3c7;
+}
+
+.Link {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(202, 202, 202);
+  font-size: 1.5vw;
+  display: block;
+  margin-top: 5vh;
+  margin-bottom: 2vh;
+}
+
+.Link:hover {
+  color: #ec4646;
+}
+
+.P {
+  color: #ec4646;
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 2.5vw;
+}
+
+@media (max-width: 768px) {
+  .Button {
+    font-size: 5vw;
+    padding: 2vh 5vw;
+    margin-top: 4vh;
+  }
+  .Button:hover,
+  .Button:active {
+    font-size: 6vw;
+  }
+  
+  .CheckBox {
+    margin: 1.5vh 1vw;
+  }
+  
+  .CheckBoxes {
+    width: 90%;
+  }
+  
+  .Label {
+    font-size: 3vw;
+    margin-right: 1.5vw;
+  }
+  
+  .Link {
+    font-size: 5vw;
+    margin-top: 2vh;
+    margin-bottom: 0vh;
+  }
+  
+  .P {
+    font-size: 7vw;
+  }
+}

@@ -1,0 +1,138 @@
+.Button {
+  padding: 1.3vh 1vw;
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 1.7vw;
+  background-color: #ec4646;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+.Button:hover,
+.Button:active {
+  color: #ec4646;
+  background-color: white;
+  font-size: 1.9vw;
+}
+
+:global .fa-user-circle {
+  font-size: 3vw;
+}
+
+.NavBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1vh 5vw;
+}
+
+.NavItems {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  flex-direction: row;
+}
+
+.NavLink {
+  text-decoration: none;
+}
+
+.OnMobile{
+  display: none;
+}
+
+.Search {
+  border: none;
+  background-color: transparent;
+  padding: 1.3vh 1.2vw;
+  box-sizing: border-box;
+  font-size: 1.5vw;
+  color: white;
+  width: 35vw;
+  outline: none;
+}
+.SearchParent {
+  display: flex;
+  flex-flow: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5vh 0.7vw;
+  color: white;
+  position: relative;
+  left: 3.1vw;
+  background-color: rgba(0, 0, 0, 0.726);
+}
+.OnMobile {
+  display: none;
+}
+
+.Active {
+  color: #ec4646;
+  background-color: black;
+  /* position: relative;
+  transform: scale(1.>1,1.1); */
+}
+
+:global #profile {
+  background: none;
+  padding: 0;
+}
+
+:global .fa-search {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .Button {
+    padding: 1.3vh 2vw;
+    font-size: 4.5vw;
+  }
+  .Button:hover,
+  .Button:active {
+    font-size: 5.5vw;
+  }
+  :global .fa-user-circle {
+    font-size: 7vw;
+  }
+  .NavBar {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 5vw;
+  }
+
+  .Search {
+    padding: 1.3vh 2vw;
+    font-size: 5vw;
+    width: auto;
+  }
+  .SearchParent {
+    padding: 0.5vh 2.5vw;
+    margin: auto;
+    background-color: transparent;
+  }
+  .SearchParent.OnMobile{
+    display: inline-block;
+    position: absolute;
+    width: 95%;
+    background-color: rgb(0, 0, 0);
+    margin: auto;
+    z-index: 5;
+    font-size: 5vw;
+  }
+  .NotOnMobile {
+    display: none;
+  }
+  .OnMobile {
+    color: white;
+    display: inline-block;
+    width: 15vw;
+  }
+  .NotOnMobile{
+    display: none;
+  }
+  .OnMobile{
+    color:white;
+    display: inline-block;
+    width: 15vw;
+  }
+}

@@ -1,0 +1,71 @@
+.Card {
+  display: inline-flex;
+  justify-content: left;
+  color: white;
+  padding: 2vh;
+  align-items: center;
+  width: 100%;
+}
+.Card:hover {
+  background-color: #000000;
+  color: #ec4646;
+}
+
+.Content1 {
+  margin: 2vh 2vw;
+}
+
+.Content2 {
+  margin: 2vh 2vw;
+}
+
+.Img {
+  height: 25vh;
+}
+
+.P1 {
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 2vw;
+  margin: 0;
+  margin-bottom: 2vh;
+}
+
+.P2 {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 0, 0);
+  font-size: 1.5vw;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .Card {
+    padding: 1vh;
+    width: 80%;
+  }
+
+  .Content1 {
+    margin: 1vh 2vw;
+  }
+
+  .Content2 {
+    margin: 1vh 2vw;
+  }
+
+  .Img {
+    height: 25vh;
+  }
+
+  .P1 {
+    text-align: left;
+    font-size: 5vw;
+    margin: 0;
+    margin-bottom: 2vh;
+  }
+
+  .P2 {
+    font-family: "Alegreya Sans", sans-serif;
+    color: rgb(255, 0, 0);
+    font-size: 4.5vw;
+    text-align: left;
+  }
+}

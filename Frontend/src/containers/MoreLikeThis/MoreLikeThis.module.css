@@ -1,0 +1,7 @@
+.Container{
+    display: flex;
+    /* flex-flow: row; */
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
