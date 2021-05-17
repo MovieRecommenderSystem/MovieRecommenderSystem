@@ -1,0 +1,57 @@
+:global .fa-instagram-square:hover {
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global .fa-facebook-square:hover {
+  color: #1873ea;
+}
+
+:global .fa-twitter-square:hover {
+  color: #1d9cea;
+}
+
+:global .fa-youtube-square:hover {
+  color: #f24423;
+}
+
+.Footer i {
+  color: white;
+  font-size: 2.5vw;
+  margin-left: 0.3vw;
+}
+
+.Footer {
+  list-style: none;
+  display: flex;
+  width: 14vw;
+  position: relative;
+  left: 42vw;
+  margin-top: 15vh;
+}
+
+.P {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .Footer i {
+    font-size: 7vw;
+    margin-left: 1.25vw;
+  }
+  
+  .Footer {
+    width: 14vw;
+    left: 24vw;
+    margin-top: 15vh;
+  }
+}

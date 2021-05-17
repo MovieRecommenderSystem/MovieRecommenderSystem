@@ -1,0 +1,26 @@
+.Cards {
+  display: inline-flex;
+  background-color: rgba(0, 0, 0, 0.829);
+  padding: 5vh 5vw;
+  flex-flow: column;
+}
+
+.P {
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 2vw;
+  /* display: inline-block; */
+  margin: auto;
+  margin-bottom: 2vh;
+  color: white;
+  /* text-align: left; */
+}
+
+@media (max-width: 768px) {
+  .Cards{
+    padding: 4vh;
+  }
+
+  .P{
+    font-size: 7vw;
+  }
+}

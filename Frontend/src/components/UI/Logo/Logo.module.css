@@ -1,0 +1,26 @@
+.Logo {
+  font-family: "Dancing Script", cursive;
+  font-size: 4.5vw;
+  color: white;
+  text-align: center;
+  /* -webkit-animation: glow 5s ease-in-out infinite alternate;
+  -moz-animation: glow 5s ease-in-out infinite alternate;
+  animation: glow 5s ease-in-out infinite alternate; */
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 3px #fff, 0 0 13px #fff, 0 0 23px #ec4646, 0 0 33px #ec4646,
+      0 0 43px #ec4646, 0 0 53px #ec4646, 0 0 63px #ec4646;
+  }
+  to {
+    text-shadow: 0 0 13px #fff, 0 0 23px #ff4da6, 0 0 33px #ff4da6,
+      0 0 43px #ff4da6, 0 0 53px #ff4da6, 0 0 63px #ff4da6, 0 0 73px #ff4da6;
+  }
+}
+
+@media (max-width: 768px) {
+  .Logo {
+    font-size: 8vw;
+  }
+}

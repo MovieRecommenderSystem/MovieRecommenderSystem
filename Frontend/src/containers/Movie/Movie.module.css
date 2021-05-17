@@ -1,0 +1,164 @@
+.Container {
+  display: inline-flex;
+  flex-flow: row;
+  margin: auto;
+  justify-content: space-around;
+  background-color: rgba(0, 0, 0, 0.829);
+  padding: 10vh 5vw;
+  box-sizing: border-box;
+  color: white;
+}
+
+.Content1 {
+  margin-right: 5vw;
+  width: 15vw;
+}
+.Content1:hover {
+  color: #ec4646;
+  cursor: pointer;
+}
+
+.Content2 {
+  width: 55vw;
+}
+
+.Loader,
+.Loader:before,
+.Loader:after {
+  background: white;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.Loader {
+  color: white;
+  text-indent: -9999em;
+  margin: 20% auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.Loader:before,
+.Loader:after {
+  position: absolute;
+  top: 0;
+  content: "";
+}
+.Loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.Loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+
+.P1 {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 255, 255);
+  font-size: 4vw;
+  /* display: inline-block; */
+  margin: 0;
+  text-align: left;
+}
+
+.P2 {
+  font-family: "Alegreya Sans", sans-serif;
+  color: rgb(255, 255, 255);
+  font-size: 2.5vw;
+  display: inline-block;
+  margin: 0;
+}
+
+.P3 {
+  font-family: "Alegreya Sans", sans-serif;
+  color: #ec4646;
+  font-size: 1.8vw;
+  text-align: left;
+}
+
+.P4 {
+  font-size: 1.5vw;
+  text-align: left;
+}
+
+.P5 {
+  font-size: 1.2vw;
+  text-align: left;
+}
+
+.Trailer {
+  font-size: 1.5vw;
+}
+
+@media (max-width: 768px) {
+  .Container {
+    display: block;
+    margin: auto;
+    padding: 5vh 9vw;
+  }
+
+  .Content1 {
+    width: 30%;
+  }
+
+  .Content2 {
+    width: 100%;
+  }
+
+  .P1 {
+    font-size: 8vw;
+  }
+
+  .P2 {
+    font-size: 6vw;
+  }
+
+  .P3 {
+    font-size: 5vw;
+  }
+
+  .P4 {
+    font-size: 4vw;
+  }
+
+  .P5 {
+    font-size: 3vw;
+    text-align: left;
+  }
+
+  .Trailer {
+    font-size: 4vw;
+    /* display: inline-block; */
+    text-align: left;
+  }
+}
