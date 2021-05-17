@@ -99,6 +99,7 @@ dist
 
 # DynamoDB Local files
 .dynamodb/
+Model2/
 Model/dataset.zip
 Model/dataset/credits.csv
 Model/.ipynb_checkpoints/
