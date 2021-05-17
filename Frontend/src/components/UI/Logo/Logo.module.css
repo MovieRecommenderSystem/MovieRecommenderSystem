@@ -3,9 +3,15 @@
   font-size: 4.5vw;
   color: white;
   text-align: center;
+<<<<<<< HEAD
   -webkit-animation: glow 5s ease-in-out infinite alternate;
   -moz-animation: glow 5s ease-in-out infinite alternate;
   animation: glow 5s ease-in-out infinite alternate;
+=======
+  /* -webkit-animation: glow 5s ease-in-out infinite alternate;
+  -moz-animation: glow 5s ease-in-out infinite alternate;
+  animation: glow 5s ease-in-out infinite alternate; */
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
 }
 
 @keyframes glow {

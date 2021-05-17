@@ -118,4 +118,51 @@
 
 .Trailer {
   font-size: 1.5vw;
+<<<<<<< HEAD
 }
+=======
+}
+
+@media (max-width: 768px) {
+  .Container {
+    display: block;
+    margin: auto;
+    padding: 5vh 9vw;
+  }
+
+  .Content1 {
+    width: 30%;
+  }
+
+  .Content2 {
+    width: 100%;
+  }
+
+  .P1 {
+    font-size: 8vw;
+  }
+
+  .P2 {
+    font-size: 6vw;
+  }
+
+  .P3 {
+    font-size: 5vw;
+  }
+
+  .P4 {
+    font-size: 4vw;
+  }
+
+  .P5 {
+    font-size: 3vw;
+    text-align: left;
+  }
+
+  .Trailer {
+    font-size: 4vw;
+    /* display: inline-block; */
+    text-align: left;
+  }
+}
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50

@@ -51,7 +51,12 @@ class SignIn extends Component {
     let pattern, minLength, checkPattern, required;
     switch (inputType) {
       case "email":
+<<<<<<< HEAD
         pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+=======
+        pattern =
+          /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
         checkPattern = pattern.test(event.target.value);
         required = event.target.value.length > 0;
         this.setState({
@@ -112,8 +117,15 @@ class SignIn extends Component {
           password: this.state.password.value,
         })
         .then((response) => {
+<<<<<<< HEAD
           if (response.data) {
             this.props.onAuthTrue();
+=======
+          console.log(response.data);
+          if (response.data.status) {
+            this.props.onAuthTrue();
+            this.props.setUsername(response.data.username);
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
             this.props.history.replace("/dashboard");
           } else {
             this.setState({ loading: false });
@@ -189,6 +201,7 @@ class SignIn extends Component {
                     Forgot Password?
                   </Link>
                 </Fade>
+<<<<<<< HEAD
                 {this.state.loading ? <button
                   disabled
                   className={classes.Button + " " + classes.LoadingButton}
@@ -199,6 +212,22 @@ class SignIn extends Component {
                     Sign In
                 </button>}
 
+=======
+                {this.state.loading ? (
+                  <button
+                    disabled
+                    className={classes.Button + " " + classes.LoadingButton}
+                  >
+                    <div className={classes.Loader}>Loading...</div>
+                  </button>
+                ) : (
+                  <button
+                    className={classes.Button + " " + classes.SignInButton}
+                  >
+                    Sign In
+                  </button>
+                )}
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
               </form>
             </div>
             <hr className={classes.Divider} />
@@ -233,6 +262,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAuthFalse: () => dispatch({ type: "False_Auth" }),
     onAuthTrue: () => dispatch({ type: "True_Auth" }),
+<<<<<<< HEAD
+=======
+    setUsername: (username) =>
+      dispatch({ type: "Set_Username", username: username }),
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
   };
 };
 

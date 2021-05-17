@@ -50,7 +50,11 @@ class SearchResults extends Component {
           <img
             src={notFoundImg}
             alt="404"
+<<<<<<< HEAD
             style={{ width: "40vw", height: "50vh" }}
+=======
+            style={{ width: "25vw", height: "30vh" }}
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
           />
         )}
         <Footer />

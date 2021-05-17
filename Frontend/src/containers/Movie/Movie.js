@@ -67,6 +67,10 @@ class Movie extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
+<<<<<<< HEAD
+=======
+      this.setState({loading: true});
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
       let query = new URLSearchParams(this.props.location.search);
       let queries = [];
       for (let [, value] of query.entries()) {
@@ -74,8 +78,35 @@ class Movie extends Component {
       }
       let [title] = queries;
       let id = this.props.match.params.id;
+<<<<<<< HEAD
       // axios request
       this.setState({ id: id, title: title, loading: false });
+=======
+      console.log(id);
+      // axios request
+      axios.post("/api/details", { tmdbID: Number(id) }).then((response) => {
+        this.setState({
+          id: id,
+          title: title,
+          loading: false,
+          rating: response.data.rating ? response.data.rating : null,
+          year: response.data.year ? response.data.year : null,
+          genre: response.data.Genres ? response.data.Genres : null,
+          runtime: response.data.duration
+            ? response.data.duration.substring(0, 2) +
+              " " +
+              response.data.duration.substring(2)
+            : null,
+          language: response.data.Languages ? response.data.Languages : null,
+          description: response.data.description
+            ? response.data.description
+            : null,
+          directors: response.data.director ? response.data.director : null,
+          actors: response.data.Actors ? response.data.Actors : null,
+        });
+      });
+      this.render();
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
     }
   }
 
@@ -139,7 +170,11 @@ class Movie extends Component {
                 <p className={classes.P3}>More like this</p>
                 <MoreLikeThis
                   id={this.state.id}
+<<<<<<< HEAD
                   onClick={this.clickRecommHandler}
+=======
+                  // onClick={this.clickRecommHandler}
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
                 />
               </div>
             </div>
@@ -154,7 +189,11 @@ class Movie extends Component {
 }
 
 const mapStateToProps = (state) => {
+<<<<<<< HEAD
   return { auth: state.auth };
+=======
+  return { auth: state.auth, currMovie: state.movie };
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
 };
 
 export default connect(mapStateToProps)(Movie);

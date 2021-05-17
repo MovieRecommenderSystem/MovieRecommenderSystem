@@ -107,6 +107,10 @@ Model/keywords.csv
 Model/links_small.csv
 Model/movies_metadata.csv
 Model/Small_Movies.pickle
-
 # TernJS port file
 .tern-port
+Frontend/build/
+Model/venv/
+Model/.ipynb_checkpoints/
+Model/.gitattributes
+Model/vectorizer.py

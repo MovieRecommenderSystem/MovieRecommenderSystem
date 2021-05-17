@@ -20,7 +20,11 @@ const Footer = (props) => {
                     <i className="fab fa-youtube-square"></i>
                 </li>
             </ul>
+<<<<<<< HEAD
             <p className={classes.P}>©PopKorn</p>
+=======
+            <p className={classes.P}>©popcorn</p>
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
         </Aux>
     );
 };

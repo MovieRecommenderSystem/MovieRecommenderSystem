@@ -6,6 +6,13 @@ replace pranav.com/db => ../db
 
 require (
 	github.com/gorilla/mux v1.8.0
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	github.com/thedevsaddam/renderer v1.2.0
+=======
+>>>>>>> 6b925d81777e6a315aa9a155f9eec34dd2036adf
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
 	go.mongodb.org/mongo-driver v1.5.1
 	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b
 	pranav.com/db v0.0.0-00010101000000-000000000000

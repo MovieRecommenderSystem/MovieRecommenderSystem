@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 .Img{
+=======
+.Img {
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
   width: 11vw;
 }
 
@@ -60,4 +64,14 @@
     box-shadow: 0 -2em;
     height: 5em;
   }
+<<<<<<< HEAD
 }
+=======
+}
+
+@media (max-width: 768px) {
+  .Img {
+    width: 35vw !important;
+  }
+}
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50

@@ -66,9 +66,49 @@
 .P {
   color: #ec4646;
   font-family: "Alegreya Sans", sans-serif;
+<<<<<<< HEAD
   /* color: rgb(255, 255, 255); */
   font-size: 2.5vw;
   /* display: inline-block; */
   /* margin: 0;
   margin-bottom: 2vh; */
 }
+=======
+  font-size: 2.5vw;
+}
+
+@media (max-width: 768px) {
+  .Button {
+    font-size: 5vw;
+    padding: 2vh 5vw;
+    margin-top: 4vh;
+  }
+  .Button:hover,
+  .Button:active {
+    font-size: 6vw;
+  }
+  
+  .CheckBox {
+    margin: 1.5vh 1vw;
+  }
+  
+  .CheckBoxes {
+    width: 90%;
+  }
+  
+  .Label {
+    font-size: 3vw;
+    margin-right: 1.5vw;
+  }
+  
+  .Link {
+    font-size: 5vw;
+    margin-top: 2vh;
+    margin-bottom: 0vh;
+  }
+  
+  .P {
+    font-size: 7vw;
+  }
+}
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50

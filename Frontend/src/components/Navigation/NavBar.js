@@ -9,12 +9,20 @@ import classes from "./NavBar.module.css";
 import menuImg from "../../assets/menu.svg";
 import Backdrop from "../UI/Backdrop/Backdrop";
 import Aux from "../../hoc/Aux/Aux";
+<<<<<<< HEAD
+=======
+import Sidedrawer from "./Sidedrawer/Sidedrawer";
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
 
 class NavBar extends Component {
   state = {
     focus: false,
     search: "",
     showMobileSearch: false,
+<<<<<<< HEAD
+=======
+    showSideDrawer: false,
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
   };
 
   onFocusHandler = () => {
@@ -113,6 +121,21 @@ class NavBar extends Component {
           {(this.props.location.pathname === "/dashboard" ||
             this.props.match.path === "/search-results/:query" ||
             this.props.match.path === "/movie/:id") && (
+<<<<<<< HEAD
+=======
+            <NavItem link="/logout">
+              <button
+                className={classes.Button + " " + classes.NotOnMobile}
+                onClick={() => window.location.reload()}
+              >
+                Logout
+              </button>
+            </NavItem>
+          )}
+          {(this.props.location.pathname === "/dashboard" ||
+            this.props.match.path === "/search-results/:query" ||
+            this.props.match.path === "/movie/:id") && (
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
             <NavItem link="/profile">
               <button
                 id="profile"
@@ -138,6 +161,7 @@ class NavBar extends Component {
                   hideTrailer={() => this.setState({ showMobileSearch: false })}
                 />
                 <Zoom>
+<<<<<<< HEAD
                 <div
                   className={
                     classes.SearchParent +
@@ -170,6 +194,40 @@ class NavBar extends Component {
                     onChange={this.onSearchChangeHandler}
                   />
                 </div>
+=======
+                  <div
+                    className={
+                      classes.SearchParent +
+                      " " +
+                      classes.OnMobile +
+                      " " +
+                      (this.state.focus && classes.Active)
+                    }
+                    onKeyPress={(event) =>
+                      event.key === "Enter"
+                        ? this.submitQueryMobileHandler(this.state.search)
+                        : null
+                    }
+                    onFocus={this.onFocusHandler}
+                    onBlur={this.onFocusHandler}
+                  >
+                    <i
+                      onClick={() =>
+                        this.submitQueryMobileHandler(this.state.search)
+                      }
+                      className="fas fa-search"
+                    ></i>
+                    <input
+                      className={classes.Search}
+                      id="Search"
+                      placeholder="Search for a movie"
+                      name="Search"
+                      autoFocus
+                      value={this.state.Search}
+                      onChange={this.onSearchChangeHandler}
+                    />
+                  </div>
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
                 </Zoom>
               </Aux>
             )}
@@ -179,9 +237,24 @@ class NavBar extends Component {
         {(this.props.location.pathname === "/dashboard" ||
           this.props.match.path === "/search-results/:query" ||
           this.props.match.path === "/movie/:id") && (
+<<<<<<< HEAD
           <img src={menuImg} alt="Hamburger" className={classes.OnMobile} />
         )}
         {/* <Sidedrawer /> */}
+=======
+          <img
+            src={menuImg}
+            alt="Hamburger"
+            className={classes.OnMobile}
+            onClick={() =>
+              this.setState({ showSideDrawer: !this.state.showSideDrawer })
+            }
+          />
+        )}
+        {/* // <Zoom> */}
+        <Sidedrawer show={this.state.showSideDrawer} />
+        {/* // </Zoom> */}
+>>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
       </div>
     );
   }
