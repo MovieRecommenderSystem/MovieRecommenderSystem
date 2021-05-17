@@ -56,8 +56,9 @@ func ContentRecommender(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	fmt.Println("Hello!")
 	var id db_tables.RecieveContentBased
+	var output db_tables.ContentBased
 	json.NewDecoder(r.Body).Decode(&id)
-	output := ContentBased(id)
+	output = ContentBased(id)
 	json.NewEncoder(w).Encode(output)
 }
 func GetRecommendations(s db_tables.Preferences) db_tables.SimpleRecommender {

@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import time
+import os
 app = Flask(__name__)
 # app.config['JSON_SORT_KEYS'] = False
 
@@ -88,4 +89,6 @@ def process_request2():
 
 if __name__ == '__main__':
 
-    app.run(host="localhost",port=7000,debug=True)
+    #app.run(host="localhost",port=7000,debug=True)
+    port = int(os.environ.get('PORT', 7000))
+    app.run(host='0.0.0.0', port=port)

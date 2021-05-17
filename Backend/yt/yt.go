@@ -125,7 +125,7 @@ func printIDs(sectionName string, matches map[string]string) {
 
 func GetID(matches map[string]string) string {
 	str := ""
-	for id, _ := range matches {
+	for id := range matches {
 		str = id
 	}
 	fmt.Printf("\n\n")
