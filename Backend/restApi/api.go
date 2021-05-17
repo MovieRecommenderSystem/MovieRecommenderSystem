@@ -27,6 +27,7 @@ import (
 	//"github.com/cespare/reflex"
 	"pranav.com/recommend"
 	"pranav.com/yt"
+	"os"
 )
 
 var cred db_tables.SignInData
@@ -38,11 +39,14 @@ func main() {
 
 	// Connecting with database
 	ClientVar = db.DatabaseConnection()
+	port := os.Getenv("PORT")
+    defaultPort := "9000"
 
 	//collection_n := ClientVar.Database("popkorn_db").Collection("Recommended_Movies")
 
 	//fmt.Println(cl)
 	r := mux.NewRouter()
+
 
 	//checking about the uniqueness of email and username
 	r.HandleFunc("/api/checkUsernameAndEmail", userPassExistance).Methods("POST", "OPTIONS")
@@ -74,7 +78,15 @@ func main() {
 	//Content Based Recommendations
 	r.HandleFunc("/api/ContentRecommender", recommend.ContentRecommender).Methods("POST", "OPTIONS")
 
-	log.Fatal(http.ListenAndServe(":9000", r))
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir("../../Frontend")))
+	//r.PathPrefix("/").Handler(http.FileServer(http.Dir("../../Frontend/src/")))
+
+
+	if !(port == "") {
+        log.Fatal(http.ListenAndServe(":"+port, r))
+    } else {
+        log.Fatal(http.ListenAndServe(":"+defaultPort, r))
+    }
 
 }
 
