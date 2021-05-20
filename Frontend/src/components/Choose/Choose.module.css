@@ -66,14 +66,6 @@
 .P {
   color: #ec4646;
   font-family: "Alegreya Sans", sans-serif;
-<<<<<<< HEAD
-  /* color: rgb(255, 255, 255); */
-  font-size: 2.5vw;
-  /* display: inline-block; */
-  /* margin: 0;
-  margin-bottom: 2vh; */
-}
-=======
   font-size: 2.5vw;
 }
 
@@ -111,4 +103,3 @@
     font-size: 7vw;
   }
 }
->>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50

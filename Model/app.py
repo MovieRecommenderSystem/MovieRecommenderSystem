@@ -61,11 +61,12 @@ def process_request():
     for tr in names_list:
         names.append(tr[0])
     # changed string list to integer
-    print(names)
+   
     answer = list(map(int, answer))
     json_dict = {"result_id": answer, "result_name": names,"year":release_date}
     f = time.time()
     print(f-i)
+    print(json_dict)
     return jsonify(json_dict)
 
 @app.route('/apiRecommender/content', methods=['POST'])

@@ -8,11 +8,7 @@ body {
   background-image: url("./assets/background.png");
   /* background-image: url("./assets/wp3213951.jpg"); */
   background-size: 100% 100%;
-<<<<<<< HEAD
-  width: 100vw;
-=======
   width: 100%;
->>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
   position: absolute;
   top: 0;
   left: 0;

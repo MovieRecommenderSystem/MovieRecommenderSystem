@@ -67,10 +67,7 @@ class Movie extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
-<<<<<<< HEAD
-=======
       this.setState({loading: true});
->>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
       let query = new URLSearchParams(this.props.location.search);
       let queries = [];
       for (let [, value] of query.entries()) {
@@ -78,10 +75,6 @@ class Movie extends Component {
       }
       let [title] = queries;
       let id = this.props.match.params.id;
-<<<<<<< HEAD
-      // axios request
-      this.setState({ id: id, title: title, loading: false });
-=======
       console.log(id);
       // axios request
       axios.post("/api/details", { tmdbID: Number(id) }).then((response) => {
@@ -106,7 +99,6 @@ class Movie extends Component {
         });
       });
       this.render();
->>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
     }
   }
 
@@ -170,11 +162,7 @@ class Movie extends Component {
                 <p className={classes.P3}>More like this</p>
                 <MoreLikeThis
                   id={this.state.id}
-<<<<<<< HEAD
-                  onClick={this.clickRecommHandler}
-=======
                   // onClick={this.clickRecommHandler}
->>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
                 />
               </div>
             </div>
@@ -189,11 +177,7 @@ class Movie extends Component {
 }
 
 const mapStateToProps = (state) => {
-<<<<<<< HEAD
-  return { auth: state.auth };
-=======
   return { auth: state.auth, currMovie: state.movie };
->>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
 };
 
 export default connect(mapStateToProps)(Movie);

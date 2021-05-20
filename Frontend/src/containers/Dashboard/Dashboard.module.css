@@ -20,8 +20,6 @@
   color: #ec4646;
 }
 
-<<<<<<< HEAD
-=======
 .Loader,
 .Loader:before,
 .Loader:after {
@@ -82,7 +80,6 @@
   }
 }
 
->>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
 .P1 {
   font-family: "Alegreya Sans", sans-serif;
   font-size: 2vw;
@@ -95,8 +92,6 @@
   color: #ec4646;
   font-size: 1.5vw;
 }
-<<<<<<< HEAD
-=======
 
 @media (max-width: 768px) {
   .Content {
@@ -133,4 +128,3 @@
   }
   
 }
->>>>>>> bc7ec5e6cd585cb1545d92b748a46d91fb39db50
