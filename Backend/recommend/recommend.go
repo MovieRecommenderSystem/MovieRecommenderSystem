@@ -56,8 +56,9 @@ func ContentRecommender(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	fmt.Println("Hello!")
 	var id db_tables.RecieveContentBased
+	var output db_tables.ContentBased
 	json.NewDecoder(r.Body).Decode(&id)
-	output := ContentBased(id)
+	output = ContentBased(id)
 	json.NewEncoder(w).Encode(output)
 }
 func GetRecommendations(s db_tables.Preferences) db_tables.SimpleRecommender {
@@ -70,7 +71,7 @@ func GetRecommendations(s db_tables.Preferences) db_tables.SimpleRecommender {
 	}
 
 	var res db_tables.SimpleRecommender
-	resp, err := http.Post("http://localhost:7000/apiRecommender/simple", "application/json",
+	resp, err := http.Post("https://popkorn-recommender.herokuapp.com/apiRecommender/simple", "application/json",
 		bytes.NewBuffer(json_data))
 
 	if err != nil {
@@ -90,7 +91,7 @@ func ContentBased(id db_tables.RecieveContentBased) db_tables.ContentBased {
 		fmt.Println("Error while Marshalling")
 	}
 	var res db_tables.ContentBased
-	resp, err2 := http.Post("http://localhost:7000/apiRecommender/content", "application/json",
+	resp, err2 := http.Post("https://popkorn-recommender.herokuapp.com/apiRecommender/content", "application/json",
 	 bytes.NewBuffer(json_data))
 
 	 if err2!=nil{

@@ -14,6 +14,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	db "pranav.com/db"
+	"path/filepath"
 
 	//"go.mongodb.org/mongo-driver/mongo/options"
 	//"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -22,11 +23,14 @@ import (
 	"pranav.com/db_tables"
 	"pranav.com/external_api"
 	"pranav.com/insert_operations"
+	//"strings"
 
 	//"github.com/codegangsta/gin"
 	//"github.com/cespare/reflex"
 	"pranav.com/recommend"
 	"pranav.com/yt"
+	"os"
+	//"path"
 )
 
 var cred db_tables.SignInData
@@ -34,10 +38,18 @@ var check db_tables.CheckExistance
 var usrPass db_tables.CheckUsernameEmail
 var ClientVar *mongo.Client
 
+type spaHandler struct {
+	staticPath string
+	indexPath  string
+}
+
+
 func main() {
 
 	// Connecting with database
 	ClientVar = db.DatabaseConnection()
+	port := os.Getenv("PORT")
+    defaultPort := "9000"
 
 	//collection_n := ClientVar.Database("popkorn_db").Collection("Recommended_Movies")
 
@@ -74,8 +86,82 @@ func main() {
 	//Content Based Recommendations
 	r.HandleFunc("/api/ContentRecommender", recommend.ContentRecommender).Methods("POST", "OPTIONS")
 
-	log.Fatal(http.ListenAndServe(":9000", r))
+	//r.PathPrefix("/").Handler(http.FileServer(http.Dir("../../Frontend/build/")))
 
+	spa :=spaHandler{staticPath:"../../Frontend/build/",indexPath:"index.html"}
+
+	r.PathPrefix("/").Handler(spa)
+
+	//r.HandleFunc("/",HandleRoutes).Methods("GET", "OPTIONS")
+
+
+	if !(port == "") {
+        log.Fatal(http.ListenAndServe(":"+port, r))
+    } else {
+        log.Fatal(http.ListenAndServe(":"+defaultPort, r))
+    }
+
+}
+func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    // get the absolute path to prevent directory traversal
+	path, err := filepath.Abs(r.URL.Path)
+	if err != nil {
+        // if we failed to get the absolute path respond with a 400 bad request
+        // and stop
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	// newPath:=""
+	// if len(path)>=4{
+	// newPath=path[0:4]
+	// }
+	// fmt.Println(newPath)
+
+    // prepend the path with the path to the static directory
+	path = filepath.Join(h.staticPath, path)
+	//fmt.Println(path)
+
+    // check whether a file exists at the given path
+	_, err = os.Stat(path)
+	if os.IsNotExist(err) {	
+		// file does not exist, serve index.html
+		//fmt.Println("File does noy exists")
+		http.ServeFile(w, r, filepath.Join(h.staticPath, h.indexPath))
+		return
+	} else if err != nil {
+        // if we got an error (that wasn't that the file doesn't exist) stating the
+        // file, return a 500 internal server error and stop
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+    // otherwise, use http.FileServer to serve the static dir
+	http.FileServer(http.Dir(h.staticPath)).ServeHTTP(w, r)
+
+}
+func HandleRoutes(w http.ResponseWriter, r *http.Request){
+	// fmt.Println("alalal")
+	// const FSPATH = "../../Frontend/build/"
+	// fs := http.FileServer(http.Dir(FSPATH))
+	// fmt.Println(r.URL.Path)
+	// if r.URL.Path != "/" {
+	// 	fmt.Println("lala")
+	// 	fmt.Println(r.URL.Path)
+	// 	fullPath := FSPATH + strings.TrimPrefix(path.Clean(r.URL.Path), "/")
+	// 	_, err := os.Stat(fullPath)
+	// 	if err != nil {
+	// 		if !os.IsNotExist(err) {
+	// 			panic(err)
+	// 		}
+	// 		// Requested file does not exist so we return the default (resolves to index.html)
+	// 		r.URL.Path = "/"
+	// 	}
+	// }else{
+	// 	fmt.Println("pranav!")
+	// 	fmt.Println(r.URL.Path)
+	// }
+	// fs.ServeHTTP(w, r)
+	// fmt.Println(r.URL.Path)
 }
 
 func userPassExistance(w http.ResponseWriter, r *http.Request) {
@@ -202,3 +288,5 @@ func signInValidation(data db_tables.SignInData) (db_tables.AfterSignIn) {
 	return v
 
 }
+
+

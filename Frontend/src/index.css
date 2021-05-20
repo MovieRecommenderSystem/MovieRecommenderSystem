@@ -25,7 +25,7 @@ code {
 @media (max-width: 768px){
   body{
   background-image: url("./assets/background-mobile.png");
-  background-size: cover;
+  background-size: cover !important;
   overflow-x: hidden;
   }
 }

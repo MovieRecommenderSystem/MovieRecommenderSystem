@@ -115,7 +115,7 @@ func SearchQuery(query db_tables.Query) db_tables.SearchResult {
 
 			var temp db_tables.SearchDetails
 			temp.Tmdb_id = movie.Results[i].ID
-			temp.Title = res[i].OriginalTitle
+			temp.Title = res[i].Title
 			temp.Year = res[i].ReleaseDate
 			result.Results = append(result.Results, temp)
 		} else {
