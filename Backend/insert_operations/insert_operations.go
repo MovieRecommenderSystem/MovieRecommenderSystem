@@ -14,12 +14,21 @@ import (
 	db "pranav.com/db"
 	"pranav.com/db_tables"
 	//"pranav.com/recommend"
-//	"bytes"
+	"github.com/dgrijalva/jwt-go"
+	"time"
+	//	"bytes"
 )
 
 var user db_tables.NewUser
 var ClientVar *mongo.Client
 var pref db_tables.Preferences
+
+type Claims struct {
+	Username string `json:"username"`
+	jwt.StandardClaims
+}
+
+var jwt_key = []byte("secret")
 
 func SendUserData(w http.ResponseWriter, r *http.Request) {
 	//Setting header to content type will tell client to expect data in json format
@@ -47,9 +56,39 @@ func SendUserData(w http.ResponseWriter, r *http.Request) {
 
 		}
 		insertResult := InsertCollection(user)
+		if insertResult {	
+			expiryTime := time.Now().Add(time.Hour * 5)
+
+			claims := &Claims{
+				Username: user.Username,
+				StandardClaims: jwt.StandardClaims{
+					ExpiresAt: expiryTime.Unix(),
+				},
+			}
+
+			// Generating jwt token on the basis of claims
+
+			token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+			tokenString, err := token.SignedString(jwt_key)
+
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+
+			//Set Cookies
+
+			http.SetCookie(w, &http.Cookie{
+				Name:    "token",
+				Value:   tokenString,
+				Expires: expiryTime,
+			})
+		}
 
 		json.NewEncoder(w).Encode(insertResult)
 	}
+
 
 }
 
@@ -96,7 +135,7 @@ func SavePreferences(w http.ResponseWriter, r *http.Request) {
 
 		json.NewEncoder(w).Encode(status_pref)
 	}
-	
+
 }
 
 //Storing user preferences in database

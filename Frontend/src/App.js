@@ -3,6 +3,8 @@ import { Switch, Route } from "react-router-dom";
 
 import "./App.css";
 
+import { useJwt } from "react-jwt";
+
 const SignUpEmail = React.lazy(() =>
   new Promise((resolve) => setTimeout(resolve, 100)).then(() =>
     import("./containers/SignUp/SignUpEmail/SignUpEmail")
@@ -50,7 +52,13 @@ const Movie = React.lazy(() =>
 );
 
 class App extends Component {
+  componentDidMount() {
+    console.log(localStorage.getItem("token"));
+    const { decodedToken, isExpired } = useJwt(localStorage.getItem("token"));
+    console.log("hi", decodedToken, isExpired)
+  }
   render() {
+
     return (
       <div className="App">
         <Suspense fallback={<div className="loader">Loading...</div>}>

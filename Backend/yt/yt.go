@@ -12,10 +12,18 @@ import (
 	"google.golang.org/api/googleapi/transport"
 	"google.golang.org/api/youtube/v3"
 	"pranav.com/db_tables"
+	"github.com/dgrijalva/jwt-go"
 )
 
 var queryy db_tables.Query
 var a db_tables.YtUrlLink
+
+var jwt_key = []byte("secret")
+
+type Claims struct {
+	Username string `json:"username"`
+	jwt.StandardClaims
+}
 
 func SendTrailer(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -26,6 +34,34 @@ func SendTrailer(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&queryy)
 	fmt.Println(queryy)
 	if len(queryy.Query) > 0 {
+		cookie, err := r.Cookie("token")
+	if err != nil {
+		if err == http.ErrNoCookie {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	tokenStr := cookie.Value
+	claims := &Claims{}
+
+	tkn,err :=jwt.ParseWithClaims(tokenStr,claims,func(t *jwt.Token)(interface{},error){
+		return jwt_key,nil
+	})
+
+	if err!=nil{
+		if err ==jwt.ErrSignatureInvalid {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	if !tkn.Valid{
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
 		YtUrl()
 		a.EmbeddedLink = url
 		json.NewEncoder(w).Encode(a)

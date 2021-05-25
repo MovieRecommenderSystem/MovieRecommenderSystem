@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"github.com/dgrijalva/jwt-go"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
@@ -16,6 +17,13 @@ import (
 
 var ClientVar *mongo.Client
 
+var jwt_key = []byte("secret")
+
+type Claims struct {
+	Username string `json:"username"`
+	jwt.StandardClaims
+}
+
 //var output db_tables.SimpleRecommender
 func SimpleRecommender(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -24,7 +32,37 @@ func SimpleRecommender(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	var usr db_tables.UsernameForRecommendation
 	json.NewDecoder(r.Body).Decode(&usr)
-	fmt.Println(usr.Username)
+
+	//fmt.Println(usr.Username)
+
+	cookie, err := r.Cookie("token")
+	if err != nil {
+		if err == http.ErrNoCookie {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	tokenStr := cookie.Value
+	claims := &Claims{}
+
+	tkn, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
+		return jwt_key, nil
+	})
+
+	if err != nil {
+		if err == jwt.ErrSignatureInvalid {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	if !tkn.Valid {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
 	ClientVar = db.ClientVar
 	collection := ClientVar.Database("popkorn_db").Collection("UserPreferences")
 	filter := bson.D{{"username", usr.Username}}
@@ -32,11 +70,11 @@ func SimpleRecommender(w http.ResponseWriter, r *http.Request) {
 	var result db_tables.Preferences
 
 	//fmt.Println("lassan")
-	err := collection.FindOne(context.TODO(), filter).Decode(&result)
+	err_new := collection.FindOne(context.TODO(), filter).Decode(&result)
 	fmt.Println(err)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	if err_new != nil {
+		log.Fatal(err)
+	}
 	if len(result.Username) == 0 {
 		fmt.Println("user does not exists")
 		json.NewEncoder(w).Encode(-1)
@@ -58,6 +96,35 @@ func ContentRecommender(w http.ResponseWriter, r *http.Request) {
 	var id db_tables.RecieveContentBased
 	var output db_tables.ContentBased
 	json.NewDecoder(r.Body).Decode(&id)
+
+	cookie, err := r.Cookie("token")
+	if err != nil {
+		if err == http.ErrNoCookie {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	tokenStr := cookie.Value
+	claims := &Claims{}
+
+	tkn, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
+		return jwt_key, nil
+	})
+
+	if err != nil {
+		if err == jwt.ErrSignatureInvalid {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	if !tkn.Valid {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
 	output = ContentBased(id)
 	json.NewEncoder(w).Encode(output)
 }
@@ -92,14 +159,13 @@ func ContentBased(id db_tables.RecieveContentBased) db_tables.ContentBased {
 	}
 	var res db_tables.ContentBased
 	resp, err2 := http.Post("https://popkorn-recommender.herokuapp.com/apiRecommender/content", "application/json",
-	 bytes.NewBuffer(json_data))
+		bytes.NewBuffer(json_data))
 
-	 if err2!=nil{
-		 fmt.Println("Error in Posting")
-	 }
-	 json.NewDecoder(resp.Body).Decode(&res)
-	 fmt.Println(res)
-	 return res
-
+	if err2 != nil {
+		fmt.Println("Error in Posting")
+	}
+	json.NewDecoder(resp.Body).Decode(&res)
+	fmt.Println(res)
+	return res
 
 }
