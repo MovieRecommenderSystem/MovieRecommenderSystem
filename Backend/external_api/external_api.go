@@ -2,14 +2,16 @@ package external_api
 
 import (
 	"encoding/json"
-	"github.com/StalkR/imdb"
-	"log"
-	"os"
 	"fmt"
+	"github.com/StalkR/imdb"
 	"github.com/cyruzin/golang-tmdb"
-	"net/http"
-	"pranav.com/db_tables"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
+	"log"
+	"net/http"
+	"os"
+	"pranav.com/db_tables"
+	//"time"
 )
 
 var result db_tables.SearchResult
@@ -18,19 +20,24 @@ var details db_tables.SearchDetails
 
 var length int
 
+var jwt_key = []byte("secret")
+
+type Claims struct {
+	Username string `json:"username"`
+	jwt.StandardClaims
+}
 
 func goDotEnvVariable(key string) string {
 
 	// load .env file
 	err := godotenv.Load("../.env")
-  
-	if err != nil {
-	  log.Fatalf("Error loading .env file")
-	}
-  
-	return os.Getenv(key)
-  }
 
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	return os.Getenv(key)
+}
 
 func SearchMovieOrShow(w http.ResponseWriter, r *http.Request) {
 	//Setting header to content type will tell client to expect data in json format
@@ -43,7 +50,35 @@ func SearchMovieOrShow(w http.ResponseWriter, r *http.Request) {
 	//fmt.Println(query)
 	if len(query.Query) > 0 {
 		answer := SearchQuery(query)
-		fmt.Println(answer)
+		//fmt.Println(answer)
+		cookie, err := r.Cookie("token")
+		if err != nil {
+			if err == http.ErrNoCookie {
+				w.WriteHeader(http.StatusUnauthorized)
+				return
+			}
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		tokenStr := cookie.Value
+		claims := &Claims{}
+
+		tkn, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
+			return jwt_key, nil
+		})
+
+		if err != nil {
+			if err == jwt.ErrSignatureInvalid {
+				w.WriteHeader(http.StatusUnauthorized)
+				return
+			}
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		if !tkn.Valid {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
 		json.NewEncoder(w).Encode(answer)
 	}
 
@@ -59,8 +94,37 @@ func GetPosterUrl(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&id)
 	//fmt.Println(id)
 	if id.Tmdbid > 0 {
+		cookie, err := r.Cookie("token")
+		if err != nil {
+			if err == http.ErrNoCookie {
+				w.WriteHeader(http.StatusUnauthorized)
+				return
+			}
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		tokenStr := cookie.Value
+		claims := &Claims{}
+
+		tkn, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
+			return jwt_key, nil
+		})
+
+		if err != nil {
+			if err == jwt.ErrSignatureInvalid {
+				w.WriteHeader(http.StatusUnauthorized)
+				return
+			}
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		if !tkn.Valid {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
 		answer := getPoster(id)
-		fmt.Println(answer)
+		//fmt.Println(answer)
+		
 		json.NewEncoder(w).Encode(answer)
 	}
 
@@ -72,10 +136,38 @@ func SendDetails(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	var det db_tables.TmdbID
-	
+
 	json.NewDecoder(r.Body).Decode(&det)
 	fmt.Println(det)
 	if det.Tmdbid > 0 {
+		cookie, err := r.Cookie("token")
+		if err != nil {
+			if err == http.ErrNoCookie {
+				w.WriteHeader(http.StatusUnauthorized)
+				return
+			}
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		tokenStr := cookie.Value
+		claims := &Claims{}
+
+		tkn, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
+			return jwt_key, nil
+		})
+
+		if err != nil {
+			if err == jwt.ErrSignatureInvalid {
+				w.WriteHeader(http.StatusUnauthorized)
+				return
+			}
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		if !tkn.Valid {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
 		answer := getDetail(det)
 		fmt.Println(answer)
 		json.NewEncoder(w).Encode(answer)
@@ -92,7 +184,7 @@ func SearchQuery(query db_tables.Query) db_tables.SearchResult {
 	// 	fmt.Errorf("Error while fetching details from Api")
 	// }
 	var result db_tables.SearchResult
-	tmdb_key:=goDotEnvVariable("TMDB_KEY")
+	tmdb_key := goDotEnvVariable("TMDB_KEY")
 	tmdbClient, err := tmdb.Init(tmdb_key)
 	if err != nil {
 		fmt.Println(err)
@@ -128,7 +220,7 @@ func SearchQuery(query db_tables.Query) db_tables.SearchResult {
 func getPoster(id db_tables.TmdbID) db_tables.Poster {
 
 	var poster db_tables.Poster
-	tmdb_key:=goDotEnvVariable("TMDB_KEY")
+	tmdb_key := goDotEnvVariable("TMDB_KEY")
 	tmdbClient, err := tmdb.Init(tmdb_key)
 	if err != nil {
 		fmt.Println(err)
@@ -193,8 +285,8 @@ func getDetail(det db_tables.TmdbID) db_tables.DetailsPage {
 }
 
 func getImdbId(i int) string {
-	tmdb_key:=goDotEnvVariable("TMDB_KEY")
-	tmdbClient, err := tmdb.Init(tmdb_key	)
+	tmdb_key := goDotEnvVariable("TMDB_KEY")
+	tmdbClient, err := tmdb.Init(tmdb_key)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -203,7 +295,7 @@ func getImdbId(i int) string {
 		// "append_to_response": "credits,images",
 		// //"external_api":"imdB",
 	}
-	title,_:=tmdbClient.GetMovieDetails(i,options)
+	title, _ := tmdbClient.GetMovieDetails(i, options)
 
 	return title.IMDbID
 }
