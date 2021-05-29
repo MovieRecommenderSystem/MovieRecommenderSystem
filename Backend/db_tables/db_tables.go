@@ -10,6 +10,10 @@ type NewUser struct {
 	Gender   string `json:"gender,omitempty" bson:"gender,omitempty"`
 }
 
+type JWTToken struct {
+	Token string `json:"token,omitempty"`
+}
+
 //Data coming for verification while signing in
 type SignInData struct {
 	Email    string `json:"email,omitempty" bson:"username,omitempty"`
@@ -95,6 +99,7 @@ Username string `json:"username"`
 type AfterSignIn struct {
 	Status bool `json:"status"`
 	Username string `json:"username"`
+	Token string `json:"token,omitempty"`
 }
 
 type RecieveContentBased struct {

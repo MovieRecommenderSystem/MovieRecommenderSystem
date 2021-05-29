@@ -10,10 +10,11 @@ import (
 	"log"
 	"net/http"
 
+	"path/filepath"
+
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"path/filepath"
 	db "pranav.com/db"
 
 	//"go.mongodb.org/mongo-driver/mongo/options"
@@ -23,16 +24,20 @@ import (
 	"pranav.com/db_tables"
 	"pranav.com/external_api"
 	"pranav.com/insert_operations"
+
 	//"strings"
 
 	//"github.com/codegangsta/gin"
 	//"github.com/cespare/reflex"
 	"os"
+
 	"pranav.com/recommend"
 	"pranav.com/yt"
+
 	//"pranav.com/jwt"
-	"github.com/dgrijalva/jwt-go"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 	//"path"
 )
 
@@ -186,6 +191,7 @@ func userPassExistance(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
+
 	json.NewDecoder(r.Body).Decode(&usrPass)
 
 	//checkExistance(usrPass)
@@ -253,6 +259,8 @@ func signInResult(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Add("Access-Control-Allow-Headers", "x-access-token")
+
 
 	json.NewDecoder(r.Body).Decode(&cred)
 
@@ -276,7 +284,7 @@ func signInResult(w http.ResponseWriter, r *http.Request) {
 			token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 			tokenString, err := token.SignedString(jwt_key)
-
+			answer.Token = tokenString
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 				return
@@ -290,6 +298,7 @@ func signInResult(w http.ResponseWriter, r *http.Request) {
 				Expires: expiryTime,
 			})
 		}
+		
 		json.NewEncoder(w).Encode(answer)
 	}
 
@@ -340,7 +349,7 @@ func logout(w http.ResponseWriter,r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-
+	w.Header().Set("Access-Control-Allow-Headers", "x-access-token")
 	// cookie, err := r.Cookie("token")
 	// if err != nil {
 	// 	w.WriteHeader(http.StatusBadRequest)

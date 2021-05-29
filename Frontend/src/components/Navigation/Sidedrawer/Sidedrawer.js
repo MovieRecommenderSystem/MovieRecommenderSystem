@@ -4,6 +4,11 @@ import React from "react";
 import NavItem from "../NavItem/NavItem";
 import classes from "./Sidedrawer.module.css";
 
+const logout = () => {
+  localStorage.removeItem("userData");
+  window.location.reload();
+};
+
 const Sidedrawer = (props) => {
   return (
     <div
@@ -42,7 +47,7 @@ const Sidedrawer = (props) => {
           }}
         >
           <p
-            onClick={() => window.location.reload()}
+            onClick={logout}
             style={{ textDecoration: "underline", textAlign: "center" }}
           >
             Logout

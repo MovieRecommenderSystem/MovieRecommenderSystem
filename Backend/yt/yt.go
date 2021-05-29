@@ -7,12 +7,13 @@ import (
 	"log"
 	"net/http"
 	"os"
+
 	//"github.com/gorilla/mux"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
 	"google.golang.org/api/googleapi/transport"
 	"google.golang.org/api/youtube/v3"
 	"pranav.com/db_tables"
-	"github.com/dgrijalva/jwt-go"
 )
 
 var queryy db_tables.Query
@@ -30,20 +31,23 @@ func SendTrailer(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Add("Access-Control-Allow-Headers", "x-access-token")
 	//var query db_tables.Query
 	json.NewDecoder(r.Body).Decode(&queryy)
 	fmt.Println(queryy)
 	if len(queryy.Query) > 0 {
-		cookie, err := r.Cookie("token")
-	if err != nil {
-		if err == http.ErrNoCookie {
-			w.WriteHeader(http.StatusUnauthorized)
-			return
-		}
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	tokenStr := cookie.Value
+	// 	cookie, err := r.Cookie("token")
+	// if err != nil {
+	// 	if err == http.ErrNoCookie {
+	// 		w.WriteHeader(http.StatusUnauthorized)
+	// 		return
+	// 	}
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	return
+	// }
+	// tokenStr := cookie.Value
+	tokenStr := r.Header.Get("x-access-token")
+
 	claims := &Claims{}
 
 	tkn,err :=jwt.ParseWithClaims(tokenStr,claims,func(t *jwt.Token)(interface{},error){

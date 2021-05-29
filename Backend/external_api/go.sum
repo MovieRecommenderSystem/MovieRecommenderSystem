@@ -2,8 +2,8 @@ github.com/StalkR/httpcache v1.0.0 h1:Px+QK86m7FEEvCfpfC+C0sNiUnRrLQyMVVJ6LKiXNv
 github.com/StalkR/httpcache v1.0.0/go.mod h1:yvbaYwH6w1USHPqgspMSwumbLwWE+B7jIZgfLYkTw1M=
 github.com/StalkR/imdb v1.0.6 h1:k4wN/qkAqIqkq6YtYtPVn31aEpVhF/jf49zELH8yIGw=
 github.com/StalkR/imdb v1.0.6/go.mod h1:nxQmP4/nGtTVICl2+UmwhCnosVwVClmksdyptjE5Lj8=
-github.com/cyruzin/golang-tmdb v1.3.3 h1:Qmbk4/xehItf55o9TBwIFwGcZZprFe+bkDLLRk7Ziz8=
-github.com/cyruzin/golang-tmdb v1.3.3/go.mod h1:PfU3ZnPMpKZkz/MMp42QJtJwQYOyy4znDNh3wyz233o=
+github.com/cyruzin/golang-tmdb v1.3.4 h1:u/CuulqGIka5zoBniAnu1vnsFXoQoGGbVC2Uthc2wO4=
+github.com/cyruzin/golang-tmdb v1.3.4/go.mod h1:PfU3ZnPMpKZkz/MMp42QJtJwQYOyy4znDNh3wyz233o=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

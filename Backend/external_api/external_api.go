@@ -3,13 +3,14 @@ package external_api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/StalkR/imdb"
-	"github.com/cyruzin/golang-tmdb"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/StalkR/imdb"
+	tmdb "github.com/cyruzin/golang-tmdb"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/joho/godotenv"
 	"pranav.com/db_tables"
 	//"time"
 )
@@ -45,24 +46,26 @@ func SearchMovieOrShow(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Add("Access-Control-Allow-Headers", "x-access-token")
+
 	var query db_tables.Query
 	json.NewDecoder(r.Body).Decode(&query)
 	//fmt.Println(query)
 	if len(query.Query) > 0 {
 		answer := SearchQuery(query)
 		//fmt.Println(answer)
-		cookie, err := r.Cookie("token")
-		if err != nil {
-			if err == http.ErrNoCookie {
-				w.WriteHeader(http.StatusUnauthorized)
-				return
-			}
-			w.WriteHeader(http.StatusBadRequest)
-			return
-		}
-		tokenStr := cookie.Value
+		// cookie, err := r.Cookie("token")
+		// if err != nil {
+		// 	if err == http.ErrNoCookie {
+		// 		w.WriteHeader(http.StatusUnauthorized)
+		// 		return
+		// 	}
+		// 	w.WriteHeader(http.StatusBadRequest)
+		// 	return
+		// }
+		// tokenStr := cookie.Value
 		claims := &Claims{}
-
+		tokenStr := r.Header.Get("x-access-token")
 		tkn, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
 			return jwt_key, nil
 		})
@@ -90,22 +93,23 @@ func GetPosterUrl(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Add("Access-Control-Allow-Headers", "x-access-token")
 	var id db_tables.TmdbID
 	json.NewDecoder(r.Body).Decode(&id)
 	//fmt.Println(id)
 	if id.Tmdbid > 0 {
-		cookie, err := r.Cookie("token")
-		if err != nil {
-			if err == http.ErrNoCookie {
-				w.WriteHeader(http.StatusUnauthorized)
-				return
-			}
-			w.WriteHeader(http.StatusBadRequest)
-			return
-		}
-		tokenStr := cookie.Value
+		// cookie, err := r.Cookie("token")
+		// if err != nil {
+		// 	if err == http.ErrNoCookie {
+		// 		w.WriteHeader(http.StatusUnauthorized)
+		// 		return
+		// 	}
+		// 	w.WriteHeader(http.StatusBadRequest)
+		// 	return
+		// }
+		// tokenStr := cookie.Value
 		claims := &Claims{}
-
+		tokenStr := r.Header.Get("x-access-token")
 		tkn, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
 			return jwt_key, nil
 		})
@@ -135,23 +139,24 @@ func SendDetails(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Add("Access-Control-Allow-Headers", "x-access-token")
 	var det db_tables.TmdbID
 
 	json.NewDecoder(r.Body).Decode(&det)
 	fmt.Println(det)
 	if det.Tmdbid > 0 {
-		cookie, err := r.Cookie("token")
-		if err != nil {
-			if err == http.ErrNoCookie {
-				w.WriteHeader(http.StatusUnauthorized)
-				return
-			}
-			w.WriteHeader(http.StatusBadRequest)
-			return
-		}
-		tokenStr := cookie.Value
+		// cookie, err := r.Cookie("token")
+		// if err != nil {
+		// 	if err == http.ErrNoCookie {
+		// 		w.WriteHeader(http.StatusUnauthorized)
+		// 		return
+		// 	}
+		// 	w.WriteHeader(http.StatusBadRequest)
+		// 	return
+		// }
+		// tokenStr := cookie.Value
 		claims := &Claims{}
-
+		tokenStr := r.Header.Get("x-access-token")
 		tkn, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
 			return jwt_key, nil
 		})
@@ -255,7 +260,7 @@ func getDetail(det db_tables.TmdbID) db_tables.DetailsPage {
 	client := http.DefaultClient
 	Movie_everyting, err := imdb.NewTitle(client, a)
 	if err != nil {
-		fmt.Println("error in getDetails")
+		fmt.Println(err)
 
 	} else {
 		DetailsPage.Name = Movie_everyting.Name

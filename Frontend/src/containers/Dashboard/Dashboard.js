@@ -16,7 +16,7 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.username);
+    console.log(this.props);
     axios
       .post("/api/simpleRecommender", { username: this.props.username })
       .then((response) => {

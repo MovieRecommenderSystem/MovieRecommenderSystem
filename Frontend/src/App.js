@@ -1,9 +1,10 @@
 import React, { Component, Suspense } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 import "./App.css";
 
-import { useJwt } from "react-jwt";
+// import { useJwt } from "react-jwt";
 
 const SignUpEmail = React.lazy(() =>
   new Promise((resolve) => setTimeout(resolve, 100)).then(() =>
@@ -53,12 +54,15 @@ const Movie = React.lazy(() =>
 
 class App extends Component {
   componentDidMount() {
-    console.log(localStorage.getItem("token"));
-    const { decodedToken, isExpired } = useJwt(localStorage.getItem("token"));
-    console.log("hi", decodedToken, isExpired)
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (userData) {
+      if (userData.status) {
+        this.props.onAuthTrue();
+        this.props.setUsername(userData.username);
+      }
+    }
   }
   render() {
-
     return (
       <div className="App">
         <Suspense fallback={<div className="loader">Loading...</div>}>
@@ -72,6 +76,7 @@ class App extends Component {
             <Route path="/signup/phone" component={SignUpPhone} />
             <Route path="/signup/email" component={SignUpEmail} />
             <Route path="/signup/google" component={SignUpEmail} />
+            {this.props.auth && <Redirect from="/" to="/dashboard" />}
             <Route path="/" component={Landing} />
           </Switch>
         </Suspense>
@@ -79,5 +84,20 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    username: state.username,
+  };
+};
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuthFalse: () => dispatch({ type: "False_Auth" }),
+    onAuthTrue: () => dispatch({ type: "True_Auth" }),
+    setUsername: (username) =>
+      dispatch({ type: "Set_Username", username: username }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

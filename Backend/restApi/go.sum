@@ -55,6 +55,8 @@ github.com/cncf/udpa/go v0.0.0-20200629203442-efcf912fb354/go.mod h1:WmhPx2Nbnht
 github.com/cncf/udpa/go v0.0.0-20201120205902-5459f2c99403/go.mod h1:WmhPx2Nbnhtbo57+VJT5O0JRkEi1Wbu0z5j0R8u5Hbk=
 github.com/cyruzin/golang-tmdb v1.3.3 h1:Qmbk4/xehItf55o9TBwIFwGcZZprFe+bkDLLRk7Ziz8=
 github.com/cyruzin/golang-tmdb v1.3.3/go.mod h1:PfU3ZnPMpKZkz/MMp42QJtJwQYOyy4znDNh3wyz233o=
+github.com/cyruzin/golang-tmdb v1.3.4 h1:u/CuulqGIka5zoBniAnu1vnsFXoQoGGbVC2Uthc2wO4=
+github.com/cyruzin/golang-tmdb v1.3.4/go.mod h1:PfU3ZnPMpKZkz/MMp42QJtJwQYOyy4znDNh3wyz233o=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

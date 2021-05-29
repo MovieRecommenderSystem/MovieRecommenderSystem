@@ -4,18 +4,23 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
 	//"github.com/gorilla/mux"
+	"log"
+	"net/http"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
-	"log"
-	"net/http"
+
 	//"net/url"
 	db "pranav.com/db"
 	"pranav.com/db_tables"
+
 	//"pranav.com/recommend"
-	"github.com/dgrijalva/jwt-go"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 	//	"bytes"
 )
 
@@ -36,6 +41,7 @@ func SendUserData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Add("Access-Control-Allow-Headers", "x-access-token")
 
 	json.NewDecoder(r.Body).Decode(&user)
 
@@ -56,6 +62,7 @@ func SendUserData(w http.ResponseWriter, r *http.Request) {
 
 		}
 		insertResult := InsertCollection(user)
+		var sendToken db_tables.JWTToken
 		if insertResult {	
 			expiryTime := time.Now().Add(time.Hour * 5)
 
@@ -71,7 +78,7 @@ func SendUserData(w http.ResponseWriter, r *http.Request) {
 			token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 			tokenString, err := token.SignedString(jwt_key)
-
+			sendToken.Token = tokenString
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 				return
@@ -85,8 +92,8 @@ func SendUserData(w http.ResponseWriter, r *http.Request) {
 				Expires: expiryTime,
 			})
 		}
-
-		json.NewEncoder(w).Encode(insertResult)
+		fmt.Println(insertResult)
+		json.NewEncoder(w).Encode(sendToken)
 	}
 
 
@@ -124,6 +131,7 @@ func SavePreferences(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Add("Access-Control-Allow-Headers", "x-access-token")
 
 	json.NewDecoder(r.Body).Decode(&pref)
 

@@ -31,6 +31,7 @@ class Movie extends Component {
     actors: [],
     // come from URL
     show: false,
+    error: false,
   };
   componentDidMount() {
     let query = new URLSearchParams(this.props.location.search);
@@ -43,31 +44,32 @@ class Movie extends Component {
     console.log(id);
     // axios request
     axios.post("/api/details", { tmdbID: Number(id) }).then((response) => {
+      console.log(response.data);
       this.setState({
         id: id,
         title: title,
         loading: false,
-        rating: response.data.rating ? response.data.rating : null,
-        year: response.data.year ? response.data.year : null,
-        genre: response.data.Genres ? response.data.Genres : null,
+        rating: response.data.rating ? response.data.rating : "",
+        year: response.data.year ? response.data.year : "",
+        genre: response.data.Genres ? response.data.Genres : [],
         runtime: response.data.duration
           ? response.data.duration.substring(0, 2) +
             " " +
             response.data.duration.substring(2)
-          : null,
-        language: response.data.Languages ? response.data.Languages : null,
+          : "",
+        language: response.data.Languages ? response.data.Languages : [],
         description: response.data.description
           ? response.data.description
-          : null,
-        directors: response.data.director ? response.data.director : null,
-        actors: response.data.Actors ? response.data.Actors : null,
+          : "",
+        directors: response.data.director ? response.data.director : [],
+        actors: response.data.Actors ? response.data.Actors : [],
       });
     });
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
-      this.setState({loading: true});
+      this.setState({ loading: true });
       let query = new URLSearchParams(this.props.location.search);
       let queries = [];
       for (let [, value] of query.entries()) {
@@ -78,24 +80,25 @@ class Movie extends Component {
       console.log(id);
       // axios request
       axios.post("/api/details", { tmdbID: Number(id) }).then((response) => {
+        console.log(response.data);
         this.setState({
           id: id,
           title: title,
           loading: false,
-          rating: response.data.rating ? response.data.rating : null,
-          year: response.data.year ? response.data.year : null,
-          genre: response.data.Genres ? response.data.Genres : null,
+          rating: response.data.rating ? response.data.rating : "",
+          year: response.data.year ? response.data.year : "",
+          genre: response.data.Genres ? response.data.Genres : [],
           runtime: response.data.duration
             ? response.data.duration.substring(0, 2) +
               " " +
               response.data.duration.substring(2)
-            : null,
-          language: response.data.Languages ? response.data.Languages : null,
+            : "",
+          language: response.data.Languages ? response.data.Languages : [],
           description: response.data.description
             ? response.data.description
-            : null,
-          directors: response.data.director ? response.data.director : null,
-          actors: response.data.Actors ? response.data.Actors : null,
+            : "",
+          directors: response.data.director ? response.data.director : [],
+          actors: response.data.Actors ? response.data.Actors : [],
         });
       });
       this.render();

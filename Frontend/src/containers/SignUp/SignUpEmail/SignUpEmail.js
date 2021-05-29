@@ -109,7 +109,8 @@ class SignUp extends Component {
         });
         break;
       case "email":
-        pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        pattern =
+          /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
         checkPattern = pattern.test(event.target.value);
         required = event.target.value.length > 0;
         this.setState({
@@ -237,6 +238,15 @@ class SignUp extends Component {
 
       axios.post("/api/signup", userData).then((response) => {
         if (response.data !== null) {
+          console.log(response.data);
+          localStorage.setItem(
+            "userData",
+            JSON.stringify({
+              status: true,
+              username: this.state.username.value,
+              token: response.data.token,
+            })
+          );
           this.props.setUsername(this.state.username.value);
           this.props.onAuthTrue();
           this.props.history.replace("/choose");

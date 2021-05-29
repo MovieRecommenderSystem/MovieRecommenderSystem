@@ -11,11 +11,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         auth: false,
+        token: null
       };
     case "True_Auth":
       return {
         ...state,
         auth: true,
+        token: action.token
       };
     case "Set_Username":
       return {

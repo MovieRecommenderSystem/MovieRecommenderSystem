@@ -104,6 +104,7 @@ class SignIn extends Component {
       divValidation = this.isValid(this.state.email.isValid) && divValidation;
     if (this.state.phone.value.length > 0)
       divValidation = this.isValid(this.state.phone.isValid) && divValidation;
+
     if (divValidation) {
       this.setState({ incorrectCredientials: false });
       this.setState({ loading: true });
@@ -114,6 +115,7 @@ class SignIn extends Component {
         })
         .then((response) => {
           console.log(response.data);
+          localStorage.setItem("userData", JSON.stringify(response.data));
           if (response.data.status) {
             this.props.onAuthTrue();
             this.props.setUsername(response.data.username);

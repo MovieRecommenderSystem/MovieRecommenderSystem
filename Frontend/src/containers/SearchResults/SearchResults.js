@@ -15,11 +15,18 @@ class SearchResults extends Component {
     movies: [],
   };
   componentDidMount() {
-    axios.post("/api/search", { query: this.props.query }).then((response) => {
-      this.setState({
-        movies: response.data.results,
+    console.log(this.props);
+    axios
+      .post("/api/search", {
+        query: this.props.query
+          ? this.props.query
+          : this.props.match.params.query,
+      })
+      .then((response) => {
+        this.setState({
+          movies: response.data.results,
+        });
       });
-    });
   }
   componentDidUpdate(prevProps) {
     if (prevProps.query !== this.props.query) {

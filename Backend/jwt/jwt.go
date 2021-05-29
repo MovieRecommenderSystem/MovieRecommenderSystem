@@ -2,12 +2,11 @@ package jwt
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 
-	"github.com/dgrijalva/jwt-go"
-	"github.com/gorilla/mux"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 // Secret key to sign jwt token

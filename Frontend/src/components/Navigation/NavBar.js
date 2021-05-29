@@ -19,6 +19,13 @@ class NavBar extends Component {
     showSideDrawer: false,
   };
 
+  logout = () => {
+    localStorage.removeItem("userData");
+    this.props.setAuthFalse();
+    this.props.setUsername("");
+    this.props.history.push("/");
+  };
+
   onFocusHandler = () => {
     this.setState({
       focus: !this.state.focus,
@@ -115,10 +122,10 @@ class NavBar extends Component {
           {(this.props.location.pathname === "/dashboard" ||
             this.props.match.path === "/search-results/:query" ||
             this.props.match.path === "/movie/:id") && (
-            <NavItem link="/logout">
+            <NavItem link="/">
               <button
                 className={classes.Button + " " + classes.NotOnMobile}
-                onClick={() => window.location.reload()}
+                onClick={this.logout}
               >
                 Logout
               </button>
@@ -217,6 +224,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setQuery: (query) => dispatch({ type: "Set_Query", query: query }),
+    setAuthFalse: () => dispatch({ type: "False_Auth" }),
+    setUsername: (username) =>
+      dispatch({ type: "Set_Username", username: username }),
   };
 };
 
