@@ -106,7 +106,7 @@ func main() {
 	//Setting logout Route
 	r.HandleFunc("/api/logout", logout).Methods("GET", "OPTIONS")
 
-	//r.PathPrefix("/").Handler(http.FileServer(http.Dir("../../Frontend/build/")))
+	// r.PathPrefix("/").Handler(http.FileServer(http.Dir("../../Frontend/build/")))
 
 	spa := spaHandler{staticPath: "../../Frontend/build/", indexPath: "index.html"}
 

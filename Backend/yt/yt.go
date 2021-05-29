@@ -47,13 +47,13 @@ func SendTrailer(w http.ResponseWriter, r *http.Request) {
 	// }
 	// tokenStr := cookie.Value
 	tokenStr := r.Header.Get("x-access-token")
-
+	fmt.Println(tokenStr)
 	claims := &Claims{}
 
 	tkn,err :=jwt.ParseWithClaims(tokenStr,claims,func(t *jwt.Token)(interface{},error){
 		return jwt_key,nil
 	})
-
+	fmt.Println(tkn,err)
 	if err!=nil{
 		if err ==jwt.ErrSignatureInvalid {
 			w.WriteHeader(http.StatusUnauthorized)
