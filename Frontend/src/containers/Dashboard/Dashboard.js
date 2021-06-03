@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import classes from "./Dashboard.module.css";
 import Img from "../../components/Card/Img/Img";
@@ -16,6 +17,7 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
+    console.log(Cookies.get("token"));
     console.log(this.props);
     axios
       .post("/api/simpleRecommender", { username: this.props.username })

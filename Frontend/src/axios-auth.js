@@ -6,7 +6,6 @@ const instance = axios.create({
 instance.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 instance.interceptors.request.use(
   (config) => {
-    console.log(localStorage.getItem("userData"));
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
       let accessToken = userData.token;

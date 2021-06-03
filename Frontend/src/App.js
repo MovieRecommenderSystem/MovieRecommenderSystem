@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import axios from "./axios-auth";
 
 import "./App.css";
 
@@ -54,6 +55,11 @@ const Movie = React.lazy(() =>
 
 class App extends Component {
   componentDidMount() {
+    axios.get("/api/checkAuth").then((response) => {
+      if (!response.data.auth) {
+        localStorage.clear();
+      }
+    });
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
       if (userData.status) {
